@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/ongoing_event_page.dart';
+import 'package:flutter_app/ui/ongoing_event_page.dart';
 
 class SCAN extends StatelessWidget {
   @override

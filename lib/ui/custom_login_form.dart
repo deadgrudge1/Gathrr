@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
-import 'package:login_sample_one/main.dart';
+import 'package:flutter_app/main.dart';
 import 'package:path/path.dart';
 import 'home_page.dart';
 import 'signup.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:login_sample_one/globals.dart' as globals;
+import 'package:flutter_app/globals.dart' as globals;
 
 
 class CustomLoginForm extends StatefulWidget {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/home_my_contacts.dart';
-import 'package:login_sample_one/ui/home_my_qr.dart';
-import 'package:login_sample_one/ui/home_scan_qr.dart';
+import 'package:flutter_app/ui/home_my_contacts.dart';
+import 'package:flutter_app/ui/home_my_qr.dart';
+import 'package:flutter_app/ui/home_scan_qr.dart';
 
-import 'package:login_sample_one/ui/profile_page.dart';
+import 'package:flutter_app/ui/profile_page.dart';
 import 'main_home_with_upper_bar.dart';
 
 class BottomNavBar extends StatefulWidget {
