@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
-import 'package:login_sample_one/main.dart';
+import 'package:flutter_app/main.dart';
 import 'package:path/path.dart';
 import 'home_page.dart';
 import 'signup.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:login_sample_one/globals.dart' as globals;
+import 'package:flutter_app/globals.dart' as globals;
 
 
 class CustomLoginForm extends StatefulWidget {
@@ -29,22 +29,21 @@ class CustomLoginForm extends StatefulWidget {
 
 //the class for posting receiving http requests and responses: STARTS HERE...................
 
-void getData(context) async{
+Future<String> getData(context) async{
   String url = "http://192.168.0.109/gathrr-new/login.php";
-  final response = await http.post(url, body: {
+  //final response = await
+  http.post(url, body: {
     "username" : _usernameController.text,
     "password" : _passwordController.text,
   });
-
-  print(response.body);
-      /*
-      .then((http.Response response) {
+  /*.then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if(statusCode<200 || statusCode>400 || json == null){
       throw new Exception("Error fetching data");
     }
 
+    return response.body;
 
     String id;
     String err_response;
@@ -64,9 +63,8 @@ void getData(context) async{
       backgroundColor: Theme.of(context).backgroundColor,);
     Scaffold.of(context).showSnackBar(snackBar);
     }
-
-  }
-  );*/
+  }*/
+  
 }
 
 var _usernameController = new TextEditingController();
@@ -240,10 +238,10 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
             ),
           ),
 
-
           GestureDetector(
             onTap: (){
               getData(context);
+
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => HomePage()),
               );
