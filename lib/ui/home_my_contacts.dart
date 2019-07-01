@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/contact_profile.dart';
-import 'package:login_sample_one/ui/profile_page.dart';
+import 'package:flutter_app/ui/contact_profile.dart';
+import 'package:flutter_app/ui/profile_page.dart';
 
 var globalContacts;
 

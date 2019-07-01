@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/main_indi_chat.dart';
+import 'package:flutter_app/ui/main_indi_chat.dart';
 
 class ChatScreen extends StatelessWidget {
   @override

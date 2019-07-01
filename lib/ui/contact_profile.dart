@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/profile_page.dart';
+import 'package:flutter_app/ui/profile_page.dart';
 
 class ContactProfile extends StatelessWidget {
   @override

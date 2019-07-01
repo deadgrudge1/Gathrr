@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/ongoing_event_page.dart';
+//import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
 
 class SCAN extends StatelessWidget {
   @override
@@ -42,7 +42,7 @@ class SCAN extends StatelessWidget {
                 GestureDetector(
                   onTap: (){
                     Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Ongoing()),
+                      MaterialPageRoute(builder: (context) => this),  //ongoing event file not uploaded
                     );
                   },
                   child: Padding(

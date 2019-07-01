@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/chat_screen.dart';
-import 'package:login_sample_one/ui/upcoming_event_page.dart';
-import 'package:login_sample_one/ui/notification_screen.dart';
+import 'package:flutter_app/ui/chat_screen.dart';
+import 'package:flutter_app/ui/upcoming_event_page.dart';
+import 'package:flutter_app/ui/notification_screen.dart';
 
 class MainHomeWithUpperBar extends StatelessWidget {
 

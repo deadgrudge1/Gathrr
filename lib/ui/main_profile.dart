@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_sample_one/ui/edit_profile_screen.dart';
-import 'package:login_sample_one/ui/profile_page.dart';
-import 'package:login_sample_one/ui/setting_screen.dart';
+import 'package:flutter_app/ui/edit_profile_screen.dart';
+import 'package:flutter_app/ui/profile_page.dart';
+import 'package:flutter_app/ui/setting_screen.dart';
 
 class MainProfile extends StatelessWidget {
   @override

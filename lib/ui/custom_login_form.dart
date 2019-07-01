@@ -30,7 +30,7 @@ class CustomLoginForm extends StatefulWidget {
 //the class for posting receiving http requests and responses: STARTS HERE...................
 
 Future<String> getData(context) async{
-  String url = "http://192.168.0.109/gathrr-new/login.php";
+  String url = "http://192.168.43.230/gathrr-new/login.php";
   //final response = await
   http.post(url, body: {
     "username" : _usernameController.text,
