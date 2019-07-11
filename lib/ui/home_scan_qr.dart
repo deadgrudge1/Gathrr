@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/upcoming_event_page.dart';
 //import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
-
+//this is scanning screen page
 class SCAN extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
