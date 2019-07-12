@@ -9,34 +9,6 @@ class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
-/*
-var _usernameController = new TextEditingController();
-var _passwordController = new TextEditingController();
-
-Future<String> getData(context) async{
-  String url = "http://192.168.43.230/gathrr-new/login.php";
-  //final response = await
-  http.post(url, body: {
-    //attributes : name, age
-    "username" : _usernameController.text,
-    "password" : _passwordController.text,
-  })
-      .then((http.Response response) {
-    final int statusCode = response.statusCode;
-
-    if (statusCode < 200 || statusCode > 400 || json == null) {
-      throw new Exception("Error fetching data");
-    }
-
-    //check response
-
-    //toast - fetched info
-  }
-  );
-
-}
-
- */
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
@@ -117,14 +89,6 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             //scrollDirection: Axis.vertical,
             children: <Widget>[
-              /*Center(
-                child: Text(
-                  'Bio',
-                  style: new TextStyle(
-                    fontSize: 18.0,
-                  ),
-                ),
-              ),*/
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
