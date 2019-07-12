@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/upcoming_event_page.dart';
 //import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
 //this is scanning screen page
-class SCAN extends StatelessWidget {
+
+
+class SCAN extends StatefulWidget {
+  @override
+  _SCANState createState() => _SCANState();
+}
+
+class _SCANState extends State<SCAN> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,11 +47,9 @@ class SCAN extends StatelessWidget {
                 Icon(Icons.camera_alt,
                 size: 175.0,
                 color: Colors.grey.shade700,),
-                GestureDetector(
+                /*GestureDetector(
                   onTap: (){
-                    Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Ongoing()),  //ongoing event file not uploaded
-                    );
+
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -77,6 +82,8 @@ class SCAN extends StatelessWidget {
                     ),
                   ),
                 ),
+                
+                 */
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text("Scan For Accessing Ongoing Event",

@@ -26,7 +26,8 @@ class CustomLoginForm extends StatefulWidget {
 
 }*/
 
-
+var _usernameController = new TextEditingController();
+var _passwordController = new TextEditingController();
 //the class for posting receiving http requests and responses: STARTS HERE...................
 
 Future<String> getData(context) async{
@@ -35,14 +36,22 @@ Future<String> getData(context) async{
   http.post(url, body: {
     "username" : _usernameController.text,
     "password" : _passwordController.text,
-  });
-  /*.then((http.Response response) {
+  })
+  .then((http.Response response) {
     final int statusCode = response.statusCode;
 
-    if(statusCode<200 || statusCode>400 || json == null){
+    if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error fetching data");
     }
 
+    //check response
+
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );
+  }
+  );
+  /*
     return response.body;
 
     String id;
@@ -67,8 +76,7 @@ Future<String> getData(context) async{
   
 }
 
-var _usernameController = new TextEditingController();
-var _passwordController = new TextEditingController();
+
 
 
 //the class for posting receiving http requests and responses: ENDS HERE ....................
@@ -242,9 +250,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
             onTap: (){
               getData(context);
 
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+
             },
             child: Center(
               child: Padding(
