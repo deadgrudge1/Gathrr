@@ -9,6 +9,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class CustomLoginForm extends StatefulWidget {
@@ -31,8 +32,13 @@ var _passwordController = new TextEditingController();
 //the class for posting receiving http requests and responses: STARTS HERE...................
 
 Future<String> getData(context) async{
-  String url = "http://192.168.43.230/gathrr-new/login.php";
+  String url = globals.url + "login.php";
+  var token;
+  var responseArray;
+  final prefs = await SharedPreferences.getInstance();
   //final response = await
+
+
   http.post(url, body: {
     "username" : _usernameController.text,
     "password" : _passwordController.text,
@@ -44,13 +50,30 @@ Future<String> getData(context) async{
       throw new Exception("Error fetching data");
     }
 
-    //check response
+    responseArray = json.decode(response.body);
 
-    Navigator.push(context,
-      MaterialPageRoute(builder: (context) => HomePage()),
-    );
+    var status = responseArray['status'];
+    if(status == true) {
+      token = responseArray['token'];
+
+
+      prefs.setString("token", token);
+      print("Token saved!" + token);
+
+      Navigator.push(context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    }
+
+    var msg = responseArray['msg'];
+    print(msg);  //create toast/snackbar
   }
   );
+
+
+
+
+
   /*
     return response.body;
 
@@ -249,10 +272,6 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           GestureDetector(
             onTap: (){
               getData(context);
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-
             },
             child: Center(
               child: Padding(
