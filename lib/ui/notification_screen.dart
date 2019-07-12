@@ -38,11 +38,68 @@ class Notices extends StatefulWidget {
 class _NoticesState extends State<Notices> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("No Notifications To Show",
-        style: new TextStyle(
-          color: Colors.grey,
-        ),),
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              leading: new CircleAvatar(
+                radius: 5.0,
+                foregroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Colors.black,
+              ),
+              title: new Text(
+                "Oganiser: Sorry to inform, event has postponed 10 mins!",
+                style: new TextStyle(
+                    fontSize: 16,
+                    //color: Colors.grey.shade600
+                ),
+              ),
+            ),
+            new Container(
+              height: 1.5,
+              color: Colors.grey.shade100,
+            ),
+            ListTile(
+              leading: new CircleAvatar(
+                radius: 5.0,
+                foregroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Colors.black,
+              ),
+              title: new Text(
+                "Event sponser coming in 15 mins",
+                style: new TextStyle(
+                    fontSize: 16,
+                    //color: Colors.grey.shade600
+                ),
+              ),
+            ),
+            new Container(
+              height: 1.5,
+              color: Colors.grey.shade100,
+            ),
+            ListTile(
+              leading: new CircleAvatar(
+                radius: 5.0,
+                foregroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Colors.black,
+              ),
+              title: new Text(
+                "Please checkout upcoming events from us!",
+                style: new TextStyle(
+                    fontSize: 16,
+                    //color: Colors.grey.shade600
+                ),
+              ),
+            ),
+            new Container(
+              height: 1.5,
+              color: Colors.grey.shade100,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

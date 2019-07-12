@@ -7,7 +7,7 @@ class ContactProfile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        flexibleSpace: Container(
+        /*flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -19,6 +19,8 @@ class ContactProfile extends StatelessWidget {
             ),
           ),
         ),
+
+         */
 
         title: Text('Profile',
           style: TextStyle(
