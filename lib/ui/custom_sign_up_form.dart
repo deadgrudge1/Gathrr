@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_app/globals.dart' as globals;
 
 import 'login.dart';
 
@@ -8,7 +9,7 @@ var _passoneController = new TextEditingController();
 var _usernameController = new TextEditingController();
 
 void sendData(context) async {
-  String url = "http://192.168.0.109/gathrr-new/create-account.php";
+  String url = globals.url+"/gathrr-new/create-account.php";
   final response = await http.post(url, body: {
     "createaccount" : "1",
     "email" : _emailController.text,
