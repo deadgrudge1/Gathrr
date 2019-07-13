@@ -60,7 +60,7 @@ Future<String> getData(context) async{
       prefs.setString("token", token);
       print("Token saved!" + token);
 
-      Navigator.push(context,
+      Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => HomePage()),
       );
     }
@@ -272,9 +272,9 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           GestureDetector(
             onTap: (){
               getData(context);
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              //Navigator.push(context,
+                //MaterialPageRoute(builder: (context) => HomePage()),
+              //);
             },
             child: Center(
               child: Padding(
