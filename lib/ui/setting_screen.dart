@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'login.dart';
 
 class Settings extends StatelessWidget {
   @override
@@ -36,6 +41,40 @@ class settingOptions extends StatefulWidget {
 }
 
 class _settingOptionsState extends State<settingOptions> {
+
+  void logOut() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "logout.php";
+      http.post(url, body: {
+        "token" : token,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        var responseArray = json.decode(response.body);
+
+        var status = responseArray['status'];
+        if(status == true) {
+          prefs.setString('token', null);
+          print(responseArray['msg']);
+          Navigator.pop(context);
+          Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => Login()),
+          );
+        }
+        return true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -50,6 +89,7 @@ class _settingOptionsState extends State<settingOptions> {
                 fontSize: 18,
                 color: Colors.grey.shade600),
               ),
+              onTap: logOut,
             ),
             new Container(
               height: 1.5,

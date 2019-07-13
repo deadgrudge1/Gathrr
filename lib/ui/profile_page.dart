@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var globalContext;
+String name = "";
+bool isFetched = false;
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,8 +14,46 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+
+  void getData(context) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "profile.php";
+      http.post(url, body: {
+        "token" : token,
+        "profile" : '1',
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        var responseArray = json.decode(response.body);
+
+        var status = responseArray['status'];
+        if(status == true) {
+          setState(() {
+            name = responseArray['name'];
+            isFetched = true;
+
+          });
+        }
+        print(response.body);
+        //return true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if(!isFetched || name==null)
+      getData(context);
     return ListView(
       scrollDirection: Axis.vertical,
       children: <Widget>[
@@ -65,7 +106,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 25, bottom: 25),
-                child: Text('Shreyas Hosmani',
+                child: Text(name,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
