@@ -272,6 +272,9 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           GestureDetector(
             onTap: (){
               getData(context);
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
             },
             child: Center(
               child: Padding(

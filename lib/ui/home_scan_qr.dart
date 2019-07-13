@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/globals.dart' as globals;
+
 import 'package:flutter_app/ui/upcoming_event_page.dart';
 //import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
 //this is scanning screen page
@@ -13,6 +15,7 @@ class SCAN extends StatefulWidget {
 }
 
 class _SCANState extends State<SCAN> {
+
 
   String result = "Hey there !";
 
