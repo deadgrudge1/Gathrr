@@ -9,7 +9,7 @@ var _passoneController = new TextEditingController();
 var _usernameController = new TextEditingController();
 
 void sendData(context) async {
-  String url = globals.url+"/gathrr-new/create-account.php";
+  String url = globals.url+"create-account.php";
   final response = await http.post(url, body: {
     "createaccount" : "1",
     "email" : _emailController.text,
@@ -18,8 +18,6 @@ void sendData(context) async {
   });
 
   print(response.body);
-
-
 }
 
 class CustomSignUpForm extends StatefulWidget {

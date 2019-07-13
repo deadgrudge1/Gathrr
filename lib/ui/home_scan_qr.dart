@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
+import 'dart:convert';
+
 
 import 'package:flutter_app/ui/upcoming_event_page.dart';
 //import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
@@ -19,12 +23,47 @@ class _SCANState extends State<SCAN> {
 
   String result = "Hey there !";
 
+
+  void qrFunction() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "scan-qr.php";
+      http.post(url, body: {
+        "token" : token,
+        "qr_token" : result,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        var responseArray = json.decode(response.body);
+
+        var type = responseArray['type'];
+        var id = responseArray['id'];
+        setState(() {
+          result = type.toString() + " ID : " + id.toString();
+        });
+        print(type + " ID : " + id);
+        return true;
+      });
+    }
+  }
+
+
   Future _scanQR() async {
     try {
       String qrResult = await BarcodeScanner.scan();
       setState(() {
         result = qrResult;
       });
+      qrFunction();
+
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
@@ -44,6 +83,8 @@ class _SCANState extends State<SCAN> {
         result = "Unknown Error $ex";
       });
     }
+
+
   }
 
   @override
