@@ -44,10 +44,12 @@ class _SCANState extends State<SCAN> {
 
         var responseArray = json.decode(response.body);
 
-        var type = responseArray['type'];
+        //var status = responseArray['status']; //on successful execution
+        //var type = responseArray['type']; //user or event?
+        var msg = responseArray['msg'];
         var contact_username = responseArray['contact_username'];
         setState(() {
-          result = type.toString() + " '" + contact_username.toString() + "' has been sent a request!";
+          result = msg + " '" + contact_username + "'";
         });
         print(response.body);
         return true;

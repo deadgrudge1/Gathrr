@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 var globalContext;
 String name = "";
+String description = "I am a flutter developer currently working at gathrr.in, as technical co-founder to build an end to end event management platform, which you're using currently!";
 bool isFetched = false;
 
 class ProfilePage extends StatefulWidget {
@@ -133,7 +134,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
-                    "I am a flutter developer currently working at gathrr.in, as technical co-founder to build an end to end event management platform, which you're using currently!"),
+                    description),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
