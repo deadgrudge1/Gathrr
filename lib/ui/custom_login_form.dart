@@ -50,6 +50,8 @@ Future<String> getData(context) async{
       throw new Exception("Error fetching data");
     }
 
+    _passwordController.text = "";
+
     responseArray = json.decode(response.body);
 
     var status = responseArray['status'];
@@ -60,9 +62,18 @@ Future<String> getData(context) async{
       prefs.setString("token", token);
       print("Token saved!" + token);
 
-      Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      //Navigator.pushReplacement(context,
+        //MaterialPageRoute(builder: (context) => HomePage()),
+      //);
+      var title = "Home";
+      runApp(new MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        home: new HomePage(
+
+        ),
+      ));
+      return true;
     }
 
     var msg = responseArray['msg'];
@@ -272,9 +283,9 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           GestureDetector(
             onTap: (){
               getData(context);
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+              //Navigator.push(context,
+                //MaterialPageRoute(builder: (context) => HomePage()),
+              //);
             },
             child: Center(
               child: Padding(

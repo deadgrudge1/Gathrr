@@ -6,8 +6,18 @@ import 'package:flutter_app/ui/main_profile.dart';
 import 'main_home_with_upper_bar.dart';
 
 class BottomNavBar extends StatefulWidget {
+  final List<Widget> _children = [
+    Center(child: MainHomeWithUpperBar()),
+    Center(child: MyContacts()),
+    Center(child: SCAN()),
+    Center(child: MYQR()),
+    Center(child: MainProfile()),
+  ];
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  _BottomNavBarState createState() {
+    return _BottomNavBarState();
+  } //bottom nav pages won't reload everytime (problem - contact and profile page is same and profile page won't reload)
+  //_BottomNavBarState createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
@@ -21,11 +31,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Center(child: MainProfile()),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      //body: _children[_currentIndex],
+      body: IndexedStack(
+        index: _currentIndex,
+        children: widget._children,
+      ), //bottom nav pages won't reload everytime
       bottomNavigationBar: BottomNavigationBar(
         elevation: 20.0,
         selectedFontSize: 15.0,
@@ -40,8 +53,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             title: new Text('Home'),
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.account_box),
-            title: new Text('My-Contacts'),
+            icon: Icon(Icons.account_box),
+            title: Text('My-Contacts'),
           ),
           BottomNavigationBarItem(
             icon: new Icon(Icons.center_focus_strong),

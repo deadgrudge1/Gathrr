@@ -6,27 +6,63 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 var globalContext;
 String name = "";
+String username = "";
 String description = "I am a flutter developer currently working at gathrr.in, as technical co-founder to build an end to end event management platform, which you're using currently!";
 bool isFetched = false;
 
 class ProfilePage extends StatefulWidget {
+  final String userName;
+  ProfilePage(this.userName) : super();
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      name = "";
+    });
+    getData(context);
+  }
+
+  Future<Null> refreshList() async {
+    refreshKey.currentState?.show(atTop: false);
+    //await Future.delayed(Duration(seconds: 2));
+
+
+    getData(context);
+
+    /*setState(() {
+      list = List.generate(random.nextInt(10), (i) => "Var Name $i");
+    });*/
+
+    return null;
+  }
 
   void getData(context) async
   {
+    username = widget.userName;
+    print("username : " + username);
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.get("token");
     if(token!=null)
     {
+      String action = "profile";
+      String value = "1";
+      if(username.length >= 3)
+        {
+          action = "username";
+          value = username;
+        }
       String url = globals.url + "profile.php";
       http.post(url, body: {
         "token" : token,
-        "profile" : '1',
+        action : value,
       })
           .then((http.Response response) {
         final int statusCode = response.statusCode;
@@ -35,17 +71,19 @@ class _ProfilePageState extends State<ProfilePage> {
           throw new Exception("Error fetching data");
         }
 
+        print(response.body);
         var responseArray = json.decode(response.body);
 
         var status = responseArray['status'];
-        if(status == true) {
-          setState(() {
-            name = responseArray['name'];
-            isFetched = true;
 
+          setState(() {
+            if(status == true)
+              name = responseArray['name'];
+            else
+              name = "Username : " + username;
+            isFetched = true;
           });
-        }
-        print(response.body);
+
         //return true;
       });
     }
@@ -53,9 +91,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    if(!isFetched || name==null)
-      getData(context);
-    return ListView(
+    //if(!isFetched || name==null)
+      //getData(context);
+    return RefreshIndicator(key: refreshKey,
+        child: ListView(
       scrollDirection: Axis.vertical,
       children: <Widget>[
       Column(
@@ -293,7 +332,9 @@ class _ProfilePageState extends State<ProfilePage> {
           ],
         ),
       ],
-    );
+    ),
+    onRefresh: refreshList);
   }
+
 }
 

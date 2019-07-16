@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/profile_page.dart';
+import 'package:flutter_app/ui/contact_page.dart';
 
 class ContactProfile extends StatelessWidget {
+  String username;
+  ContactProfile(this.username) : super();
+
   @override
   Widget build(BuildContext context) {
+    print(username);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -32,7 +36,7 @@ class ContactProfile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue.shade900,
       ),
-      body: ProfilePage(),
+      body: new ContactPage(username),
     );
   }
 }

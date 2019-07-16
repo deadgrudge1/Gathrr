@@ -65,10 +65,18 @@ class _settingOptionsState extends State<settingOptions> {
         if(status == true) {
           prefs.setString('token', null);
           print(responseArray['msg']);
-          Navigator.pop(context);
+          /*Navigator.pop(context);
           Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => Login()),
-          );
+          );*/
+          var title = "Login";
+          runApp(new MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: title,
+            home: new Login(
+
+            ),
+          ));
         }
         return true;
       });

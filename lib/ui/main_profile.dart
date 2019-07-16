@@ -4,6 +4,8 @@ import 'package:flutter_app/ui/profile_page.dart';
 import 'package:flutter_app/ui/setting_screen.dart';
 
 class MainProfile extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,7 @@ class MainProfile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue.shade900,
       ),
-      body: ProfilePage(),
+      body: new ProfilePage(""),
     );
   }
 }

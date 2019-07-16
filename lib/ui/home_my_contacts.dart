@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_app/ui/contact_profile.dart';
 import 'package:flutter_app/ui/profile_page.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var globalContacts;
 
@@ -11,9 +15,11 @@ class MyContacts extends StatefulWidget {
   _MyContactsState createState() => _MyContactsState();
 }
 
+
 class _MyContactsState extends State<MyContacts> {
 
-  var list;
+  List<String> listUsername = new List<String>();
+  List<String> listName = new List<String>();
   var random;
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -22,18 +28,59 @@ class _MyContactsState extends State<MyContacts> {
   void initState() {
     super.initState();
     random = Random();
-    refreshList();
+    //refreshList();
+    getData();
   }
 
   Future<Null> refreshList() async {
     refreshKey.currentState?.show(atTop: false);
-    await Future.delayed(Duration(seconds: 2));
+    //await Future.delayed(Duration(seconds: 2));
 
-    setState(() {
+    getData();
+
+    /*setState(() {
       list = List.generate(random.nextInt(10), (i) => "Var Name $i");
-    });
+    });*/
 
     return null;
+  }
+
+  void getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "contacts.php";
+      http.post(url, body: {
+        "token" : token,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        print(response.body);
+        var responseArray = json.decode(response.body);
+        //var status = responseArray['status'];
+        //if(status == true) {
+        setState(() {
+          listName = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['name']);
+          listUsername = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['username']);
+        });
+        //print(responseArray['list'][1]['username']);
+        //print(responseArray['list'].length);
+
+        for(var i=0; i<listName.length; i++)
+        {
+          if(listName[i] == null)
+            listName[i] = "Username : " + listUsername[i];
+        }
+        print(listName);
+        //return true;
+      });
+    }
   }
 
 
@@ -68,12 +115,12 @@ class _MyContactsState extends State<MyContacts> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListView.builder(
-            itemCount: list?.length,
+            itemCount: listUsername == null? 0 : listUsername.length,//list?.length,
             itemBuilder: (context, i) => Card(
               child: GestureDetector(
                 child: ListTile(
                   leading: const Icon(Icons.person),
-                  title: Text(list[i],
+                  title: Text(listName[i],
                     style: new TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
@@ -83,7 +130,7 @@ class _MyContactsState extends State<MyContacts> {
                 ),
                 onTap: (){
                   Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ContactProfile()),
+                    MaterialPageRoute(builder: (context) => ContactProfile(listUsername[i])),
                   );
                 },
               ),
