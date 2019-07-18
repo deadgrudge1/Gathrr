@@ -12,9 +12,11 @@ class Next extends StatefulWidget {
 
 class _NextState extends State<Next> {
 
+  List<List<String>> events = new List<List<String>>();
   List<String> eventTitle = new List<String>();
-  List<String> eventDate = new List<String>();
-
+  List<String> eventStartDate = new List<String>();
+  List<String> eventStartTime = new List<String>();
+  List<String> eventID = new List<String>();
   //List<String> listUsername = new List<String>();
   //List<String> listName = new List<String>();
 
@@ -51,12 +53,18 @@ class _NextState extends State<Next> {
 
         print(response.body);
         var responseArray = json.decode(response.body);
+
         //var status = responseArray['status'];
         //if(status == true) {
         setState(() {
-          eventDate = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['eventDate']);
-          eventTitle = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['eventTitle']);
+          eventID = List.generate(responseArray.length, (i) => responseArray[i]['event_id']);
+          eventTitle = List.generate(responseArray.length, (i) => responseArray[i]['event_title']);
+          eventStartDate = List.generate(responseArray.length, (i) => responseArray[i]['event_start_date'].toString().substring(0, 10));
+          eventStartTime = List.generate(responseArray.length, (i) => responseArray[i]['event_start_date'].toString().substring(11));
         });
+
+          print(eventStartDate);
+        print(eventStartTime);
         //print(responseArray['list'][1]['username']);
         //print(responseArray['list'].length);
 
@@ -95,13 +103,13 @@ class _NextState extends State<Next> {
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                     ),),
-                    subtitle: Text(eventDate[i]),
+                    subtitle: Text(eventStartDate[i]),
                   ),
                 ],
               ),
               onTap: (){
                 Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Ongoing()),
+                  MaterialPageRoute(builder: (context) => Ongoing(eventID[i])),
                 );
               },
             ),

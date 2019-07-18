@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Ongoing extends StatelessWidget {
+  final String eventID;
+  Ongoing(this.eventID) : super();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,17 +40,62 @@ class Ongoing extends StatelessWidget {
           ),
         ),
       ),
-      body: EventPage(),
+      body: EventPage(eventID),
     );
   }
 }
 
 class EventPage extends StatefulWidget {
+  final String eventID;  //fetch details using this id
+  EventPage(this.eventID) : super();
   @override
   _EventPageState createState() => _EventPageState();
 }
 
 class _EventPageState extends State<EventPage> {
+
+  var event;
+  String event_title;
+
+  @override
+  void initState() {
+    getData(context);
+  }
+
+  void getData(context) async
+  {
+    String eventID = widget.eventID;
+    print("Event ID : " + eventID);
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "events.php";
+      http.post(url, body: {
+        "token" : token,
+        "event_id" : eventID,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        //var status = responseArray['status'];
+
+        event = json.decode(response.body);
+        setState(() {
+
+          event = event[0];
+        });
+
+        print(event);
+        //return true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -59,7 +111,7 @@ class _EventPageState extends State<EventPage> {
                 color: Colors.grey.shade800,
               ),
               Text(
-                'Building Serverless Chatbots using Amazon Lex and Lambda',
+                event['event_title']/*'Building Serverless Chatbots using Amazon Lex and Lambda'*/,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0,
@@ -70,7 +122,7 @@ class _EventPageState extends State<EventPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "by Gathrr Technologies",
+                    "by " + event['event_organization'],
                     style: new TextStyle(
                       fontSize: 15.0,
                     ),
@@ -201,4 +253,5 @@ class _EventPageState extends State<EventPage> {
       ],
     );
   }
+
 }
