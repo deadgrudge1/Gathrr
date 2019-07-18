@@ -55,7 +55,16 @@ class EventPage extends StatefulWidget {
 class _EventPageState extends State<EventPage> {
 
   var event;
-  String event_title;
+  String eventTitle = "";
+  String eventStartDate = "";
+  String eventTime = "";
+  String eventDetails = "";
+  String eventOrganizationName = "";
+  String eventDescription = "";
+  String eventLocation = "";
+  String eventOrganizationDetails = "";
+  String eventAddress = "";
+
 
   @override
   void initState() {
@@ -111,7 +120,7 @@ class _EventPageState extends State<EventPage> {
                 color: Colors.grey.shade800,
               ),
               Text(
-                event['event_title']/*'Building Serverless Chatbots using Amazon Lex and Lambda'*/,
+                eventTitle/*'Building Serverless Chatbots using Amazon Lex and Lambda'*/,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0,
@@ -122,7 +131,7 @@ class _EventPageState extends State<EventPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "by " + event['event_organization'],
+                    "by " + eventOrganizationName, //display event organization name here, change it
                     style: new TextStyle(
                       fontSize: 15.0,
                     ),
@@ -131,15 +140,15 @@ class _EventPageState extends State<EventPage> {
               ),
               ListTile(
                 leading: const Icon(Icons.calendar_today),
-                title: Text('Friday, July 5th'),
-                subtitle: Text('5.00 PM - 6:30 PM IST'),
+                title: Text(eventStartDate),
+                subtitle: Text(eventTime),
               ),
               ListTile(
                 leading: const Icon(Icons.location_on),
-                title: Text('Gathrr Technologies'),
-                subtitle: Text('A-wing, Amanora Park Town, Hadapsar, Pune'),
+                title: Text(eventOrganizationName),
+                subtitle: Text(eventAddress),
               ),
-              ListTile(
+              ListTile(//don't place anything here for now
                 leading: const Icon(Icons.free_breakfast),
                 title: Text('Free'),
                 subtitle: Text('on Gathrr.in'),
@@ -164,7 +173,7 @@ class _EventPageState extends State<EventPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
-                    "Flutter is an open-source mobile application development framework created by Google. It is used to develop applications for Android and iOS, as well as being the primary method of creating applications for Google Fuchsia."),
+                    eventDetails),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -195,7 +204,7 @@ class _EventPageState extends State<EventPage> {
                   ),
                 ),
               ),
-              new Icon(
+              new Icon(//replace here with google maps image
                 Icons.location_on,
                 size: 200,
                 color: Colors.grey.shade800,
@@ -222,7 +231,7 @@ class _EventPageState extends State<EventPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Gathrr Technologies",
+                    eventOrganizationName,
                     style: new TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22.0,
@@ -233,14 +242,14 @@ class _EventPageState extends State<EventPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text(
-                    "Flutter is an open-source mobile application development framework created by Google. It is used to develop applications for Android and iOS, as well as being the primary method of creating applications for Google Fuchsia."),
+                    eventOrganizationDetails),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Organiser Details...",
+                    "Organiser Details...", //link to more information
                     style: new TextStyle(
                       color: Colors.blue,
                     ),
