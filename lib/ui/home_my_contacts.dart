@@ -20,14 +20,14 @@ class _MyContactsState extends State<MyContacts> {
 
   List<String> listUsername = new List<String>();
   List<String> listName = new List<String>();
-  var random;
+  //var random;
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
-    random = Random();
+    //random = Random();
     //refreshList();
     getData();
   }
