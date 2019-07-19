@@ -64,8 +64,7 @@ class _EventPageState extends State<EventPage> {
   String eventLocation = "";
   String eventOrganizationDetails = "";
   String eventAddress = "";
-
-
+  
   @override
   void initState() {
     getData(context);
