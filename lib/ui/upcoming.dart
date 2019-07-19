@@ -50,6 +50,7 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
       String url = globals.url + "events.php";
       http.post(url, body: {
         "token" : token,
+        "upcoming_events" : "1",
       })
           .then((http.Response response) {
         final int statusCode = response.statusCode;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'intro_screen.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -13,9 +13,15 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 5), () => Navigator.push(context,
+    Timer(Duration(seconds: 1), () => Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => IntroScreen()),
     ));
+    setSplash();
+  }
+
+  void setSplash() async{
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool("isSplash", true);
   }
 
   @override

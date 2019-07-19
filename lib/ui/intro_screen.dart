@@ -102,7 +102,7 @@ class IntroScreenState extends State<IntroScreen> {
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0)),
                   onPressed: () => lastPage
-                      ? Navigator.push(context,
+                      ? Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => Login()),
                   )
                       : controller.nextPage(
