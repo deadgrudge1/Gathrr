@@ -94,9 +94,15 @@ class _EventPageState extends State<EventPage> {
         //var status = responseArray['status'];
 
         event = json.decode(response.body);
+        event = event[0];
         setState(() {
-
-          event = event[0];
+          eventTitle = event['event_title'];
+          eventOrganizationName = event['event_organization'];
+          eventDescription = event['event_description'];
+          eventAddress = event['event_location'];
+          eventDetails = event['event_address'] + ", " + event['event_city'] + ", " + event['event_state'] + ", " + event['event_country'] + ", " + event['event_zipcode'];
+          eventStartDate = event['event_start_date'].toString().substring(0, 10);
+          eventTime = event['event_start_date'].toString().substring(11);
         });
 
         print(event);
@@ -131,7 +137,7 @@ class _EventPageState extends State<EventPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "by " + eventOrganizationName, //display event organization name here, change it
+                    "by " + eventOrganizationName,
                     style: new TextStyle(
                       fontSize: 15.0,
                     ),
@@ -148,7 +154,7 @@ class _EventPageState extends State<EventPage> {
                 title: Text(eventOrganizationName),
                 subtitle: Text(eventAddress),
               ),
-              ListTile(//don't place anything here for now
+              ListTile(
                 leading: const Icon(Icons.free_breakfast),
                 title: Text('Free'),
                 subtitle: Text('on Gathrr.in'),
@@ -204,7 +210,7 @@ class _EventPageState extends State<EventPage> {
                   ),
                 ),
               ),
-              new Icon(//replace here with google maps image
+              new Icon(
                 Icons.location_on,
                 size: 200,
                 color: Colors.grey.shade800,
@@ -249,7 +255,7 @@ class _EventPageState extends State<EventPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Organiser Details...", //link to more information
+                    "Organiser Details...",
                     style: new TextStyle(
                       color: Colors.blue,
                     ),

@@ -10,8 +10,10 @@ class Next extends StatefulWidget {
   _NextState createState() => _NextState();
 }
 
-class _NextState extends State<Next> {
+class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
 
+  @override
+  bool get wantKeepAlive => true;
   List<List<String>> events = new List<List<String>>();
   List<String> eventTitle = new List<String>();
   List<String> eventStartDate = new List<String>();
@@ -33,6 +35,11 @@ class _NextState extends State<Next> {
     });*/
 
     return null;
+  }
+
+  @override
+  void initState() {
+    getData();
   }
 
   void getData() async {
