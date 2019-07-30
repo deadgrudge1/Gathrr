@@ -36,17 +36,17 @@ class _ContactPageState extends State<ContactPage> {
     var token = prefs.get("token");
     if(token!=null)
     {
-      String action = "profile";
+      /*String action = "profile";
       String value = "1";
       if(username.length >= 3)
       {
-        action = "username";
+        action = "contact_email";
         value = username;
-      }
+      }*/
       String url = globals.url + "profile.php";
       http.post(url, body: {
         "token" : token,
-        action : value,
+        "contact_email" : username,
       })
           .then((http.Response response) {
         final int statusCode = response.statusCode;

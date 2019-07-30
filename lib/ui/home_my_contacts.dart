@@ -67,7 +67,7 @@ class _MyContactsState extends State<MyContacts> {
         //if(status == true) {
         setState(() {
           listName = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['name']);
-          listUsername = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['username']);
+          listUsername = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['email']);
         });
         //print(responseArray['list'][1]['username']);
         //print(responseArray['list'].length);
