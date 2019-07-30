@@ -14,7 +14,7 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getData();
+    //getData();
     return new Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
@@ -23,7 +23,7 @@ class Login extends StatelessWidget {
   }
 }
 
-Future<bool> getData() async{
+/*Future<bool> getData() async{
   var token;
   var responseArray;
   final prefs = await SharedPreferences.getInstance();
@@ -75,6 +75,6 @@ Future<bool> getData() async{
 
     return false;
   }
-}
+}*/
 
 
