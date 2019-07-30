@@ -8,10 +8,6 @@ import 'package:flutter_app/globals.dart' as globals;
 import 'dart:convert';
 
 
-import 'package:flutter_app/ui/upcoming_event_page.dart';
-//import 'package:flutter_app/ui/ongoing_event_page.dart';  //ongoing event file not uploaded
-//this is scanning screen page
-
 
 class SCAN extends StatefulWidget {
   @override

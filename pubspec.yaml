@@ -43,11 +43,16 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: Regular
+      fonts:
+        - asset: fonts/CustomIcons.ttf
 
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/gathrrimg.png
     - images/qr.png
+    - images/home_icon.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -53,11 +53,11 @@ class MainHomeWithUpperBar extends StatelessWidget {
             ),
             bottom: TabBar(
               tabs: [
-                Tab(icon: Icon(Icons.photo),
+                Tab(icon: Icon(Icons.alarm),
                 text: "Upcoming Events",),
-                Tab(icon: Icon(Icons.assignment),
+                Tab(icon: Icon(Icons.alarm_on),
                 text: "Ongoing Events",),
-                Tab(icon: Icon(Icons.add_photo_alternate),
+                Tab(icon: Icon(Icons.assignment_turned_in),
                 text: "Previos Events",),
               ],
             ),
