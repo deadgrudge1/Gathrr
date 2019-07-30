@@ -22,7 +22,6 @@ class CustomLoginForm extends StatefulWidget {
    String email;
    String password;
 
-
   _LoginData({this.email, this.password});
 
 
@@ -63,23 +62,27 @@ Future<String> getData(context) async{
       prefs.setString("token", token);
       print("Token saved!" + token);
 
-      //Navigator.pushReplacement(context,
-      //MaterialPageRoute(builder: (context) => HomePage()),
-      //);
-      var title = "Home";
+      Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+      print('test1');
+      /*var title = "Home";
+
       runApp(new MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
         home: new HomePage(
 
         ),
-      ));
+      ));*/
+      print('test2');
       return true;
     }
 
+
+
     var msg = responseArray['msg'];
     print(msg);  //create toast/snackbar
-    return false;
   }
   );
 
@@ -114,6 +117,56 @@ Future<String> getData(context) async{
 
 
 
+void isLoggedIn() async {
+  var token;
+  var responseArray;
+  final prefs = await SharedPreferences.getInstance();
+  token = prefs.get("token");
+  if(token != null) {
+    print("It worked! " + token);
+    String url = globals.url + "login.php";
+    http.post(url, body: {
+      "token" : token,
+    })
+        .then((http.Response response) {
+      final int statusCode = response.statusCode;
+
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        throw new Exception("Error fetching data");
+      }
+
+      responseArray = json.decode(response.body);
+
+      var status = responseArray['status'];
+      if(status == true) {
+        var msg = responseArray['msg'];
+        print(msg);
+
+        var title = "Home";
+        runApp(new MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: title,
+          home: new HomePage(
+
+          ),
+        ));
+        //return true;
+
+      }
+      else {
+        var msg = responseArray['msg'];
+        print(msg);
+        //return false;
+      }
+    });
+
+    /*Navigator.push(context,
+      MaterialPageRoute(builder: (context) => HomePage()),
+    );*/
+
+  }
+}
+
 
 //the class for posting receiving http requests and responses: ENDS HERE ....................
 
@@ -127,6 +180,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
   void initState(){
     super.initState();
     _focusNode.addListener(_focusNodeListener);
+    isLoggedIn();
   }
 
   @override
