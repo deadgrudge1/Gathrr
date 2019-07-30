@@ -39,6 +39,8 @@ class MainHomeWithUpperBar extends StatelessWidget {
               ),
             ],
             backgroundColor: Colors.blue.shade900,
+
+
             flexibleSpace: Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

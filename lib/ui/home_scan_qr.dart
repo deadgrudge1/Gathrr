@@ -99,6 +99,8 @@ class _SCANState extends State<SCAN> {
                 Colors.blue.shade900,
                 Colors.blue.shade500
               ],
+
+
             ),
           ),
         ),

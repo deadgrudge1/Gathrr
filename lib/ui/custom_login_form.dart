@@ -22,6 +22,7 @@ class CustomLoginForm extends StatefulWidget {
    String email;
    String password;
 
+
   _LoginData({this.email, this.password});
 
 

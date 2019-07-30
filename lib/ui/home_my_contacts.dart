@@ -292,6 +292,8 @@ class _MyContactsState extends State<MyContacts> {
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
                 ),),
+
+
                 subtitle: Text('Back-End Developer'),
               ),
             ),

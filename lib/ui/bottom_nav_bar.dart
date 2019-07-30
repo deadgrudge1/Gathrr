@@ -156,6 +156,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             title: Text(""
             ),
           ),
+
+
           BottomNavigationBarItem(
               icon: Icon(Icons.center_focus_strong),
               title: Text('',
