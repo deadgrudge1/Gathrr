@@ -40,7 +40,7 @@ Future<String> getData(context) async{
 
 
   http.post(url, body: {
-    "username" : _usernameController.text,
+    "email" : _usernameController.text,
     "password" : _passwordController.text,
   })
   .then((http.Response response) {

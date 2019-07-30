@@ -13,7 +13,6 @@ void sendData(context) async {
   final response = await http.post(url, body: {
     "createaccount" : "1",
     "email" : _emailController.text,
-    "username" : _usernameController.text,
     "password" : _passoneController.text,
   });
 
