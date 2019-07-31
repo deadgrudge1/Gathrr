@@ -8,27 +8,38 @@ class Current extends StatefulWidget {
 class _CurrentState extends State<Current> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      children: <Widget>[
-        new Card(
-          child: new Column(
-            children: <Widget>[
-              new Icon(Icons.image,
-                size: 150,
-                color: Colors.blueGrey,),
-              ListTile(
-                leading: const Icon(Icons.album),
-                title: Text('Artificial Intelligence Impact', style: new TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),),
-                subtitle: Text('July 2019.'),
-              ),
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          new Card(
+            child: new Column(
+              children: <Widget>[
+                Container(
+                  child: new Image.asset("images/bookingapp.png"),
+                ),
+                ListTile(
+                  leading: Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text("Aug"),
+                        Text("01")
+                      ],
+                    ),
+                  ),
+                  title: Text('Artificial Intelligence Impact'.toUpperCase(), style: new TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),),
+                  subtitle: Text('July 2019.'),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

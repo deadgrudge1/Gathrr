@@ -119,13 +119,22 @@ class _EventPageState extends State<EventPage> {
           padding: const EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
           child: new Column(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Container(
+                    child: new Image.asset("images/bookingapp.png"),
+                ),
+              ),
+              /*
               new Icon(
                 Icons.image,
                 size: 200,
                 color: Colors.grey.shade800,
               ),
+
+               */
               Text(
-                eventTitle/*'Building Serverless Chatbots using Amazon Lex and Lambda'*/,
+                eventTitle.toUpperCase()/*'Building Serverless Chatbots using Amazon Lex and Lambda'*/,
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0,
@@ -261,6 +270,42 @@ class _EventPageState extends State<EventPage> {
                   ),
                 ),
               ),
+              /*
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
+                child: Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                          onPressed: () {},
+                          child: const Text(
+                              'Members',
+                              style: TextStyle(fontSize: 20,
+                              color: Colors.white
+                              )
+                          ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: RaisedButton(
+                        color: Colors.blue,
+                          onPressed: () {},
+                          child: const Text(
+                              'Notifications',
+                              style: TextStyle(fontSize: 20,
+                              color: Colors.white
+                              )
+                          ),
+                        ),
+                    ),
+                  ],
+                ),
+              ),
+
+               */
             ],
           ),
         ),

@@ -106,8 +106,16 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
                     size: 150,
                     color: Colors.blueGrey,),
                   ListTile(
-                    leading: const Icon(Icons.album),
-                    title: Text(eventTitle[i], style: new TextStyle(
+                    leading: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Column(
+                        children: <Widget>[
+                          Text("Aug"),
+                          Text("01")
+                        ],
+                      ),
+                    ),//Icon(Icons.album),
+                    title: Text(eventTitle[i].toUpperCase(), style: new TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                     ),),
