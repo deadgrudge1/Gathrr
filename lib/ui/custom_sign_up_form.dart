@@ -18,7 +18,7 @@ void sendData(context) async {
     "email" : _emailController.text,
     "password" : _passoneController.text,
   });
-  showDialog(context: context,builder: (context) => _onTapSignUp(context));
+  //showDialog(context: context,builder: (context) => _onTapSignUp(context));
   print(response.body);
 }
 
@@ -97,7 +97,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
             child: Center(
               child: Container(
                 width: MediaQuery.of(context).size.width/1.2,
-                height: 45,
+                height: 55,
                 padding: EdgeInsets.only(
                     top: 4,left: 16, right: 16, bottom: 4
                 ),
@@ -125,10 +125,9 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   ),
                   validator: (value){
                     if(value.isEmpty){
-                      return "Please enter your name";
+                      return "Please enter your email";
                     }else{
-                      //_data.email = value;
-                      //print("Data: ${_data.email}");
+                      return null;
                     }
                   },
                 ),
@@ -138,7 +137,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 45,
+              height: 55,
               margin: EdgeInsets.only(top: 32),
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
@@ -164,21 +163,20 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   ),
                   hintText: 'Full Name',
                 ),
-                /*validator: (value){
+                validator: (value){
                   if(value.isEmpty){
-                    return "Please enter a password";
+                    return "Please enter your name";
                   }else{
-                    _data.fullname = value;
-                    print("Data: ${_data.fullname}");
+                    return null;
                   }
-                },*/
+                },
               ),
             ),
           ),
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 45,
+              height: 55,
               margin: EdgeInsets.only(top: 32),
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
@@ -209,8 +207,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   if(value.isEmpty){
                     return "Please enter a password";
                   }else{
-                    //_data.password = value;
-                    //print("Data: ${_data.password}");
+                    return null;
                   }
                 },
               ),
@@ -219,7 +216,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 45,
+              height: 55,
               margin: EdgeInsets.only(top: 32),
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
@@ -246,14 +243,13 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   ),
                   hintText: 'Confirm Password',
                 ),
-                /*validator: (value){
+                validator: (value){
                   if(value.isEmpty){
-                    return "Please enter a password";
+                    return "Please enter your password one more time";
                   }else{
-                    _data.confirm_password = value;
-                    print("Data: ${_data.confirm_password}");
+                    return null;
                   }
-                },*/
+                },
               ),
             ),
           ),
@@ -285,6 +281,9 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
           GestureDetector(
             onTap: (){
               sendData(context);
+              if(_formKey.currentState.validate()){
+                showDialog(context: context,builder: (context) => _onTapSignUp(context));
+              }
             },
             child: Center(
               child: Padding(

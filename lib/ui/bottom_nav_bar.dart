@@ -35,7 +35,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> _children = [
     Center(child: MainHomeWithUpperBar()),
     Center(child: MyContacts()),
-    Center(child: SCAN()),
+    null,
+    //Center(child: SCAN()),
     Center(child: MYQR()),
     Center(child: MainProfile()),
   ];
@@ -89,20 +90,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
       } on PlatformException catch (ex) {
         if (ex.code == BarcodeScanner.CameraAccessDenied) {
           setState(() {
-            result = "Camera permission was denied";
+            result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
           });
         } else {
           setState(() {
-            result = "Unknown Error $ex";
+            result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
           });
         }
       } on FormatException {
         setState(() {
-          result = "You pressed the back button before scanning anything";
+          result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
         });
       } catch (ex) {
         setState(() {
-          result = "Unknown Error $ex";
+          result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
         });
       }
 
@@ -126,6 +127,35 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Padding(
               padding: EdgeInsets.all(15.0),
               child: Text('Scan successful! Please pull to refresh your contacts page!', style: TextStyle(color: Colors.black),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 50.0)),
+            FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+            },
+                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
+          ],
+        ),
+      ),
+    );
+  }
+
+  _onTapFail(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+      child: Container(
+        height: 300.0,
+        width: 300.0,
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding:  EdgeInsets.all(15.0),
+              child: Text('FAILED', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text('Scan failed! Please try again!', style: TextStyle(color: Colors.black),),
             ),
             Padding(padding: EdgeInsets.only(top: 50.0)),
             FlatButton(onPressed: (){

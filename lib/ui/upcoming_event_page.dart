@@ -31,13 +31,9 @@ class Ongoing extends StatelessWidget {
           ),
         ),
         centerTitle: true,
-        title: Text(
-          'gathrr',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("images/gathrr_name.png"),
         ),
       ),
       body: EventPage(eventID),

@@ -64,12 +64,19 @@ class MainHomeWithUpperBar extends StatelessWidget {
               ],
             ),
             centerTitle: true,
-            title: Text('gathrr', style: TextStyle(
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset("images/gathrr_name.png"),
+            ),
+            /*
+            Text('gathrr', style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 fontSize: 30,
               ),
             ),
+
+             */
           ),
           body: TabBarView(
             children: [

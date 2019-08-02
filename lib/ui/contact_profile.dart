@@ -26,12 +26,9 @@ class ContactProfile extends StatelessWidget {
 
          */
 
-        title: Text('Profile',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset("images/gathrr_name.png"),
         ),
         elevation: 0,
         backgroundColor: Colors.blue.shade900,

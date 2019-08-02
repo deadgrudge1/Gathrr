@@ -209,7 +209,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Center(
               child: Image.asset("images/gathrrimg.png", scale: 7,),
             ),
@@ -217,7 +217,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 45,
+              height: 55,
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
               ),
@@ -247,8 +247,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   if(value.isEmpty){
                     return "Please enter your name";
                   }else{
-                    //_data.email = value;
-                    //print("Data: ${_data.email}");
+                    return null;
                   }
                 },
               ),
@@ -257,7 +256,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 45,
+              height: 55,
               margin: EdgeInsets.only(top: 32),
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
@@ -288,8 +287,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   if(value.isEmpty){
                     return "Please enter a password";
                   }else{
-                    //_data.email = value;
-                    //print("Data: ${_data.email}");
+                    return null;
                   }
                 },
               ),
@@ -342,6 +340,13 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               /*Navigator.push(context,
                 MaterialPageRoute(builder: (context) => HomePage()),
               );*/
+              if(_formKey.currentState.validate()){
+                /*
+                Scaffold
+                .of(context)
+                    .showSnackBar(SnackBar(content: Text("Processing Data"),));
+                 */
+              }
             },
             child: Center(
               child: Padding(
@@ -372,6 +377,58 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   ),
                 ),
               ),
+            ),
+          ),
+          Container(
+            height: 45.0,
+            margin: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(left: 35.0, right: 35.0),
+            child: new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: FlatButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    splashColor: Color(0xFF3B5998),
+                    color: Color(0xff3B5998),
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Text(
+                            "LOGIN WITH LINKED-IN",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                        new Expanded(
+                          child: Container(),
+                        ),
+                        new Transform.translate(
+                          offset: Offset(15.0, 0.0),
+                          child: new Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: FlatButton(
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius:
+                                  new BorderRadius.circular(28.0)),
+                              splashColor: Colors.white,
+                              color: Colors.white,
+                              child: Text("in",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              ),
+                              onPressed: () => {},
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    onPressed: () => {},
+                  ),
+                ),
+              ],
             ),
           ),
         ],
