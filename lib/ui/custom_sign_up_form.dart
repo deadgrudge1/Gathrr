@@ -262,9 +262,10 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   child: Center(
                     child: GestureDetector(
                       onTap: (){
-                        Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Login()),
-                        );
+                        Navigator.pop(context);
+                        //Navigator.pushReplacement(context,
+                          //MaterialPageRoute(builder: (context) => Login()),
+                        //);
                       },
                       child: Text('Already a user? Login',
                         style: TextStyle(
