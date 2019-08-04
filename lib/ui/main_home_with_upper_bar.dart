@@ -7,6 +7,8 @@ import 'package:flutter_app/ui/upcoming.dart';
 import 'package:flutter_app/ui/upcoming_event_page.dart';
 import 'package:flutter_app/ui/notification_screen.dart';
 
+
+
 BuildContext context;
 
 class MainHomeWithUpperBar extends StatelessWidget {
