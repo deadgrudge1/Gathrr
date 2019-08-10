@@ -44,7 +44,7 @@ class MainHomeWithUpperBar extends StatelessWidget {
           child: Scaffold(
             appBar: AppBar(
               leading: IconButton(
-                icon: Icon(Icons.notifications,
+                icon: Icon(const IconData(0xe901, fontFamily: 'pro'),
                   color: Colors.grey.shade300,),
                 onPressed: (){
                   Navigator.push(context,
@@ -54,7 +54,7 @@ class MainHomeWithUpperBar extends StatelessWidget {
               ),
               actions: <Widget>[
                  IconButton(
-                  icon: new Icon(Icons.chat_bubble,
+                  icon: new Icon(const IconData(0xe909, fontFamily: 'pro'),
                     color: Colors.grey.shade300,),
                   onPressed: (){
                     Navigator.push(context,
@@ -80,11 +80,11 @@ class MainHomeWithUpperBar extends StatelessWidget {
               ),
               bottom: TabBar(
                 tabs: [
-                  Tab(icon: Icon(Icons.alarm),
+                  Tab(icon: Icon(const IconData(0xe903, fontFamily: 'pro')),
                   text: "Upcoming Events",),
-                  Tab(icon: Icon(Icons.alarm_on),
+                  Tab(icon: Icon(const IconData(0xe904, fontFamily: 'pro')),
                   text: "Ongoing Events",),
-                  Tab(icon: Icon(Icons.assignment_turned_in),
+                  Tab(icon: Icon(const IconData(0xe902, fontFamily: 'pro')),
                   text: "Previos Events",),
                 ],
               ),

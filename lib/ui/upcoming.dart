@@ -98,37 +98,80 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemCount: eventTitle == null? 0 : eventTitle.length,//list?.length,
-          itemBuilder: (context, i) => Card(
-            child: GestureDetector(
-              child: Column(
-                children: <Widget>[
-                  new Icon(Icons.image,
-                    size: 150,
-                    color: Colors.blueGrey,),
-                  ListTile(
-                    leading: Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text("Aug"),
-                          Text("01")
-                        ],
-                      ),
-                    ),//Icon(Icons.album),
-                    title: Text(eventTitle[i].toUpperCase(), style: new TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),),
-                    subtitle: Text(eventStartDate[i]),
+          itemBuilder: (context, i) => Stack(
+            children: <Widget>[
+              Container(
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Ongoing(eventID[i])),
+                    );
+                  },
+                  child: Card(
+                    child: Column(
+                      children: <Widget>[
+                        new Icon(Icons.image,
+                          size: 150,
+                          color: Colors.blueGrey,),
+                        ListTile(
+                          leading: Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text("Aug"),
+                                Text("01")
+                              ],
+                            ),
+                          ),//Icon(Icons.album),
+                          title: Text(eventTitle[i].toUpperCase(), style: new TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                          ),),
+                          subtitle: Text(eventStartDate[i]),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
+                ),
               ),
-              onTap: (){
-                Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Ongoing(eventID[i])),
-                );
-              },
-            ),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 200.0, left: 235.0, bottom: 5.0),
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 6.0),
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          backgroundColor: Colors.white,
+                          onPressed: (){
+
+                          },
+                          //color: Colors.blue.shade300,
+                          child: Icon(Icons.people,
+                          color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 6.0),
+                        child: FloatingActionButton(
+                          heroTag: null,
+                          backgroundColor: Colors.white,
+                          onPressed: (){
+
+                          },
+                          //color: Colors.blue.shade300,
+                          child: Icon(Icons.share,
+                          color: Colors.grey,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

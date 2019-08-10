@@ -177,17 +177,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
         children: widget._children,
       ), //bottom nav pages won't reload everytime
       bottomNavigationBar: BottomNavigationBar(
-
+        iconSize: 25.0,
         elevation: 20.0,
         selectedFontSize: 15.0,
-        unselectedItemColor: Colors.grey.shade700,
+        unselectedItemColor: Colors.grey.shade800,
         selectedItemColor: Colors.blue,
         type: BottomNavigationBarType.fixed,
         onTap: onTabTapped, // new
         currentIndex: _currentIndex, // this will be set when a new tab is tapped
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.home),
+            icon: new Icon(const IconData(0xe90c, fontFamily: 'pro'),
+            //color: Colors.grey.shade700,
+            ),
             title: new Text('',
               style: TextStyle(
                   color: Colors.grey.shade700
@@ -195,7 +197,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
+            icon: Icon(const IconData(0xe90b, fontFamily: 'pro')),
             title: Text('',
               style: TextStyle(
                   color: Colors.grey.shade700
@@ -207,9 +209,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
               height: 60.0,
               width: 60.0,
               child: FloatingActionButton(
+                heroTag: null,
               onPressed: _scanQR,
               tooltip: 'Scan',
-              child: Icon(Icons.photo_camera),
+              child: Icon(const IconData(0xe900, fontFamily: 'pro')),
               ),
             ),
 
@@ -219,7 +222,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
 
           BottomNavigationBarItem(
-              icon: Icon(Icons.center_focus_strong),
+              icon: Icon(const IconData(0xe908, fontFamily: 'pro')),
               title: Text('',
                 style: TextStyle(
                     color: Colors.grey.shade700
@@ -227,7 +230,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
           ),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person),
+              icon: Icon(const IconData(0xe90a, fontFamily: 'pro')),
               title: Text('',
                 style: TextStyle(
                     color: Colors.grey.shade700
