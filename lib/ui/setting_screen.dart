@@ -65,8 +65,8 @@ class _settingOptionsState extends State<settingOptions> {
         if(status == true) {
           prefs.setString('token', null);
           print(responseArray['msg']);
-          /*Navigator.pop(context);
-          Navigator.pushReplacement(context,
+          //Navigator.pop(context);
+          /*Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => Login()),
           );*/
           var title = "Login";
@@ -77,6 +77,7 @@ class _settingOptionsState extends State<settingOptions> {
 
             ),
           ));
+
         }
         return true;
       });

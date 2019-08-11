@@ -2,27 +2,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/contact_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
+import 'dart:convert';
 
 import 'login.dart';
 
 var _emailController = new TextEditingController();
 var _passoneController = new TextEditingController();
 var _usernameController = new TextEditingController();
+var _passtwoController = new TextEditingController();
 
 BuildContext context;
 
 void sendData(context) async {
+
+  var dialogResponse = "";
+  int match = _passoneController.text.compareTo(_passtwoController.text);
+
+  if(match != 0)
+  {
+    dialogResponse = "Passwords do not match!";
+    showDialog(context: context,builder: (context) => _onTapSignUp(context, dialogResponse));
+    throw new Exception("Passwords do not match");
+  }
+
   String url = globals.url+"create-account.php";
   final response = await http.post(url, body: {
     "createaccount" : "1",
     "email" : _emailController.text,
     "password" : _passoneController.text,
   });
+
+  var statusCode = response.statusCode;
+
+  if (statusCode < 200 || statusCode > 400 || json == null) {
+    dialogResponse = "Could not connect\nPlease try again!";
+    showDialog(context: context,builder: (context) => _onTapSignUp(context, dialogResponse));
+    throw new Exception("Error fetching data");
+  }
+
+  var responseArray = json.decode(response.body);
+  var status = responseArray['status'];
+  if(status == true) {
+    dialogResponse = responseArray['msg'];
+    showDialog(context: context,builder: (context) => _onTapSignUp(context, dialogResponse));
+
+    _emailController.text = "";
+    _passoneController.text = "";
+    _passtwoController.text = "";
+  }
+
   //showDialog(context: context,builder: (context) => _onTapSignUp(context));
   print(response.body);
 }
 
-_onTapSignUp(BuildContext context) {
+_onTapSignUp(BuildContext context, var response) {
   return Dialog(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
     child: Container(
@@ -34,11 +67,11 @@ _onTapSignUp(BuildContext context) {
         children: <Widget>[
           Padding(
             padding:  EdgeInsets.all(15.0),
-            child: Text('SUCCESS', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+            child: Text('', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
           ),
           Padding(
             padding: EdgeInsets.all(15.0),
-            child: Text('You have signed up successfully, please verify your email address to login!', style: TextStyle(color: Colors.black),),
+            child: Text(response, style: TextStyle(color: Colors.black),),
           ),
           Padding(padding: EdgeInsets.only(top: 50.0)),
           FlatButton(onPressed: (){
@@ -234,7 +267,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                   ]
               ),
               child: TextFormField(
-                //controller: _passtwoController,
+                controller: _passtwoController,
                 obscureText: true,
                 decoration: InputDecoration(
                   border: InputBorder.none,
@@ -281,9 +314,9 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
 
           GestureDetector(
             onTap: (){
-              sendData(context);
               if(_formKey.currentState.validate()){
-                showDialog(context: context,builder: (context) => _onTapSignUp(context));
+                sendData(context);
+              //  showDialog(context: context,builder: (context) => _onTapSignUp(context));
               }
             },
             child: Center(

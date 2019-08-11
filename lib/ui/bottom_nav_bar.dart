@@ -70,7 +70,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           var contact_username = responseArray['contact_username'];
           setState(() {
             result = msg + " '" + contact_username + "'";
-            showDialog(context: context,builder: (context) => _onTapScan(context));
+            var msg_ = result;
+            showDialog(context: context,builder: (context) => _onTapScan(context, msg_));
           });
           print(response.body);
           return true;
@@ -110,7 +111,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     }
 
-  _onTapScan(BuildContext context) {
+  _onTapScan(BuildContext context, var msg) { //var msg contains response from server.
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: Container(
@@ -126,7 +127,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: Text('Scan successful! Please pull to refresh your contacts page!', style: TextStyle(color: Colors.black),),
+              child: Text(msg, style: TextStyle(color: Colors.black),),
             ),
             Padding(padding: EdgeInsets.only(top: 50.0)),
             FlatButton(onPressed: (){

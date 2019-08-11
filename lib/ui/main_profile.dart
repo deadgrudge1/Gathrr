@@ -5,6 +5,8 @@ import 'package:flutter_app/ui/setting_screen.dart';
 
 class MainProfile extends StatelessWidget {
 
+
+
   _onFirstTapOnProfile(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
