@@ -56,10 +56,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.person,
-              color: Colors.grey.shade700,
-            ),
             title: TextField(
               decoration: InputDecoration(
                 hintText: "Name",
@@ -67,10 +63,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.email,
-              color: Colors.grey.shade700,
-            ),
             title: TextField(
               decoration: InputDecoration(
                 hintText: "Email",
@@ -80,13 +72,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
           Padding(
             padding: const EdgeInsets.only(top: 5.0),
             child: ListTile(
-              leading: Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Icon(
-                  Icons.assignment,
-                  color: Colors.grey.shade700,
-                ),
-              ),
               title: Container(
                 margin: EdgeInsets.only(top: 15.0),
                 height: 130.0,
@@ -108,10 +93,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
             ),
           ),
           ListTile(
-            leading: Icon(
-              Icons.account_box,
-              color: Colors.grey.shade700,
-            ),
             title: TextField(
               decoration: InputDecoration(
                 hintText: "Designation",

@@ -10,6 +10,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+BuildContext context;
 
 
 class CustomLoginForm extends StatefulWidget {
@@ -118,6 +122,7 @@ Future<String> getData(context) async{
 
 
 void isLoggedIn() async {
+
   var token;
   var responseArray;
   final prefs = await SharedPreferences.getInstance();
@@ -173,20 +178,117 @@ void isLoggedIn() async {
 class _CustomLoginFormState extends State<CustomLoginForm> {
 
   //_LoginData _data = new _LoginData();
+  final FirebaseMessaging _messaging = FirebaseMessaging();
 
   FocusNode _focusNode = new FocusNode();
+
+  final Firestore _db = Firestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging();
+
+  StreamSubscription iosSubscription;
+
+  _onTapSignUp(BuildContext context, var response) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+      child: Container(
+        height: 300.0,
+        width: 300.0,
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding:  EdgeInsets.all(15.0),
+              child: Text('', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+            ),
+            Padding(
+              padding: EdgeInsets.all(15.0),
+              child: Text(response, style: TextStyle(color: Colors.black),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 50.0)),
+            FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+            },
+                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   void initState(){
     super.initState();
+    fcmSubscribe();
     _focusNode.addListener(_focusNodeListener);
     isLoggedIn();
+    _messaging.getToken().then((token) {
+      print(token);
+    });
+    _fcm.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print("onMessage: $message");
+        /*
+         final snackbar = SnackBar(
+           content: Text(message['notification']['title']),
+           action: SnackBarAction(
+             label: 'Go',
+             onPressed: () => null,
+           ),
+         );
+
+        Scaffold.of(context).showSnackBar(snackbar);
+        setState(() {
+          showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));
+        });
+
+         */
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: ListTile(
+              title: Text(message['notification']['title']),
+              subtitle: Text(message['notification']['body']),
+            ),
+            actions: <Widget>[
+              FlatButton(
+                color: Colors.amber,
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ],
+          ),
+        );
+
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print("onLaunch: $message");
+        // TODO optional
+        setState(() {
+          showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));
+        });
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print("onResume: $message");
+        // TODO optional
+        setState(() {
+          showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));
+        });
+      },
+    );
+  }
+
+  FirebaseMessaging firebaseMessaging = new FirebaseMessaging();
+
+  void fcmSubscribe() {
+    firebaseMessaging.subscribeToTopic('TopicToListen');
   }
 
   @override
   void dispose(){
     _focusNode.removeListener(_focusNodeListener);
     super.dispose();
+    fcmSubscribe();
   }
 
   Future<Null> _focusNodeListener() async {
@@ -201,6 +303,8 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
 
   final image = new Image.asset("images/gathrrimg.png");
 
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -211,13 +315,13 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Center(
-              child: Image.asset("images/gathrrimg.png", scale: 7,),
+              child: Image.asset("images/gathrrimg.png", scale: 10,),
             ),
           ),
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 55,
+              height: 45,
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
               ),
@@ -256,7 +360,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width/1.2,
-              height: 55,
+              height: 45,
               margin: EdgeInsets.only(top: 32),
               padding: EdgeInsets.only(
                   top: 4,left: 16, right: 16, bottom: 4
@@ -436,3 +540,5 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
     );
   }
 }
+
+

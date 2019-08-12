@@ -95,16 +95,27 @@ class _PastState extends State<Past> {
     return RefreshIndicator(
       key: refreshKey,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
           itemCount: eventTitle == null? 0 : eventTitle.length,//list?.length,
           itemBuilder: (context, i) => Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            ),
             child: GestureDetector(
               child: Column(
                 children: <Widget>[
                   new Icon(Icons.image,
                     size: 150,
-                    color: Colors.blueGrey,),
+                    color: Colors.grey.shade700,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                    child: Divider(
+                      color: Colors.grey.shade300,
+                      height: 1.0,
+                    ),
+                  ),
                   ListTile(
                     leading: Padding(
                       padding: const EdgeInsets.only(top: 10.0),

@@ -65,9 +65,18 @@ _onTapSignUp(BuildContext context, var response) {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding:  EdgeInsets.all(15.0),
-            child: Text('', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+          Container(
+            color: Colors.green,
+            child: Padding(
+              padding:  EdgeInsets.all(15.0),
+              child: Icon(Icons.done,
+              color: Colors.white,
+              )
+              /*
+              Text('', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+
+               */
+            ),
           ),
           Padding(
             padding: EdgeInsets.all(15.0),
@@ -124,231 +133,242 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Center(child: Image.asset("images/gathrrimg.png", scale: 10,)),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: Center(
-              child: Container(
-                width: MediaQuery.of(context).size.width/1.2,
-                height: 55,
-                padding: EdgeInsets.only(
-                    top: 4,left: 16, right: 16, bottom: 4
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(50)
-                    ),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 5
-                      )
-                    ]
-                ),
-                child: TextFormField(
-                  controller: _emailController,
-                  focusNode: _focusNode,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      icon: Icon(Icons.email,
-                        color: Colors.grey,
-                      ),
-                      hintText: "Email"
-                  ),
-                  validator: (value){
-                    if(value.isEmpty){
-                      return "Please enter your email";
-                    }else{
-                      return null;
-                    }
-                  },
-                ),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: 55,
-              margin: EdgeInsets.only(top: 32),
-              padding: EdgeInsets.only(
-                  top: 4,left: 16, right: 16, bottom: 4
-              ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(50)
-                  ),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                    )
-                  ]
-              ),
-              child: TextFormField(
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  icon: Icon(Icons.account_circle,
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Full Name',
-                ),
-                validator: (value){
-                  if(value.isEmpty){
-                    return "Please enter your name";
-                  }else{
-                    return null;
-                  }
-                },
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: 55,
-              margin: EdgeInsets.only(top: 32),
-              padding: EdgeInsets.only(
-                  top: 4,left: 16, right: 16, bottom: 4
-              ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(50)
-                  ),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                    )
-                  ]
-              ),
-              child: TextFormField(
-                controller: _passoneController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  icon: Icon(Icons.vpn_key,
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Password',
-                ),
-                validator: (value){
-                  if(value.isEmpty){
-                    return "Please enter a password";
-                  }else{
-                    return null;
-                  }
-                },
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              width: MediaQuery.of(context).size.width/1.2,
-              height: 55,
-              margin: EdgeInsets.only(top: 32),
-              padding: EdgeInsets.only(
-                  top: 4,left: 16, right: 16, bottom: 4
-              ),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                      Radius.circular(50)
-                  ),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 5
-                    )
-                  ]
-              ),
-              child: TextFormField(
-                controller: _passtwoController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  icon: Icon(Icons.vpn_key,
-                    color: Colors.grey,
-                  ),
-                  hintText: 'Confirm Password',
-                ),
-                validator: (value){
-                  if(value.isEmpty){
-                    return "Please enter your password one more time";
-                  }else{
-                    return null;
-                  }
-                },
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 50.0, top: 10),
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: (){
-                        Navigator.pop(context);
-                        //Navigator.pushReplacement(context,
-                          //MaterialPageRoute(builder: (context) => Login()),
-                        //);
-                      },
-                      child: Text('Already a user? Login',
-                        style: TextStyle(
-                            color: Colors.grey
+          Stack(
+            children: <Widget>[
+              Center(child: Image.asset("images/gathrrimg.png", scale: 12,)),
+              Padding(
+                padding: const EdgeInsets.only(top: 200.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0.0),
+                      child: Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width/1.2,
+                          height: 45,
+                          padding: EdgeInsets.only(
+                              top: 4,left: 16, right: 16, bottom: 4
+                          ),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(
+                                  Radius.circular(50)
+                              ),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 5
+                                )
+                              ]
+                          ),
+                          child: TextFormField(
+                            controller: _emailController,
+                            focusNode: _focusNode,
+                            decoration: InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(Icons.email,
+                                  color: Colors.grey,
+                                ),
+                                hintText: "Email"
+                            ),
+                            validator: (value){
+                              if(value.isEmpty){
+                                return "Please enter your email";
+                              }else{
+                                return null;
+                              }
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          GestureDetector(
-            onTap: (){
-              if(_formKey.currentState.validate()){
-                sendData(context);
-              //  showDialog(context: context,builder: (context) => _onTapSignUp(context));
-              }
-            },
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
-                child: Container(
-                  height: 45,
-                  width: MediaQuery.of(context).size.width/1.2,
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Colors.blue.shade500,
-                          Colors.blue.shade500,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.all(
-                          Radius.circular(50)
-                      )
-                  ),
-                  child: Center(
-                    child: Text('Sign up'.toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        letterSpacing: 1.0,
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/1.2,
+                        height: 45,
+                        margin: EdgeInsets.only(top: 32),
+                        padding: EdgeInsets.only(
+                            top: 4,left: 16, right: 16, bottom: 4
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(50)
+                            ),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                              )
+                            ]
+                        ),
+                        child: TextFormField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(Icons.account_circle,
+                              color: Colors.grey,
+                            ),
+                            hintText: 'Full Name',
+                          ),
+                          validator: (value){
+                            if(value.isEmpty){
+                              return "Please enter your name";
+                            }else{
+                              return null;
+                            }
+                          },
+                        ),
                       ),
                     ),
-                  ),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/1.2,
+                        height: 45,
+                        margin: EdgeInsets.only(top: 32),
+                        padding: EdgeInsets.only(
+                            top: 4,left: 16, right: 16, bottom: 4
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(50)
+                            ),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                              )
+                            ]
+                        ),
+                        child: TextFormField(
+                          controller: _passoneController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(Icons.vpn_key,
+                              color: Colors.grey,
+                            ),
+                            hintText: 'Password',
+                          ),
+                          validator: (value){
+                            if(value.isEmpty){
+                              return "Please enter a password";
+                            }else{
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    Center(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width/1.2,
+                        height: 45,
+                        margin: EdgeInsets.only(top: 32),
+                        padding: EdgeInsets.only(
+                            top: 4,left: 16, right: 16, bottom: 4
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                                Radius.circular(50)
+                            ),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black12,
+                                  blurRadius: 5
+                              )
+                            ]
+                        ),
+                        child: TextFormField(
+                          controller: _passtwoController,
+                          obscureText: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(Icons.vpn_key,
+                              color: Colors.grey,
+                            ),
+                            hintText: 'Confirm Password',
+                          ),
+                          validator: (value){
+                            if(value.isEmpty){
+                              return "Please enter your password one more time";
+                            }else{
+                              return null;
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(left: 50.0, top: 10),
+                            child: Center(
+                              child: GestureDetector(
+                                onTap: (){
+                                  Navigator.pop(context);
+                                  //Navigator.pushReplacement(context,
+                                  //MaterialPageRoute(builder: (context) => Login()),
+                                  //);
+                                },
+                                child: Text('Already a user? Login',
+                                  style: TextStyle(
+                                      color: Colors.grey
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: (){
+                        if(_formKey.currentState.validate()){
+                          sendData(context);
+                          //  showDialog(context: context,builder: (context) => _onTapSignUp(context));
+                        }
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
+                          child: Container(
+                            height: 45,
+                            width: MediaQuery.of(context).size.width/1.2,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.blue.shade500,
+                                    Colors.blue.shade500,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(50)
+                                )
+                            ),
+                            child: Center(
+                              child: Text('Sign up'.toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
+            ],
           ),
         ],
       ),

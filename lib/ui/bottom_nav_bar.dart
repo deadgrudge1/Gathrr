@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
 import 'dart:convert';
 
+BuildContext context;
 
 
 
@@ -43,77 +44,107 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Center(child: MainProfile()),
   ];
 
-    String result = "Hey there !";
+  String result = "Hey there !";
 
 
-    void qrFunction() async
+  void qrFunction() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
     {
-      final prefs = await SharedPreferences.getInstance();
-      var token = prefs.get("token");
-      if(token!=null)
-      {
-        String url = globals.url + "scan-qr.php";
-        http.post(url, body: {
-          "token" : token,
-          "qr_token" : result,
-        })
-            .then((http.Response response) {
-          final int statusCode = response.statusCode;
+      String url = globals.url + "scan-qr.php";
+      http.post(url, body: {
+        "token" : token,
+        "qr_token" : result,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
 
-          if (statusCode < 200 || statusCode > 400 || json == null) {
-            throw new Exception("Error fetching data");
-          }
-
-          var responseArray = json.decode(response.body);
-
-          //var status = responseArray['status']; //on successful execution
-          //var type = responseArray['type']; //user or event?
-          var msg = responseArray['msg'];
-          var contact_username = responseArray['contact_username'];
-          setState(() {
-            result = msg + " '" + contact_username + "'";
-            var msg_ = result;
-            showDialog(context: context,builder: (context) => _onTapScan(context, msg_));
-          });
-          print(response.body);
-          return true;
-        });
-      }
-    }
-
-
-    Future _scanQR() async {
-      try {
-        String qrResult = await BarcodeScanner.scan();
-        setState(() {
-          result = qrResult;
-        });
-        qrFunction();
-
-      } on PlatformException catch (ex) {
-        if (ex.code == BarcodeScanner.CameraAccessDenied) {
-          setState(() {
-            result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
-          });
-        } else {
-          setState(() {
-            result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
-          });
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
         }
-      } on FormatException {
+
+        var responseArray = json.decode(response.body);
+
+        //var status = responseArray['status']; //on successful execution
+        //var type = responseArray['type']; //user or event?
+        var msg = responseArray['msg'];
+        var contact_username = responseArray['contact_username'];
         setState(() {
-          result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
+          result = msg + " '" + contact_username + "'";
+          showDialog(context: context,builder: (context) => _onScanPass(context, result));
         });
-      } catch (ex) {
+        print(response.body);
+        return true;
+      });
+    }
+  }
+
+
+  Future _scanQR() async {
+    try {
+      String qrResult = await BarcodeScanner.scan();
+      setState(() {
+        result = qrResult;
+      });
+      qrFunction();
+
+    } on PlatformException catch (ex) {
+      if (ex.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
-          result = showDialog(context: context,builder: (context) => _onTapFail(context)) as String;
+          result = "Camera permission was denied";
+          showDialog(context: context,builder: (context) => _onScanFail(context));
+        });
+      } else {
+        setState(() {
+          result = "Unknown Error $ex";
+          showDialog(context: context,builder: (context) => _onScanFail(context));
         });
       }
-
-
+    } on FormatException {
+      setState(() {
+        result = "You pressed the back button before scanning anything";
+        showDialog(context: context,builder: (context) => _onScanFail(context));
+      });
+    } catch (ex) {
+      setState(() {
+        result = "Unknown Error $ex";
+        showDialog(context: context,builder: (context) => _onScanFail(context));
+      });
     }
+  }
 
-  _onTapScan(BuildContext context, var msg) { //var msg contains response from server.
+  _onScanFail(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+      child: Container(
+        height: 300.0,
+        width: 300.0,
+
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding:  EdgeInsets.all(15.0),
+              child: Text('FAIL!', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+            ),
+            Padding(
+              padding: EdgeInsets.all(25.0),
+              child: Text("Scan failed! Please try scanning the qr of user or an event!", style: TextStyle(color: Colors.black),),
+            ),
+            Padding(padding: EdgeInsets.only(top: 50.0)),
+            FlatButton(onPressed: (){
+              Navigator.of(context).pop();
+            },
+                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
+          ],
+        ),
+      ),
+    );
+  }
+
+  _onScanPass(BuildContext context, result) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
       child: Container(
@@ -129,36 +160,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             ),
             Padding(
               padding: EdgeInsets.all(15.0),
-              child: Text(msg, style: TextStyle(color: Colors.black),),
-            ),
-            Padding(padding: EdgeInsets.only(top: 50.0)),
-            FlatButton(onPressed: (){
-              Navigator.of(context).pop();
-            },
-                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
-          ],
-        ),
-      ),
-    );
-  }
-
-  _onTapFail(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
-      child: Container(
-        height: 300.0,
-        width: 300.0,
-
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding:  EdgeInsets.all(15.0),
-              child: Text('FAILED', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
-            ),
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text('Scan failed! Please try again!', style: TextStyle(color: Colors.black),),
+              child: Text('Scan successful! \n $result Please pull to refresh your contact list!', style: TextStyle(color: Colors.black),),
             ),
             Padding(padding: EdgeInsets.only(top: 50.0)),
             FlatButton(onPressed: (){
@@ -182,7 +184,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 25.0,
         elevation: 20.0,
-        selectedFontSize: 15.0,
+        //selectedFontSize: 15.0,
         unselectedItemColor: Colors.grey.shade800,
         selectedItemColor: Colors.blue,
         type: BottomNavigationBarType.fixed,
@@ -190,55 +192,41 @@ class _BottomNavBarState extends State<BottomNavBar> {
         currentIndex: _currentIndex, // this will be set when a new tab is tapped
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(const IconData(0xe90c, fontFamily: 'pro'),
-            //color: Colors.grey.shade700,
-            ),
-            title: new Text('',
-              style: TextStyle(
-                  color: Colors.grey.shade700
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: new Icon(IconData(0xe90c, fontFamily: 'pro'),
+              //color: Colors.grey.shade700,
               ),
             ),
+            title: Text(""),
           ),
           BottomNavigationBarItem(
-            icon: Icon(const IconData(0xe90b, fontFamily: 'pro')),
-            title: Text('',
-              style: TextStyle(
-                  color: Colors.grey.shade700
-              ),
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Icon(IconData(0xe90b, fontFamily: 'pro')),
             ),
+            title: Text(""),
           ),
           BottomNavigationBarItem(
-            icon: Container(
-              height: 60.0,
-              width: 60.0,
-              child: FloatingActionButton(
-                heroTag: null,
-              onPressed: _scanQR,
-              tooltip: 'Scan',
-              child: Icon(const IconData(0xe900, fontFamily: 'pro')),
-              ),
+            icon: Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: Icon(IconData(0xe900, fontFamily: 'pro')),
             ),
-
-            title: Text(""
-            ),
-          ),
-
-
-          BottomNavigationBarItem(
-              icon: Icon(const IconData(0xe908, fontFamily: 'pro')),
-              title: Text('',
-                style: TextStyle(
-                    color: Colors.grey.shade700
-                ),
-              ),
+            title: Text(""),
           ),
           BottomNavigationBarItem(
-              icon: Icon(const IconData(0xe90a, fontFamily: 'pro')),
-              title: Text('',
-                style: TextStyle(
-                    color: Colors.grey.shade700
-                ),
+              icon: Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Icon(IconData(0xe908, fontFamily: 'pro')),
               ),
+            title: Text(""),
+          ),
+          BottomNavigationBarItem(
+              icon: Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: Icon(IconData(0xe90a, fontFamily: 'pro')),
+              ),
+            title: Text(""),
           ),
         ],
       ),

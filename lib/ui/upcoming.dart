@@ -95,7 +95,7 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
     return RefreshIndicator(
       key: refreshKey,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: ListView.builder(
           itemCount: eventTitle == null? 0 : eventTitle.length,//list?.length,
           itemBuilder: (context, i) => Stack(
@@ -108,11 +108,27 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
                     );
                   },
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
                     child: Column(
                       children: <Widget>[
                         new Icon(Icons.image,
                           size: 150,
-                          color: Colors.blueGrey,),
+                          color: Colors.grey.shade700,
+                        ),
+                        /*
+                        Container(
+                          child: new Image.asset("images/bookingapp.png"),
+                        ),
+                         */
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+                          child: Divider(
+                            color: Colors.grey.shade300,
+                            height: 1.0,
+                          ),
+                        ),
                         ListTile(
                           leading: Padding(
                             padding: const EdgeInsets.only(top: 10.0),
@@ -136,34 +152,46 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
               ),
               Container(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 200.0, left: 235.0, bottom: 5.0),
+                  padding: const EdgeInsets.only(top: 133.0, left: 235.0, bottom: 5.0),
                   child: Row(
                     children: <Widget>[
                       Padding(
                         padding: const EdgeInsets.only(right: 6.0),
-                        child: FloatingActionButton(
-                          heroTag: null,
-                          backgroundColor: Colors.white,
-                          onPressed: (){
+                        child: Container(
+                          height: 40.0,
+                          width: 40.0,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                              heroTag: null,
+                              backgroundColor: Colors.white,
+                              onPressed: (){
 
-                          },
-                          //color: Colors.blue.shade300,
-                          child: Icon(Icons.people,
-                          color: Colors.grey,
+                              },
+                              //color: Colors.blue.shade300,
+                              child: Icon(Icons.people,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 6.0),
-                        child: FloatingActionButton(
-                          heroTag: null,
-                          backgroundColor: Colors.white,
-                          onPressed: (){
+                        child: Container(
+                          height: 40.0,
+                          width: 40.0,
+                          child: FittedBox(
+                            child: FloatingActionButton(
+                              heroTag: null,
+                              backgroundColor: Colors.white,
+                              onPressed: (){
 
-                          },
-                          //color: Colors.blue.shade300,
-                          child: Icon(Icons.share,
-                          color: Colors.grey,
+                              },
+                              //color: Colors.blue.shade300,
+                              child: Icon(Icons.share,
+                                color: Colors.grey,
+                              ),
+                            ),
                           ),
                         ),
                       ),
