@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/globals.dart' as globals;
 import 'dart:convert';
+import 'package:fw_ticket/fw_ticket.dart';
 
 class SCAN extends StatefulWidget {
   @override
@@ -123,30 +124,28 @@ class _SCANState extends State<SCAN> {
             Container(
               height: 100.0,
               child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(top: 40.0),
-                          child: Text(
-                            "Scan Successfukl, please pull to refresh",
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
-                        ),
-                        Text(
-                          "your contacts list!",
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40.0),
+                        child: Text(
+                          "Scan Successful, please pull to refresh",
                           style: TextStyle(
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        "your contacts list!",
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
+                ),
               ),
               //color: Colors.green,
             ),
@@ -250,27 +249,160 @@ class _SCANState extends State<SCAN> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue.shade900, Colors.blue.shade500],
+          backgroundColor: Colors.blue.shade900,
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.blue.shade900, Colors.blue.shade500],
+              ),
             ),
           ),
-        ),
-        centerTitle: true,
-        title: Text(
-          'gathrr',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
+          centerTitle: true,
+          title: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset("images/gathrr_name.png"),
+          )),
+      body: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 50),
+                child: Container(
+                    //color: Colors.white,
+                    height: 450,
+                    width: 500,
+                    child: Ticket(
+                      innerRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(32),
+                        bottomLeft: Radius.circular(32),
+                      ),
+                      outerRadius: BorderRadius.circular(0.0),
+                      child: Card(
+                        child: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 35.0, bottom: 10.0),
+                              child: Center(
+                                child: Container(
+                                  width: 250,
+                                  height: 250,
+                                  decoration: BoxDecoration(
+                                      border: new Border.all(
+                                        width: 2,
+                                        color: Colors.white,
+                                      ),
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.fill,
+                                        image: NetworkImage("http://www.pngall.com/wp-content/uploads/2/QR-Code.png"),
+                                      )
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text("Your Ticket To Networking",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30.0,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Text("Scan the Event-QR to check-into a live Event"),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
+                              child: Text("OR",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            Text("Scan the User-QR to add the User into your contacts"),
+                          ],
+                        ),
+                      ),
+                    )),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 490),
+                child: Container(
+                    //color: Colors.white,
+                    height: 150,
+                    width: 500,
+                    child: Ticket(
+                      innerRadius: BorderRadius.only(
+                        topRight: Radius.circular(32),
+                        topLeft: Radius.circular(32),
+                      ),
+                      outerRadius: BorderRadius.circular(0.0),
+                      child:
+                      RaisedButton(
+                        color: Colors.white,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                              child: Container(
+                                height: 55,
+                                width: MediaQuery.of(context).size.width/1.7,
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.grey.shade100,
+                                        Colors.grey.shade100,
+                                      ],
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(50)
+                                    )
+                                ),
+                                child: Center(
+                                  child: Text('Scan'.toUpperCase(),
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50,
+                                      letterSpacing: 1.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          /*
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25.0),
+                                child: Text(
+                                  "SCAN",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 50.0,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                              ),
+                              Text("click me"),
+                            ],
+                          ),
+
+                           */
+                          onPressed: _scanQR,
+                        ),
+                    )),
+              ),
+            ],
           ),
-        ),
+        ],
       ),
-      body: Padding(
+      /*
+      Padding(
         padding: const EdgeInsets.all(10.0),
         child: Card(
           color: Colors.white,
@@ -352,6 +484,8 @@ class _SCANState extends State<SCAN> {
           ),
         ),
       ),
+
+       */
     );
   }
 }
