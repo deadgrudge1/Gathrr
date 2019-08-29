@@ -45,15 +45,43 @@ class _CreateEditBodyState extends State<CreateEditBody> {
       child: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-              child: Icon(
-                Icons.account_circle,
-                size: 150.0,
-                color: Colors.grey.shade700,
+          Stack(
+            children: <Widget>[
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                        border: new Border.all(
+                          width: 1.5,
+                          color: Colors.white,
+                        ),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: NetworkImage(
+                                "https://qph.fs.quoracdn.net/main-raw-226477733-zskxlexzsxfiubrenlkcrywxnrzoswrk.jpeg"))),
+                  ),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 130.0, left: 50.0),
+                child: Center(
+                  child: Container(
+                    height: 40.0,
+                    width: 40.0,
+                    child: FloatingActionButton(
+                      onPressed: (){
+                        //PENDING...
+                      },
+                      child: Icon(Icons.edit),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           ListTile(
             title: TextField(
@@ -223,13 +251,64 @@ class _CreateEditBodyState extends State<CreateEditBody> {
               height: 1.0,
             ),
           ),
+          Container(
+            height: 45.0,
+            margin: const EdgeInsets.only(top: 10.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+            child: new Row(
+              children: <Widget>[
+                new Expanded(
+                  child: FlatButton(
+                    shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0)),
+                    splashColor: Colors.white,
+                    color: Colors.white,
+                    child: new Row(
+                      children: <Widget>[
+                        new Padding(
+                          padding: const EdgeInsets.only(left: 0.0),
+                          child: Text(
+                            "Add Social Media",
+                            style: TextStyle(color: Colors.black,
+                              fontSize: 15.0,
+                            ),
+                          ),
+                        ),
+                        new Expanded(
+                          child: Container(),
+                        ),
+                        new Transform.translate(
+                          offset: Offset(15.0, 0.0),
+                          child: new Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: FlatButton(
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius:
+                                  new BorderRadius.circular(28.0)),
+                              splashColor: Colors.white,
+                              color: Colors.grey.shade100,
+                              child: Icon(Icons.add),
+                              onPressed: (){
+                                //PENDING....
+                              },
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    onPressed: () => {},
+                  ),
+                ),
+              ],
+            ),
+          ),
           GestureDetector(
             onTap: (){
 
             },
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 15, 20, 20),
+                padding: const EdgeInsets.fromLTRB(20, 40, 20, 20),
                 child: Container(
                   height: 45,
                   width: MediaQuery.of(context).size.width/1.2,

@@ -373,26 +373,6 @@ class _SCANState extends State<SCAN> {
                               ),
                             ),
                           ),
-                          /*
-                          Column(
-                            children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.only(top: 25.0),
-                                child: Text(
-                                  "SCAN",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 50.0,
-                                    letterSpacing: 1.0,
-                                  ),
-                                ),
-                              ),
-                              Text("click me"),
-                            ],
-                          ),
-
-                           */
                           onPressed: _scanQR,
                         ),
                     )),
