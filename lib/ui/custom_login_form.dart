@@ -12,6 +12,7 @@ import 'package:flutter_app/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 BuildContext context;
 
@@ -216,6 +217,23 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
     );
   }
 
+  void showNotification(var message) async
+  {
+    print("in test");
+    var android = new AndroidNotificationDetails(
+        'channel id', 'channel NAME', 'CHANNEL DESCRIPTION',
+        priority: Priority.High,importance: Importance.Max
+    );
+    var iOS = new IOSNotificationDetails();
+    var platform = new NotificationDetails(android, iOS);
+    await flutterLocalNotificationsPlugin.show(
+        0, message['data']['title'], message['data']['body'], platform,
+        payload: 'Please check the ongoing event list for a new card!');
+    print("after test");
+  }
+
+
+
   @override
   void initState(){
     super.initState();
@@ -227,7 +245,10 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
     });
     _fcm.configure(
       onMessage: (Map<String, dynamic> message) async {
-        print("onMessage: $message");
+        print("onMessageb: $message");
+        print("login");
+
+        showNotification(message);
         /*
          final snackbar = SnackBar(
            content: Text(message['notification']['title']),
@@ -263,6 +284,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
+        showNotification(message);
         // TODO optional
         setState(() {
           showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));
@@ -270,6 +292,8 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       },
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
+        //showNotification(message);
+        print("minimized opened now");
         // TODO optional
         setState(() {
           showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));

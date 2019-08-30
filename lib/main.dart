@@ -29,8 +29,24 @@ initFCM() async {
   });
   _fcm.configure(
     onMessage: (Map<String, dynamic> message) async {
-      print("onMessage: $message");
-      showNotification(message);
+      print("onMessagea: $message");
+      print("testingNotif:" + message['notification']['title']);
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: ListTile(
+            title: Text(message['notification']['title']),
+            subtitle: Text(message['notification']['body']),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("OK"),
+              onPressed: () => Navigator.of(context).pop(),
+            )
+          ],
+        ),
+      );
+      //showNotification(message);
     },
     onLaunch: (Map<String, dynamic> message) async {
       print("onLaunch: $message");
