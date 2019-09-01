@@ -249,6 +249,8 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
         print("login");
 
         showNotification(message);
+        //show notification only
+
         /*
          final snackbar = SnackBar(
            content: Text(message['notification']['title']),
@@ -285,6 +287,8 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
         showNotification(message);
+        //open route to user chat using user email_id
+
         // TODO optional
         setState(() {
           showDialog(context: context,builder: (context) => _onTapSignUp(context, message.toString()));
@@ -293,6 +297,8 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
       onResume: (Map<String, dynamic> message) async {
         print("onResume: $message");
         //showNotification(message);
+        //open route to user chat using user email_id
+
         print("minimized opened now");
         // TODO optional
         setState(() {

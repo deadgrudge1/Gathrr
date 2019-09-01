@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/add_experience.dart';
 import 'package:flutter_app/ui/add_interests.dart';
+import 'package:flutter_app/ui/add_social_media.dart';
 
 class EditScren extends StatelessWidget {
   @override
@@ -289,7 +290,9 @@ class _CreateEditBodyState extends State<CreateEditBody> {
                               color: Colors.grey.shade100,
                               child: Icon(Icons.add),
                               onPressed: (){
-                                //PENDING....
+                                Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => SocialMedia()),
+                                );
                               },
                             ),
                           ),

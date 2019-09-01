@@ -1,93 +1,133 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/main_indi_chat.dart';
+import 'package:flutter_app/util/data.dart';
+import 'package:flutter_app/widgets/chat_item.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin,
+    AutomaticKeepAliveClientMixin{
+  TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue.shade900, Colors.blue.shade500],
-            ),
-
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+            color: Colors.black,
+          ),
+          onPressed: (){},
+        ),
+        title: TextField(
+          decoration: InputDecoration.collapsed(
+            hintText: 'Search',
           ),
         ),
-        centerTitle: true,
-        title: Text(
-          "Your Chats",
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.filter_list,
+            ),
+            onPressed: (){},
           ),
+        ],
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Theme.of(context).accentColor,
+          labelColor: Theme.of(context).accentColor,
+          unselectedLabelColor: Theme.of(context).textTheme.caption.color,
+          isScrollable: false,
+          tabs: <Widget>[
+            Tab(
+              text: "Message",
+            ),
+            Tab(
+              text: "Groups",
+            ),
+          ],
         ),
       ),
-      body: Chat(),
-    );
-  }
-}
 
-class Chat extends StatefulWidget {
-  @override
-  _ChatState createState() => _ChatState();
-}
-
-class _ChatState extends State<Chat> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ListView(
-        scrollDirection: Axis.vertical,
+      body: TabBarView(
+        controller: _tabController,
         children: <Widget>[
-          GestureDetector(
-            onTap: (){
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MainIndiChat()),
+          ListView.separated(
+            padding: EdgeInsets.all(10),
+            separatorBuilder: (BuildContext context, int index) {
+              return Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  height: 0.5,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: Divider(),
+                ),
               );
             },
-            child: new Card(
-              color: Colors.grey.shade200,
-              child: ListTile(
-                leading: const Icon(Icons.person),
-                title: Text('Shreyas Hosmani', style: new TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                ),),
-                subtitle: Text('Front-End Developer'),
-              ),
-            ),
+            itemCount: chats.length,
+            itemBuilder: (BuildContext context, int index) {
+              Map chat = chats[index];
+              return ChatItem(
+                dp: chat['dp'],
+                name: chat['name'],
+                isOnline: chat['isOnline'],
+                counter: chat['counter'],
+                msg: chat['msg'],
+                time: chat['time'],
+              );
+            },
           ),
-          new Card(
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: Text('Amit Chaudhari', style: new TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),),
-              subtitle: Text('Back-End Developer'),
-            ),
-          ),
-          new Card(
-            color: Colors.grey.shade200,
-            child: ListTile(
-              leading: const Icon(Icons.person),
-              title: Text('Jeet Vithalani', style: new TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-              ),),
-              subtitle: Text('UI/UX, Analytics'),
-            ),
+          ListView.separated(
+            padding: EdgeInsets.all(10),
+            separatorBuilder: (BuildContext context, int index) {
+              return Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  height: 0.5,
+                  width: MediaQuery.of(context).size.width / 1.3,
+                  child: Divider(),
+                ),
+              );
+            },
+            itemCount: groups.length,
+            itemBuilder: (BuildContext context, int index) {
+              Map chat = groups[index];
+              return ChatItem(
+                dp: chat['dp'],
+                name: chat['name'],
+                isOnline: chat['isOnline'],
+                counter: chat['counter'],
+                msg: chat['msg'],
+                time: chat['time'],
+              );
+            },
           ),
         ],
       ),
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+        ),
+        onPressed: (){},
+      ),
     );
   }
-}
 
+  @override
+  bool get wantKeepAlive => true;
+}

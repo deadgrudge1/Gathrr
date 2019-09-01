@@ -1,106 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/util/data.dart';
 
 class EventNotices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue.shade900, Colors.blue.shade500],
-            ),
-          ),
+        title: Text(
+          "Notifications",
         ),
         centerTitle: true,
-        title: Text(
-          'Notifications',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.filter_list,
+            ),
+            onPressed: (){},
           ),
-        ),
+        ],
       ),
-      body: Notices(),
-    );
-  }
-}
 
-class Notices extends StatefulWidget {
-  @override
-  _NoticesState createState() => _NoticesState();
-}
+      body: ListView.separated(
+        padding: EdgeInsets.all(10),
+        separatorBuilder: (BuildContext context, int index) {
+          return Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              height: 0.5,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Divider(),
+            ),
+          );
+        },
+        itemCount: notifications.length,
+        itemBuilder: (BuildContext context, int index) {
+          Map notif = notifications[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              /*
+              Icon(
+                Icons.account_circle,
+                size: 50.0,
+                color: Colors.black,
+              ),
 
-class _NoticesState extends State<Notices> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: new CircleAvatar(
-                radius: 5.0,
-                foregroundColor: Theme.of(context).primaryColor,
-                backgroundColor: Colors.black,
+               */
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(
+                  notif['dp'],
+                ),
+                radius: 25,
               ),
-              title: new Text(
-                "Oganiser: Sorry to inform, event has postponed 10 mins!",
-                style: new TextStyle(
-                    fontSize: 16,
-                    //color: Colors.grey.shade600
+
+              contentPadding: EdgeInsets.all(0),
+              title: Text(notif['notif']),
+              trailing: Text(
+                notif['time'],
+                style: TextStyle(
+                  fontWeight: FontWeight.w300,
+                  fontSize: 11,
                 ),
               ),
+              onTap: (){},
             ),
-            new Container(
-              height: 1.5,
-              color: Colors.grey.shade100,
-            ),
-            ListTile(
-              leading: new CircleAvatar(
-                radius: 5.0,
-                foregroundColor: Theme.of(context).primaryColor,
-                backgroundColor: Colors.black,
-              ),
-              title: new Text(
-                "Event sponser coming in 15 mins",
-                style: new TextStyle(
-                    fontSize: 16,
-                    //color: Colors.grey.shade600
-                ),
-              ),
-            ),
-            new Container(
-              height: 1.5,
-              color: Colors.grey.shade100,
-            ),
-            ListTile(
-              leading: new CircleAvatar(
-                radius: 5.0,
-                foregroundColor: Theme.of(context).primaryColor,
-                backgroundColor: Colors.black,
-              ),
-              title: new Text(
-                "Please checkout upcoming events from us!",
-                style: new TextStyle(
-                    fontSize: 16,
-                    //color: Colors.grey.shade600
-                ),
-              ),
-            ),
-            new Container(
-              height: 1.5,
-              color: Colors.grey.shade100,
-            ),
-          ],
-        ),
+          );
+        },
+
       ),
     );
   }
 }
-
