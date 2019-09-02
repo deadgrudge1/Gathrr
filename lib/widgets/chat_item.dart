@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/ui/conversation.dart';
+import 'package:flutter_app/Contacts/conversation.dart';
 class ChatItem extends StatefulWidget {
 
   final String dp;

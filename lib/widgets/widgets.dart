@@ -1,0 +1,9 @@
+export 'package:flutter_app/widgets/dots_indicator.dart';
+export 'package:flutter_app/widgets/gradient_text.dart';
+export 'package:flutter_app/widgets/boxfield.dart';
+export 'package:flutter_app/widgets/bottom_curve_painter.dart';
+export 'package:flutter_app/util/visibility.dart';
+export 'package:flutter_app/widgets/upper_curve_clipper.dart';
+export 'package:flutter_app/widgets/progress_widget.dart';
+export 'package:flutter_app/widgets/tabs_chips.dart';
+export 'package:flutter_app/widgets/switch_row.dart';
