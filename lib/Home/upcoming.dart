@@ -92,6 +92,7 @@ class _NextState extends State<Next> with AutomaticKeepAliveClientMixin<Next> {
 
   @override
   Widget build(BuildContext context) {
+    getData();
     return RefreshIndicator(
       key: refreshKey,
       child: Padding(

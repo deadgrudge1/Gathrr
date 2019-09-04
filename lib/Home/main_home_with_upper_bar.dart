@@ -8,6 +8,10 @@ import 'package:flutter_app/util/utils.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/widgets/upper_curve_clipper.dart';
 import 'package:flutter_app/widgets/boxfield.dart';
+import 'package:flutter_app/util/globals.dart' as globals;
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchPage extends StatefulWidget {
   @override
@@ -20,6 +24,7 @@ class _SearchPageState extends State<SearchPage> {
 
   List<Event> premiumList =  List();
   List<Event> featuredList =  List();
+
   var citiesList = ["Pune", "Mumbai", "Delhi ", "Bangalore","Goa","Kolkata","Indore","Jaipur"];
 
   @override
@@ -27,7 +32,12 @@ class _SearchPageState extends State<SearchPage> {
     // TODO: implement initState
     super.initState();
 
-    premiumList
+    premiumList.add(Event(eventName: "NO UPCOMING EVENTS"));
+    featuredList.add(Event(eventName: "NO PAST EVENTS"));
+
+    getData();
+
+    /*premiumList
       ..add(Event(eventName:"Artificial Intelligence", eventLocation:"Pune ", image: "", eventArea:"Kothrud"))
       ..add(Event(eventName:"Social NETwork", eventLocation:"Pune ", image:"", eventArea:"Koregaon Park"))
       ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"", eventArea:"Kalyani Nagar"))
@@ -37,7 +47,73 @@ class _SearchPageState extends State<SearchPage> {
       ..add(Event(eventName:"The ComedyPrime", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
       ..add(Event(eventName:"Smart City", eventLocation:"Pune ", image:"", eventArea:"Camp"))
       ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"", eventArea:"Koregaon Park"))
-      ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"", eventArea:"JW Mariott, SB.Road"));
+      ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"", eventArea:"JW Mariott, SB.Road"));*/
+  }
+
+  void getData() async {
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if(token!=null)
+    {
+      String url = globals.url + "events.php";
+      http.post(url, body: {
+        "token" : token,
+      })
+          .then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        print(response.body);
+        var responseArray = json.decode(response.body);
+
+        //print("UPCOMING"+responseArray['upcoming']);
+        //print("PAST"+responseArray['past']);
+
+        //var status = responseArray['status'];
+        //if(status == true) {
+        setState(() {
+          for(var i=0; i<responseArray.length; i++)
+            {
+
+              if(responseArray['past']!=null) {
+                featuredList =  List();
+                featuredList.add(Event(id: responseArray['past'][i]['event_id'],
+                    eventName: responseArray['past'][i]['title'],
+                    eventLocation: responseArray['past'][i]['location']));
+              }
+
+                if(responseArray['upcoming']!=null) {
+                  premiumList =  List();
+                    premiumList.add(Event(id: responseArray['upcoming'][i]['event_id'],
+                        eventName: responseArray['upcoming'][i]['title'],
+                        eventLocation: responseArray['upcoming'][i]['location']));
+                  }
+
+
+            }
+
+        });
+
+        //print(eventStartDate);
+        //print(eventStartTime);
+        //print(responseArray['list'][1]['username']);
+        //print(responseArray['list'].length);
+
+        /*
+        for(var i=0; i<listName.length; i++)
+        {
+          if(listName[i] == null)
+            listName[i] = "Username : " + listUsername[i];
+        }
+        print(listName);
+
+         */
+        //return true;
+      });
+    }
   }
 
   @override
@@ -168,7 +244,7 @@ class _SearchPageState extends State<SearchPage> {
             HorizontalList(
               children: <Widget>[
                 for (int i = 0; i < premiumList.length; i++)
-                  propertyCard(premiumList.reversed.toList()[i])
+                  propertyCard(featuredList[i])
 
               ],
             )

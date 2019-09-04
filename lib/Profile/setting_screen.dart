@@ -69,9 +69,18 @@ class _settingOptionsState extends State<settingOptions> {
           /*Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => Login()),
           );*/
+          do
+            {
+              Navigator.pop(context);
+            }while(Navigator.canPop(context));
+
+          Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => Login()),
+          );
+
           var title = "Login";
           runApp(new MaterialApp(
-            debugShowCheckedModeBanner: false,
+            //debugShowCheckedModeBanner: false,
             title: title,
             home: new Login(
 
