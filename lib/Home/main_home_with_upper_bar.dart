@@ -301,7 +301,7 @@ class _SearchPageState extends State<SearchPage> {
 
                */
               //_searchWidget(),
-              /*
+
               Padding(
                 padding: EdgeInsets.only(top: 25.0),
                 child: leftAlignText(
@@ -317,7 +317,7 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
 
-               */
+
             ],
           ),
         ));

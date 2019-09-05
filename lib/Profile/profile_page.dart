@@ -1,14 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Profile/add_experience.dart';
+import 'package:flutter_app/Profile/add_interests.dart';
+import 'package:flutter_app/Profile/add_social_media.dart';
+import 'package:flutter_app/Profile/edit_experience_list.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/util/utils.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_app/widgets/upper_curve_clipper.dart';
+import 'package:flutter_app/widgets/boxfield.dart';
+import 'package:flutter_app/widgets/tabs_chips.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/util/models.dart';
+import 'package:flutter_app/widgets/tabs_chips.dart';
+import 'package:flutter_app/Chat/chat_screen.dart';
+import 'package:flutter_app/Notifications/notification_screen.dart';
+import 'package:flutter_app/util/utils.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_app/widgets/upper_curve_clipper.dart';
+import 'package:flutter_app/widgets/boxfield.dart';
 
 var globalContext;
 String name = "";
 String username = "";
 String description =
     "I am a flutter developer currently working at gathrr.in, as technical co-founder to build an end to end event management platform, which you're using currently!";
+
+//var company = ["AI", "Flutter", "Java "];
+//var title = ["EVentTech", "Automation"];
+//var startDate = ["AI", "Flutter", "Java "];
+//var endDate = ["EVentTech", "Automation"];
+//var expDescription = ["AI", "Flutter", "Java "];
+
+//var interests = ["Flutter", "Artificial Intelligence", "EventTech"];
+
+//zvar socialMediaLinks = ["EVentTech", "Automation"];
+
+
 bool isFetched = false;
 
 class ProfilePage extends StatefulWidget {
@@ -21,6 +52,16 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  List<String> company = new List<String>();
+  List<String> title = new List<String>();
+  List<String> startDate = new List<String>();
+  List<String> endDate = new List<String>();
+//String location = "";
+  List<String> expDescription = new List<String>();
+  List<String> interests = new List<String>();
+  List<String> socialMediaLinks = new List<String>();
+
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
   @override
@@ -79,6 +120,15 @@ class _ProfilePageState extends State<ProfilePage> {
           else
             name = "Username : " + username;
           isFetched = true;
+
+          company = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['company']);
+          title = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['title']);
+          startDate = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['startDate']);
+          endDate = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['endDate']);
+          expDescription = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['expDescription']);
+          interests = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['interests']);
+          socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
+
         });
 
         //return true;
@@ -86,10 +136,16 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  var interestListOne = ["AI", "Flutter", "Java "];
+  var interestListTwo = ["EVentTech", "Automation"];
+  Screen size;
+  int _selectedIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     //if(!isFetched || name==null)
     //getData(context);
+    size = Screen(MediaQuery.of(context).size);
     return RefreshIndicator(
         key: refreshKey,
         child: ListView(
@@ -157,312 +213,383 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: 20.0, left: 20.0, right: 20.0),
+                  padding: const EdgeInsets.only(),
                   child: Column(
                     //scrollDirection: Axis.vertical,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Text(description),
+                        padding: const EdgeInsets.only(top: 0.0),
+                        child: Container(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(description),
+                            )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 0.0),
                         child: new Container(
-                          height: 1.5,
+                          height: 0.5,
                           color: Colors.grey.shade200,
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Center(
-                          child: Text(
-                            'Experience',
-                            style: new TextStyle(
-                              fontSize: 18.0,
+                        padding: const EdgeInsets.only(top: 10.0,),
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                      child: Center(
+                                        child: Text(
+                                          'Experience',
+                                          style: new TextStyle(
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    IconButton(
+                                      onPressed: (){
+                                        Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => EditExperience()),
+                                        );
+                                      },
+                                      icon: Icon(Icons.edit,
+                                        color: Colors.grey.shade700,
+                                        size: 20.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ListView.builder(
+                                    itemCount: company == null? 0 : company.length,
+                                  itemBuilder: (context, i) => GestureDetector(
+                                    child: ListTile(
+                                      leading: const Icon(Icons.supervised_user_circle),
+                                      title: Text(
+                                        company[i],
+                                        style: new TextStyle(
+                                          fontSize: 15.0,
+                                        ),
+                                      ),
+                                      subtitle: Row(
+                                        children: <Widget>[
+                                          Text(
+                                            startDate[i],
+                                            style: new TextStyle(
+                                              fontSize: 13.0,
+                                            ),
+                                          ),
+                                          Text(
+                                            endDate[i],
+                                            style: new TextStyle(
+                                              fontSize: 13.0,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    onTap: (){
+
+                                    },
+                                  ),
+                                ),
+                                /*
+                                ListTile(
+                                  leading: const Icon(Icons.supervised_user_circle),
+                                  title: Text(
+                                    'Tecnical Co-Founder @gathrr.in',
+                                    style: new TextStyle(
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  subtitle: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Present - 2 months',
+                                        style: new TextStyle(
+                                          fontSize: 13.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.supervised_user_circle),
+                                  title: Text(
+                                    'Flutter Developer @Spaising Technologies',
+                                    style: new TextStyle(
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  subtitle: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        'Jan 2019 - May 2019',
+                                        style: new TextStyle(
+                                          fontSize: 13.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.supervised_user_circle),
+                                  title: Text(
+                                    'Student at SKNCOE',
+                                    style: new TextStyle(
+                                      fontSize: 15.0,
+                                    ),
+                                  ),
+                                  subtitle: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        '2015 - 2019',
+                                        style: new TextStyle(
+                                          fontSize: 13.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                                 */
+                              ],
                             ),
                           ),
-                        ),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.supervised_user_circle),
-                        title: Text(
-                          'Tecnical Co-Founder @gathrr.in',
-                          style: new TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        subtitle: Row(
-                          children: <Widget>[
-                            Text(
-                              'Present - 2 months',
-                              style: new TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                size: 15.0,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.supervised_user_circle),
-                        title: Text(
-                          'Flutter Developer @Spaising Technologies',
-                          style: new TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        subtitle: Row(
-                          children: <Widget>[
-                            Text(
-                              'Jan 2019 - May 2019',
-                              style: new TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                size: 15.0,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.supervised_user_circle),
-                        title: Text(
-                          'Student at SKNCOE',
-                          style: new TextStyle(
-                            fontSize: 15.0,
-                          ),
-                        ),
-                        subtitle: Row(
-                          children: <Widget>[
-                            Text(
-                              '2015 - 2019',
-                              style: new TextStyle(
-                                fontSize: 13.0,
-                              ),
-                            ),
-                            Spacer(),
-                            IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                size: 15.0,
-                                color: Colors.grey,
-                              ),
-                              onPressed: () {},
-                            ),
-                          ],
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 0.0),
                         child: new Container(
-                          height: 1.5,
+                          height: 0.5,
                           color: Colors.grey.shade200,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Center(
-                          child: Text(
-                            'Interests',
-                            style: new TextStyle(
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 30.0,
-                        //width: 200.0,
-                        margin: const EdgeInsets.only(top: 10.0),
-                        padding: const EdgeInsets.only(left: 35.0, right: 35.0),
-                        child: new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                splashColor: Colors.grey.shade200,
-                                color: Colors.grey.shade200,
-                                child: new Row(
-                                  children: <Widget>[
-                                    new Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                        "Artificial Intelligence",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    new Expanded(
-                                      child: Container(),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        size: 15.0,
-                                        color: Colors.grey,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                                onPressed: () => {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 30.0,
-                        //width: 200.0,
-                        margin: const EdgeInsets.only(top: 10.0),
-                        padding: const EdgeInsets.only(left: 35.0, right: 35.0),
-                        child: new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                splashColor: Colors.grey.shade200,
-                                color: Colors.grey.shade200,
-                                child: new Row(
-                                  children: <Widget>[
-                                    new Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                        "Machine Learning",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    new Expanded(
-                                      child: Container(),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        size: 15.0,
-                                        color: Colors.grey,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                                onPressed: () => {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 30.0,
-                        //width: 200.0,
-                        margin: const EdgeInsets.only(top: 10.0),
-                        padding: const EdgeInsets.only(left: 35.0, right: 35.0),
-                        child: new Row(
-                          children: <Widget>[
-                            new Expanded(
-                              child: FlatButton(
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(30.0)),
-                                splashColor: Colors.grey.shade200,
-                                color: Colors.grey.shade200,
-                                child: new Row(
-                                  children: <Widget>[
-                                    new Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 10.0),
-                                      child: Text(
-                                        "Sales Force",
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    new Expanded(
-                                      child: Container(),
-                                    ),
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.delete,
-                                        size: 15.0,
-                                        color: Colors.grey,
-                                      ),
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                                onPressed: () => {},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
-                        child: new Container(
-                          height: 1.5,
-                          color: Colors.grey.shade200,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                        child: Center(
-                          child: Text(
-                            'Social Media',
-                            style: new TextStyle(
-                              fontSize: 18.0,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Text("Github :"),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "www.github.com/ShreyasHosmani",
-                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Text("Facebook :"),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "www.facebook.com/Shreyas1996Hosmani",
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                      child: Center(
+                                        child: Text(
+                                          'Interests',
+                                          style: new TextStyle(
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    IconButton(
+                                      onPressed: (){
+                                        Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => AddInterests()),
+                                        );
+                                      },
+                                      icon: Icon(Icons.edit,
+                                        size: 20.0,
+                                        color: Colors.grey.shade700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Chip(
+                                        label: Text(interests[0]),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Chip(
+                                        label: Text(interests[1]),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Chip(
+                                        label: Text(interests[2]),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
+                      Row(),
+                      /*
+                      Row(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "#",
+                                style: TextStyle(
+                                    color: Colors.blue, fontSize: 15.0),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 8.0, 8.0, 8.0),
+                                child: Text(
+                                  "Artificial Intelligence",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 15.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "#",
+                                style: TextStyle(
+                                    color: Colors.blue, fontSize: 15.0),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 8.0, 8.0, 8.0),
+                                child: Text(
+                                  "Flutter",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 15.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                "#",
+                                style: TextStyle(
+                                    color: Colors.blue, fontSize: 15.0),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(
+                                    0.0, 8.0, 8.0, 8.0),
+                                child: Text(
+                                  "Dart",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 15.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                       */
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Text("Linked-In :"),
+                        child: new Container(
+                          height: 0.5,
+                          color: Colors.grey.shade200,
+                        ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "www.linkedin.com/ShreyasHosmani",
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Container(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                      child: Center(
+                                        child: Text(
+                                          'Social Media',
+                                          style: new TextStyle(
+                                            fontSize: 18.0,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    IconButton(
+                                      onPressed: (){
+                                        Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) => AddSocialMedia()),
+                                        );
+                                      },
+                                      icon: Icon(Icons.edit,
+                                        size: 20.0,
+                                        color: Colors.grey.shade700,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 45.0,
+                                        height: 45.0,
+                                        child: CircleAvatar(
+                                          backgroundImage:
+                                          AssetImage("images/facebook.png"),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 45.0,
+                                        height: 45.0,
+                                        child: CircleAvatar(
+                                          backgroundImage:
+                                          AssetImage("images/linkedin.png"),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 45.0,
+                                        height: 45.0,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage: AssetImage("images/insta.png"),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 45.0,
+                                        height: 45.0,
+                                        child: CircleAvatar(
+                                          backgroundColor: Colors.transparent,
+                                          backgroundImage:
+                                          AssetImage("images/twitter.png"),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -562,4 +689,45 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         onRefresh: refreshList);
   }
+
+  Padding buildChoiceChip(index, chipName) {
+    return Padding(
+      padding: EdgeInsets.only(left: size.getWidthPx(5)),
+      child: ChoiceChip(
+        backgroundColor: Colors.grey.shade100,
+        selectedColor: Colors.grey.shade100,
+        labelStyle: TextStyle(
+            fontFamily: 'Exo2',
+            color: (_selectedIndex == index) ? Colors.black : Colors.black),
+        elevation: 1.0,
+        padding: EdgeInsets.symmetric(
+            vertical: size.getWidthPx(4), horizontal: size.getWidthPx(12)),
+        selected: (_selectedIndex == index) ? true : false,
+        label: Text(chipName),
+        onSelected: (selected) {
+          if (selected) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          }
+        },
+      ),
+    );
+  }
+}
+
+Padding leftAlignText({text, leftPadding, textColor, fontSize, fontWeight}) {
+  return Padding(
+    padding: EdgeInsets.only(left: leftPadding),
+    child: Align(
+      alignment: Alignment.centerLeft,
+      child: Text(text ?? "",
+          textAlign: TextAlign.left,
+          style: TextStyle(
+              fontFamily: 'Exo2',
+              fontSize: fontSize,
+              fontWeight: fontWeight ?? FontWeight.w500,
+              color: textColor)),
+    ),
+  );
 }

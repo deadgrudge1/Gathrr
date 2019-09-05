@@ -32,6 +32,7 @@ dependencies:
   fluttertoast:
   flutter_staggered_grid_view:
   connectivity:
+  flutter_chips_input:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -84,6 +85,10 @@ flutter:
     - assets/onboard_1.png
     - assets/onboard_2.png
     - assets/onboard_3.png
+    - images/facebook.png
+    - images/linkedin.png
+    - images/insta.png
+    - images/twitter.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

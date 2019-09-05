@@ -130,7 +130,7 @@ class MainProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     //showDialog(context: context,builder: (context) => _onFirstTapOnProfile(context));
     return Scaffold(
-      backgroundColor: Colors.white,
+      //backgroundColor: Colors.white,
       appBar: AppBar(
         /*flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -146,7 +146,7 @@ class MainProfile extends StatelessWidget {
         ),*/
         leading: IconButton(
           icon: Icon(Icons.settings,
-            color: Colors.grey.shade300,),
+            color: Colors.white,),
           onPressed: (){
             Navigator.push(context,
               MaterialPageRoute(builder: (context) => Settings()),
@@ -156,7 +156,7 @@ class MainProfile extends StatelessWidget {
         actions: <Widget>[
           new IconButton(
             icon: Icon(Icons.edit,
-              color: Colors.grey.shade300,),
+              color: Colors.white,),
             onPressed: (){
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => EditScren()),
