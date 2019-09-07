@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Profile/add_experience.dart';
 import 'package:flutter_app/Profile/add_interests.dart';
 import 'package:flutter_app/Profile/add_social_media.dart';
+import 'package:flutter_app/Profile/contact_page.dart';
+import 'package:flutter_app/Profile/main_profile.dart' as prefix0;
 
 class EditScren extends StatelessWidget {
+  //String name, bio, designation;
+  //EditScren(this.name, this.bio, this.designation) : super();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +92,7 @@ class _CreateEditBodyState extends State<CreateEditBody> {
           ListTile(
             title: TextField(
               decoration: InputDecoration(
-                hintText: "Name",
+                hintText: prefix0.name,
               ),
             ),
           ),

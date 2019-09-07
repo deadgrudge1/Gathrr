@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:flutter_app/Profile/contact_profile.dart';
-import 'package:flutter_app/Profile/profile_page.dart';
+//import 'package:flutter_app/Profile/profile_page.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';

@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/util/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddExperience extends StatelessWidget {
+
+  String id = "";
+  String company = "";
+  String title = "";
+  String startDate = "";
+  String endDate = "";
+//String location = "";
+  String expDescription = "";
+
+  AddExperience(this.id, this.company, this.title, this.startDate, this.endDate) : super();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,17 +40,69 @@ class AddExperience extends StatelessWidget {
           ),
         ),
       ),
-      body: ExpBody(),
+      body: ExpBody(this.id, this.company, this.title, this.startDate, this.endDate),
     );
   }
 }
 
 class ExpBody extends StatefulWidget {
   @override
+
+  String company = "";
+  String title = "";
+  String startDate = "";
+  String endDate = "";
+//String location = "";
+  String expDescription = "";
+  String id = "";
+
+  ExpBody(this.id, this.company, this.title, this.startDate, this.endDate) : super();
+
   _ExpBodyState createState() => _ExpBodyState();
 }
 
 class _ExpBodyState extends State<ExpBody> {
+
+  TextEditingController _textFieldControllercompany = TextEditingController();
+  TextEditingController _textFieldControllertitle = TextEditingController();
+  TextEditingController _textFieldControllerstartDate = TextEditingController();
+  TextEditingController _textFieldControllerendDate = TextEditingController();
+
+  void updateData(context) async {
+
+    //username = widget.userName;
+    //print("username : " + username);
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if (token != null) {
+
+      String url = globals.url + "profile.php";
+
+      print("id : " + widget.id);
+
+      http.post(url, body: {
+        "token": token,
+        "update-experience": "1",
+        "id":widget.id,
+        "company":_textFieldControllercompany.text,
+        "title":_textFieldControllertitle.text,
+        //"start_date":_textFieldControllerstartDate.text,
+        //"end_date":_textFieldControllerendDate.text
+      }).then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        print(response.body);
+      });
+
+      //return true;
+
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -48,16 +115,18 @@ class _ExpBodyState extends State<ExpBody> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: TextField(
+                    controller: _textFieldControllercompany,
                     decoration: InputDecoration(
-                      hintText: "Company",
+                      hintText: widget.company,
                     ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0),
                   child: TextField(
+                    controller: _textFieldControllertitle,
                     decoration: InputDecoration(
-                      hintText: "Title",
+                      hintText: widget.title,
                     ),
                   ),
                 ),
@@ -74,7 +143,8 @@ class _ExpBodyState extends State<ExpBody> {
                   child: Row(
                     children: <Widget>[
                       Checkbox(
-                        value: false,
+
+                        value: widget.endDate == null ? true : false,
                       ),
                       Text("I currently work in this role"),
                     ],
@@ -87,8 +157,9 @@ class _ExpBodyState extends State<ExpBody> {
                       Container(
                         width: 150.0,
                         child: TextField(
+                          controller: _textFieldControllerstartDate,
                           decoration: InputDecoration(
-                            hintText: "Start Date",
+                            hintText: widget.startDate,
                           ),
                         ),
                       ),
@@ -97,8 +168,9 @@ class _ExpBodyState extends State<ExpBody> {
                         child: Container(
                           width: 150.0,
                           child: TextField(
+                            controller: _textFieldControllerendDate,
                             decoration: InputDecoration(
-                              hintText: "End Date",
+                              hintText: widget.endDate,
                             ),
                           ),
                         ),
@@ -110,13 +182,13 @@ class _ExpBodyState extends State<ExpBody> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Description",
+                      hintText: widget.expDescription,
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: (){
-
+                      updateData(context);
                   },
                   child: Center(
                     child: Padding(

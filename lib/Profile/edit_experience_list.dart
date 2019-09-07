@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Profile/add_experience.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/util/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditExperience extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,10 +39,74 @@ class EditExperience extends StatelessWidget {
 
 class EditExpBody extends StatefulWidget {
   @override
+
   _EditExpBodyState createState() => _EditExpBodyState();
 }
 
 class _EditExpBodyState extends State<EditExpBody> {
+
+  List<String> ids = new List<String>();
+  List<String> company = ["Company 1", "Company 2", "Company 3"];
+  List<String> title = ["Title 1", "Title 2", "Title 3"];
+  List<String> startDate = [""];
+  List<String> endDate = [""];
+//String location = "";
+  List<String> expDescription = ["Some Description"];
+
+  void getData(context) async {
+
+    //username = widget.userName;
+    //print("username : " + username);
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if (token != null) {
+      String action = "get-profile";
+      String value = "1";
+
+      String url = globals.url + "profile.php";
+      http.post(url, body: {
+        "token": token,
+        action: value,
+      }).then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        print(response.body);
+        var responseArray = json.decode(response.body);
+
+        var status = responseArray['status'];
+
+        //print(responseArray);
+
+        setState(() {
+
+          company = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
+          print("test : " + company.toString());
+          title = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['title']);
+          startDate = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['start_date']);
+          endDate = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['end_date']);
+          //expDescription = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
+          //interests = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['user_interest']);
+          //socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
+          ids = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['experiences'][i]['id']);
+
+        });
+
+        //return true;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -49,7 +119,7 @@ class _EditExpBodyState extends State<EditExpBody> {
             child: ListTile(
               leading: const Icon(Icons.supervised_user_circle),
               title: Text(
-                'Tecnical Co-Founder @gathrr.in',
+                company[0].toString(),
                 style: new TextStyle(
                   fontSize: 15.0,
                 ),
@@ -66,7 +136,7 @@ class _EditExpBodyState extends State<EditExpBody> {
                   IconButton(
                     onPressed: (){
                       Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddExperience()),
+                        MaterialPageRoute(builder: (context) => AddExperience(ids[0].toString(), company[0].toString(), title[0].toString(), startDate[0].toString(), endDate[0])),
                       );
                     },
                     icon: Icon(Icons.edit,
