@@ -208,6 +208,7 @@ var globalContext;
 String name = "";
 String username = "";
 String description = "";
+String designation = "";
 
 List<String> company = new List<String>();
 List<String> title = new List<String>();
@@ -215,73 +216,9 @@ List<String> startDate = new List<String>();
 List<String> endDate = new List<String>();
 //String location = "";
 List<String> expDescription = new List<String>();
-var interests = ['flutter', 'artificial intelligence', 'dart'];
+var interests;
 List<String> socialMediaLinks = new List<String>();
 List<String> details;
-
-
-void getData(context) async {
-  //username = widget.userName;
-  //print("username : " + username);
-  final prefs = await SharedPreferences.getInstance();
-  var token = prefs.get("token");
-  if (token != null) {
-    String action = "get-profile";
-    String value = "1";
-
-    String url = globals.url + "profile.php";
-    http.post(url, body: {
-      "token": token,
-      action: value,
-    }).then((http.Response response) {
-      final int statusCode = response.statusCode;
-
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error fetching data");
-      }
-
-      print(response.body);
-      var responseArray = json.decode(response.body);
-
-      var status = responseArray['status'];
-
-      //print(responseArray);
-
-        if (status == true) {
-          var payload = responseArray['payload'];
-
-          details = payload['details']; //user_id, name, bio, designation
-
-          var experiences = payload['experiences'];
-          //var experience = experiences[0];  //id, user_id, company, title, location, start_date, end_date(currently working if null)
-
-          var interests = payload['interests'];
-          //var interest = interests[0];  //id, user_id, interest
-
-          print(responseArray['payload']['interests']);
-          name = responseArray['payload']['details']['name'];
-          description = responseArray['payload']['details']['bio'];
-        }
-        else {
-          name = "Username : " + username;
-        }
-        isFetched = true;
-
-        company = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
-        print("test : " + company.toString());
-        title = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['title']);
-        startDate = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['start_date']);
-        endDate = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['end_date']);
-        //expDescription = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
-        interests = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['user_interest']);
-        //socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
-
-
-
-      //return true;
-    });
-  }
-}
 
 
 //var company = ["AI", "Flutter", "Java "];
@@ -316,7 +253,7 @@ class _ProfilePageState extends State<ProfilePage> {
   List<String> endDate = new List<String>();
 //String location = "";
   List<String> expDescription = new List<String>();
-  var interests = ['flutter', 'artificial intelligence', 'dart'];
+  var interests;
   List<String> socialMediaLinks = new List<String>();
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -325,11 +262,15 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     print(details);
+
     setState(() {
       name = "";
       description = "";
+      designation = "";
     });
     getData(context);
+
+    //getData(context);
   }
 
   Future<Null> refreshList() async {
@@ -390,6 +331,7 @@ class _ProfilePageState extends State<ProfilePage> {
             print(responseArray['payload']['interests']);
             name = responseArray['payload']['details']['name'];
             description = responseArray['payload']['details']['bio'];
+            designation = responseArray['payload']['details']['designation'];
           }
           else {
             name = "Username : " + username;
@@ -462,20 +404,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 25),
-                        child: Text(
-                          "ID: 14552566",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25, bottom: 25),
+                        padding: const EdgeInsets.only(top: 25, bottom: 5.0),
                         child: Text(
                           name,
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: Text(designation,
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Padding(

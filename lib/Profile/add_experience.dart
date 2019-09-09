@@ -63,10 +63,10 @@ class ExpBody extends StatefulWidget {
 
 class _ExpBodyState extends State<ExpBody> {
 
-  TextEditingController _textFieldControllercompany = TextEditingController();
-  TextEditingController _textFieldControllertitle = TextEditingController();
-  TextEditingController _textFieldControllerstartDate = TextEditingController();
-  TextEditingController _textFieldControllerendDate = TextEditingController();
+  TextEditingController textFieldControllercompany = TextEditingController();
+  TextEditingController textFieldControllertitle = TextEditingController();
+  TextEditingController textFieldControllerstartDate = TextEditingController();
+  TextEditingController textFieldControllerendDate = TextEditingController();
 
   void updateData(context) async {
 
@@ -84,10 +84,10 @@ class _ExpBodyState extends State<ExpBody> {
         "token": token,
         "update-experience": "1",
         "id":widget.id,
-        "company":_textFieldControllercompany.text,
-        "title":_textFieldControllertitle.text,
-        //"start_date":_textFieldControllerstartDate.text,
-        //"end_date":_textFieldControllerendDate.text
+        "company":textFieldControllercompany.text,
+        "title":textFieldControllertitle.text,
+        //"start_date":textFieldControllerstartDate.text,
+        //"end_date":textFieldControllerendDate.text
       }).then((http.Response response) {
         final int statusCode = response.statusCode;
 
@@ -104,6 +104,15 @@ class _ExpBodyState extends State<ExpBody> {
   }
 
   @override
+  void initState() {
+    textFieldControllercompany = TextEditingController(text: widget.company);
+    textFieldControllertitle = TextEditingController(text: widget.title);
+    textFieldControllerstartDate = TextEditingController(text: widget.startDate);
+    textFieldControllerendDate = TextEditingController(text: widget.endDate);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -114,28 +123,15 @@ class _ExpBodyState extends State<ExpBody> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
-                  child: TextField(
-                    controller: _textFieldControllercompany,
-                    decoration: InputDecoration(
-                      hintText: widget.company,
-                    ),
+                  child: TextFormField(
+                    //initialValue: widget.company,
+                    controller: textFieldControllercompany,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0),
                   child: TextField(
-                    controller: _textFieldControllertitle,
-                    decoration: InputDecoration(
-                      hintText: widget.title,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Location",
-                    ),
+                    controller: textFieldControllertitle,
                   ),
                 ),
                 Padding(
@@ -143,7 +139,6 @@ class _ExpBodyState extends State<ExpBody> {
                   child: Row(
                     children: <Widget>[
                       Checkbox(
-
                         value: widget.endDate == null ? true : false,
                       ),
                       Text("I currently work in this role"),
@@ -157,10 +152,7 @@ class _ExpBodyState extends State<ExpBody> {
                       Container(
                         width: 150.0,
                         child: TextField(
-                          controller: _textFieldControllerstartDate,
-                          decoration: InputDecoration(
-                            hintText: widget.startDate,
-                          ),
+                          controller: textFieldControllerstartDate,
                         ),
                       ),
                       Padding(
@@ -168,10 +160,7 @@ class _ExpBodyState extends State<ExpBody> {
                         child: Container(
                           width: 150.0,
                           child: TextField(
-                            controller: _textFieldControllerendDate,
-                            decoration: InputDecoration(
-                              hintText: widget.endDate,
-                            ),
+                            controller: textFieldControllerendDate,
                           ),
                         ),
                       ),
@@ -189,6 +178,7 @@ class _ExpBodyState extends State<ExpBody> {
                 GestureDetector(
                   onTap: (){
                       updateData(context);
+                      Navigator.of(context).pop();
                   },
                   child: Center(
                     child: Padding(

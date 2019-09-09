@@ -11,7 +11,7 @@ class EditExperience extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -109,7 +109,46 @@ class _EditExpBodyState extends State<EditExpBody> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.builder(
+      physics: ScrollPhysics(),
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: company == null? 0 : company.length,
+      itemBuilder: (context, i) => GestureDetector(
+        onTap: (){
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => AddExperience(ids[i].toString(), company[i].toString(), title[i].toString(), startDate[i].toString(), endDate[i])),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Container(
+            color: Colors.white,
+            child: ListTile(
+              leading: const Icon(Icons.supervised_user_circle),
+              title: Text(
+                title[i].toString() + "@" + company[i].toString(),
+                style: new TextStyle(
+                  fontSize: 15.0,
+                ),
+              ),
+              subtitle: Row(
+                children: <Widget>[
+                  Text(
+                    startDate[i].toString() +"-"+ endDate[i].toString(),
+                    style: new TextStyle(
+                      fontSize: 13.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+      /*
+      ListView(
       scrollDirection: Axis.vertical,
       children: <Widget>[
         Padding(
@@ -219,6 +258,8 @@ class _EditExpBodyState extends State<EditExpBody> {
         ),
       ],
     );
+
+       */
   }
 }
 

@@ -51,7 +51,9 @@ class _AddInterestsBodyState extends State<AddInterestsBody> {
   @override
   void initState() {
     super.initState();
-
+    //_textFieldControllerone = TextEditingController(text: interests[0]);
+    //_textFieldControllertwo = TextEditingController(text: interests[1]);
+    //_textFieldController = TextEditingController(text: interests[0]);
     getData(context);
   }
 
@@ -85,6 +87,10 @@ class _AddInterestsBodyState extends State<AddInterestsBody> {
           interests = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['user_interest']);
           id = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['id']);
           //socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
+
+          _textFieldControllerone.text = interests[0].toString();
+          _textFieldControllertwo.text = interests[1].toString();
+          _textFieldControllerthree.text = interests[2].toString();
 
         });
 
@@ -159,45 +165,24 @@ class _AddInterestsBodyState extends State<AddInterestsBody> {
       children: <Widget>[
         Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-            child: InputChip(
-              avatar: Icon(
-                Icons.cancel,
-                color: Colors.red,
-              ),
-              label: TextField(
+            child: TextField(
                 controller: _textFieldControllerone,
-                decoration: InputDecoration(hintText: interests[0]),
+                //decoration: InputDecoration(hintText: interests[0]),
               ),
-              labelPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-            ),
           ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          child: InputChip(
-            avatar: Icon(
-              Icons.cancel,
-              color: Colors.red,
-            ),
-            label: TextField(
+          child: TextField(
               controller: _textFieldControllertwo,
-              decoration: InputDecoration(hintText: interests[1]),
+              //decoration: InputDecoration(hintText: interests[1]),
             ),
-            labelPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-          child: InputChip(
-            avatar: Icon(
-              Icons.cancel,
-              color: Colors.red,
-            ),
-            label: TextField(
+          child: TextField(
               controller: _textFieldControllerthree,
-              decoration: InputDecoration(hintText: interests[2]),
+              //decoration: InputDecoration(hintText: interests[2]),
             ),
-            labelPadding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-          ),
         ),
         GestureDetector(
           onTap: (){

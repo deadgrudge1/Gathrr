@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Profile/add_experience.dart';
-import 'package:flutter_app/Profile/add_interests.dart';
-import 'package:flutter_app/Profile/add_social_media.dart';
-import 'package:flutter_app/Profile/contact_page.dart';
 import 'package:flutter_app/Profile/main_profile.dart' as prefix0;
+import 'package:http/http.dart' as http;
+import 'package:flutter_app/util/globals.dart' as globals;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EditScren extends StatelessWidget {
   //String name, bio, designation;
@@ -41,9 +41,59 @@ class EditScren extends StatelessWidget {
 class CreateEditBody extends StatefulWidget {
   @override
   _CreateEditBodyState createState() => _CreateEditBodyState();
+
 }
 
 class _CreateEditBodyState extends State<CreateEditBody> {
+
+  var id;
+  TextEditingController _textFieldControllerName = TextEditingController();
+  TextEditingController _textFieldControllerDescription = TextEditingController();
+  TextEditingController _textFieldControllerDesignation = TextEditingController();
+
+  void updateData(context) async {
+
+    //username = widget.userName;
+    //print("username : " + username);
+    final prefs = await SharedPreferences.getInstance();
+    var token = prefs.get("token");
+    if (token != null) {
+
+      print("id : " + _textFieldControllerName.text);
+
+      String url = globals.url + "profile.php";
+
+      http.post(url, body: {
+        "token": token,
+        "update-profile": "1",
+        //"id":id[],
+        "name":_textFieldControllerName.text,
+        "bio":_textFieldControllerDescription.text,
+        "designation":_textFieldControllerDesignation.text,
+        //"updated-interest":_textFieldControllerone.text
+      }).then((http.Response response) {
+        final int statusCode = response.statusCode;
+
+        if (statusCode < 200 || statusCode > 400 || json == null) {
+          throw new Exception("Error fetching data");
+        }
+
+        print(response.body);
+      });
+
+      //return true;
+
+    }
+  }
+
+  @override
+  void initState() {
+    _textFieldControllerName = TextEditingController(text: prefix0.name);
+    _textFieldControllerDesignation = TextEditingController(text: prefix0.designation);
+    _textFieldControllerDescription = TextEditingController(text: prefix0.description);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -90,17 +140,9 @@ class _CreateEditBodyState extends State<CreateEditBody> {
             ],
           ),
           ListTile(
-            title: TextField(
-              decoration: InputDecoration(
-                hintText: prefix0.name,
-              ),
-            ),
-          ),
-          ListTile(
-            title: TextField(
-              decoration: InputDecoration(
-                hintText: "Email",
-              ),
+            title: TextFormField(
+              controller: _textFieldControllerName,
+              //initialValue: prefix0.name,
             ),
           ),
           Padding(
@@ -110,10 +152,12 @@ class _CreateEditBodyState extends State<CreateEditBody> {
                 margin: EdgeInsets.only(top: 15.0),
                 height: 130.0,
                 padding: EdgeInsets.only(bottom: 20.0),
-                child: TextField(
+                child: TextFormField(
+                  controller: _textFieldControllerDescription,
+                  //initialValue: prefix0.description,
                   maxLines: 99,
                   decoration: InputDecoration(
-                    hintText: "Your Bio...",
+                    //hintText: prefix0.description,
                     border: OutlineInputBorder(),
                   ),
                 ),
@@ -127,10 +171,9 @@ class _CreateEditBodyState extends State<CreateEditBody> {
             ),
           ),
           ListTile(
-            title: TextField(
-              decoration: InputDecoration(
-                hintText: "Designation",
-              ),
+            title: TextFormField(
+              controller: _textFieldControllerDesignation,
+              //initialValue: prefix0.designation,
             ),
           ),
           Padding(
@@ -141,7 +184,8 @@ class _CreateEditBodyState extends State<CreateEditBody> {
           ),
           GestureDetector(
             onTap: (){
-
+              updateData(context);
+              //Navigator.of(context).pop();
             },
             child: Center(
               child: Padding(
