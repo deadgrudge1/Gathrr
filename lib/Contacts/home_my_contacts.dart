@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_app/util/data.dart';
 
 var globalContacts;
 
@@ -88,6 +89,7 @@ class _MyContactsState extends State<MyContacts> {
   Widget build(BuildContext context) {
     globalContacts = context;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade900,
         flexibleSpace: Container(
@@ -103,12 +105,80 @@ class _MyContactsState extends State<MyContacts> {
           ),
         ),
         centerTitle: true,
-        title: Padding(
+        title: Text("My Contacts",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
+        ),
+        /*
+        Padding(
           padding: const EdgeInsets.all(8.0),
           child: Image.asset("images/gathrr_name.png"),
         ),
+
+         */
       ),
-      body: RefreshIndicator(
+      body: ListView.separated(
+        padding: EdgeInsets.all(10),
+        separatorBuilder: (BuildContext context, int index) {
+          return Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              height: 0.5,
+              width: MediaQuery.of(context).size.width / 1.3,
+              child: Divider(),
+            ),
+          );
+        },
+        itemCount: notifications.length,
+        itemBuilder: (BuildContext context, int index) {
+          Map notif = notifications[index];
+          return Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(
+                  notif['dp'],
+                ),
+                radius: 25,
+              ),
+              contentPadding: EdgeInsets.all(0),
+              title: RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(text: names[random.nextInt(10)].toString(),
+                      style: TextStyle(
+                        wordSpacing: 0.5,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              subtitle: Text(designations[random.nextInt(10)].toString()),
+              /*
+                  Text(
+                      names[random.nextInt(10)].toString() + " " + notification[random.nextInt(10)].toString(),
+                  ),
+
+                   */
+
+              //Flexible(child: Text(" " + notification[random.nextInt(10)].toString())),
+
+              //Text(notif['notif']),
+              onTap: (){
+
+              },
+            ),
+          );
+        },
+
+      ),
+      /*
+      RefreshIndicator(
         key: refreshKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -140,6 +210,8 @@ class _MyContactsState extends State<MyContacts> {
         ),
         onRefresh: refreshList,
       ),
+
+       */
     );
   }
 }

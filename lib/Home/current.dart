@@ -35,53 +35,152 @@ class _CurrentState extends State<Current> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Container(
-            child: Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => EventNow()),
-                      );
-                    },
-                    child: new Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      ),
-                      child: new Column(
-                        //crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Container(
-                            height: 150.0,
-                            child: new Image.asset("images/upcoming_sample.png",
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          ListTile(
-                            leading: Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Column(
-                                children: <Widget>[
-                                  Text("Aug"),
-                                  Text("10")
-                                ],
+    return Scaffold(
+      appBar: AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.blue.shade900, Colors.blue.shade500],
+            ),
+          ),
+        ),
+        title: Text("all upcoming events..."),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            Container(
+              child: Stack(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 5.0),
+                    child: GestureDetector(
+                      onTap: (){
+                        Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => EventNow()),
+                        );
+                      },
+                      child: new Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                        ),
+                        child: new Column(
+                          //crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Container(
+                              height: 150.0,
+                              child: new Image.asset("images/upcoming_sample.png",
+                                fit: BoxFit.fill,
                               ),
                             ),
-                            title: Text('forbes fashion'.toUpperCase(), style: new TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.0,
-                            ),),
-                            subtitle: Text('EFC Business Centre, Koregaon Park'),
+                            ListTile(
+                              leading: Padding(
+                                padding: const EdgeInsets.only(top: 10.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text("Aug"),
+                                    Text("10")
+                                  ],
+                                ),
+                              ),
+                              title: Text('forbes fashion'.toUpperCase(), style: new TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                              ),),
+                              subtitle: Text('EFC Business Centre, Koregaon Park'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 133.0, left: 235.0, bottom: 5.0),
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(right: 6.0),
+                            child: Container(
+                              height: 40.0,
+                              width: 40.0,
+                              child: FittedBox(
+                                child: FloatingActionButton(
+                                  heroTag: null,
+                                  backgroundColor: Colors.white,
+                                  onPressed: showNotification,
+                                  //color: Colors.blue.shade300,
+                                  child: Icon(Icons.people,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 6.0),
+                            child: Container(
+                              height: 40.0,
+                              width: 40.0,
+                              child: FittedBox(
+                                child: FloatingActionButton(
+                                  heroTag: null,
+                                  backgroundColor: Colors.white,
+                                  onPressed: (){
+
+                                  },
+                                  //color: Colors.blue.shade300,
+                                  child: Icon(Icons.notifications_active,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Stack(
+              children: <Widget>[
+                Container(
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    child: new Column(
+                      //crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Container(
+                          height: 150.0,
+                          child: new Image.asset("images/bookingapp.png",
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        ListTile(
+                          leading: Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Column(
+                              children: <Widget>[
+                                Text("Aug"),
+                                Text("10")
+                              ],
+                            ),
+                          ),
+                          title: Text('a.i impact'.toUpperCase(), style: new TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.0,
+                          ),),
+                          subtitle: Text('S.B Road'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -99,7 +198,9 @@ class _CurrentState extends State<Current> {
                               child: FloatingActionButton(
                                 heroTag: null,
                                 backgroundColor: Colors.white,
-                                onPressed: showNotification,
+                                onPressed: (){
+
+                                },
                                 //color: Colors.blue.shade300,
                                 child: Icon(Icons.people,
                                   color: Colors.grey,
@@ -134,95 +235,8 @@ class _CurrentState extends State<Current> {
                 ),
               ],
             ),
-          ),
-          Stack(
-            children: <Widget>[
-              Container(
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                  ),
-                  child: new Column(
-                    //crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Container(
-                        height: 150.0,
-                        child: new Image.asset("images/bookingapp.png",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      ListTile(
-                        leading: Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: Column(
-                            children: <Widget>[
-                              Text("Aug"),
-                              Text("10")
-                            ],
-                          ),
-                        ),
-                        title: Text('a.i impact'.toUpperCase(), style: new TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                        ),),
-                        subtitle: Text('S.B Road'),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 133.0, left: 235.0, bottom: 5.0),
-                  child: Row(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 6.0),
-                        child: Container(
-                          height: 40.0,
-                          width: 40.0,
-                          child: FittedBox(
-                            child: FloatingActionButton(
-                              heroTag: null,
-                              backgroundColor: Colors.white,
-                              onPressed: (){
-
-                              },
-                              //color: Colors.blue.shade300,
-                              child: Icon(Icons.people,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 6.0),
-                        child: Container(
-                          height: 40.0,
-                          width: 40.0,
-                          child: FittedBox(
-                            child: FloatingActionButton(
-                              heroTag: null,
-                              backgroundColor: Colors.white,
-                              onPressed: (){
-
-                              },
-                              //color: Colors.blue.shade300,
-                              child: Icon(Icons.notifications_active,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

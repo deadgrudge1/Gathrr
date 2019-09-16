@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/Home/all_past_events.dart';
+import 'package:flutter_app/Home/all_upcoming_events.dart';
+import 'package:flutter_app/Home/current.dart';
+import 'package:flutter_app/Home/ongoing_event_page.dart';
+import 'package:flutter_app/Home/ongoing_members.dart';
+import 'package:flutter_app/Home/ongoing_notifications.dart';
+import 'package:flutter_app/Home/upcoming_event_page.dart';
 import 'package:flutter_app/util/models.dart';
 import 'package:flutter_app/widgets/tabs_chips.dart';
 import 'package:flutter_app/Chat/chat_screen.dart';
@@ -24,6 +31,7 @@ class _SearchPageState extends State<SearchPage> {
 
   List<Event> premiumList =  List();
   List<Event> featuredList =  List();
+  List reversedList = List();
 
   var citiesList = ["Pune", "Mumbai", "Delhi ", "Bangalore","Goa","Kolkata","Indore","Jaipur"];
 
@@ -32,22 +40,25 @@ class _SearchPageState extends State<SearchPage> {
     // TODO: implement initState
     super.initState();
 
-    premiumList.add(Event(eventName: "NO UPCOMING EVENTS"));
-    featuredList.add(Event(eventName: "NO PAST EVENTS"));
+    //premiumList.add(Event(eventName: "NO UPCOMING EVENTS"));
+    //featuredList.add(Event(eventName: "NO PAST EVENTS"));
 
-    getData();
+    //getData();
 
-    /*premiumList
-      ..add(Event(eventName:"Artificial Intelligence", eventLocation:"Pune ", image: "", eventArea:"Kothrud"))
-      ..add(Event(eventName:"Social NETwork", eventLocation:"Pune ", image:"", eventArea:"Koregaon Park"))
+    premiumList
+      ..add(Event(eventName:"Artificial Intelligence", eventLocation:"Pune ", image: "bookingapp.png", eventArea:"Kothrud"))
+      ..add(Event(eventName:"Social NETwork", eventLocation:"Pune ", image:"upcoming_sample.png", eventArea:"Koregaon Park"))
       ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"", eventArea:"Kalyani Nagar"))
       ..add(Event(eventName:"Times Group", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
       ..add(Event(eventName:"EventTECH", eventLocation:"Pune ", image:"", eventArea:"SB Road"))
       ..add(Event(eventName:"Panhala Trek", eventLocation:"Pune ", image:"", eventArea:"Kalyani Nagar"))
       ..add(Event(eventName:"The ComedyPrime", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
       ..add(Event(eventName:"Smart City", eventLocation:"Pune ", image:"", eventArea:"Camp"))
-      ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"", eventArea:"Koregaon Park"))
-      ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"", eventArea:"JW Mariott, SB.Road"));*/
+      ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"Koregaon Park"))
+      ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"event_3ted.jpg", eventArea:"JW Mariott, SB.Road"));
+
+    reversedList = premiumList.reversed.toList();
+
   }
 
   void getData() async {
@@ -172,7 +183,7 @@ class _SearchPageState extends State<SearchPage> {
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Colors.blue),
+            systemNavigationBarColor: Colors.blue.shade500),
         child: Container(
           child: SingleChildScrollView(
             child: Column(
@@ -221,41 +232,88 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
             ),
-            leftAlignText(
+            Row(
+              children: <Widget>[
+                leftAlignText(
                   text: "Upcoming Events",
                   leftPadding: size.getWidthPx(16),
                   textColor: Colors.black,
                   fontSize: 26.0,
                   fontWeight: FontWeight.bold,
-              ),
-            HorizontalList(
-                children: <Widget>[
-                  for (int i = 0; i < premiumList.length; i++)
-                    propertyCard(premiumList[i])
-                ],
-              ),
-            leftAlignText(
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AllUpcoming()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Text("see more",
+                      style: TextStyle(
+                          color: Colors.blue//.shade700,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: HorizontalList(
+                  children: <Widget>[
+                    for (int i = 0; i < premiumList.length; i++)
+                      propertyCard(premiumList[i])
+                  ],
+                ),
+            ),
+            Row(
+              children: <Widget>[
+                leftAlignText(
                   text: "Your Past Events",
                   leftPadding: size.getWidthPx(16),
                   textColor: Colors.black,
                   fontSize: 26.0,
-                fontWeight: FontWeight.bold,
-              ),
-            HorizontalList(
-              children: <Widget>[
-                for (int i = 0; i < premiumList.length; i++)
-                  propertyCard(featuredList[i])
-
+                  fontWeight: FontWeight.bold,
+                ),
+                Spacer(),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => AllPast()),
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Text("see more",
+                      style: TextStyle(
+                        color: Colors.blue//.shade700,
+                      ),
+                    ),
+                  ),
+                ),
               ],
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: HorizontalList(
+                children: <Widget>[
+                  for (int i = 0; i < reversedList.length; i++)
+                    propertyCard(reversedList[i])
+                ],
+              ),
+            ),
           ],
         ),
       ],
     );
   }
 
-  Card upperBoxCard() {
-    return Card(
+  Stack upperBoxCard() {
+    return Stack(
+      children: <Widget>[
+        Card(
         elevation: 4.0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         margin: EdgeInsets.symmetric(
@@ -266,6 +324,66 @@ class _SearchPageState extends State<SearchPage> {
           height: size.getWidthPx(150),
           child: Column(
             children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Container(
+                        child: FlutterLogo(),
+                        height: size.getWidthPx(150),
+                        width: 150.0,
+                        decoration: new BoxDecoration(
+                          image: DecorationImage(
+                            image: new AssetImage(
+                                ""),
+                            fit: BoxFit.fill,
+                          ),
+                          shape: BoxShape.rectangle,
+                        ),
+                      )
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Flutter",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                        ),
+                      ),
+                      Text("Workshop",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                        ),
+                      ),
+                      Text("Pune"),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5.0),
+                        child: Row(
+                          children: <Widget>[
+                            Text("Time Till Live :",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                            Text("12:38 mins",
+                              style: TextStyle(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              /*
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text("ongoing event".toUpperCase(),
@@ -281,7 +399,6 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
               ),
-              /*
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
                 child: Text("no ongoing event",
@@ -299,7 +416,7 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
 
-               */
+
               //_searchWidget(),
 
               Padding(
@@ -317,10 +434,46 @@ class _SearchPageState extends State<SearchPage> {
                 ],
               ),
 
-
+               */
             ],
           ),
-        ));
+        ),),
+        Padding(
+          padding: const EdgeInsets.only(top: 150.0, bottom: 10.0, left: 190.0),
+          child: FloatingActionButton(
+            //elevation: 0,
+            heroTag: null,
+            backgroundColor: Colors.white,
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => OngoingMembers()),
+              );
+            },//showNotification,
+            //color: Colors.blue.shade300,
+            child: Icon(Icons.people,
+              color: Colors.black,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 150.0, bottom: 10.0, left: 250.0),
+          child: FloatingActionButton(
+            //elevation: 0,
+            heroTag: null,
+            backgroundColor: Colors.white,
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => OngoingNotifications()),
+              );
+            },//showNotification,
+            //color: Colors.blue.shade300,
+            child: Icon(Icons.notifications_active,
+              color: Colors.black,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   BoxField _searchWidget() {
@@ -351,47 +504,60 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  Card propertyCard(Event property) {
-    return Card(
-        elevation: 4.0,
-        margin: EdgeInsets.all(8),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        borderOnForeground: true,
-        child: Container(
-            height: size.getWidthPx(150),
-            width: size.getWidthPx(170),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                ClipRRect(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(12.0),
-                        topRight: Radius.circular(12.0)),
-                    child: Image.asset('assets/${property.image}',
-                        fit: BoxFit.fill)),
-                SizedBox(height: size.getWidthPx(8)),
-                leftAlignText(
-                    text: property.eventName,
+  GestureDetector propertyCard(Event property) {
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context,
+          MaterialPageRoute(builder: (context) => EventNow()),
+        );
+      },
+      child: Card(
+          elevation: 4.0,
+          margin: EdgeInsets.all(8),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          borderOnForeground: true,
+          child: Container(
+              height: size.getWidthPx(150),
+              width: size.getWidthPx(170),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  ClipRRect(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(12.0),
+                          topRight: Radius.circular(12.0)),
+                      child: Container(
+                        height: 100.0,
+                        child: Image.asset(
+                            'assets/${property.image}',
+                            fit: BoxFit.fill,
+                        ),
+                      ),
+                  ),
+                  SizedBox(height: size.getWidthPx(8)),
+                  leftAlignText(
+                      text: property.eventName,
+                      leftPadding: size.getWidthPx(8),
+                      textColor: Colors.black,
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w800,
+                  ),
+                  SizedBox(height: size.getWidthPx(4)),
+                  leftAlignText(
+                    text: property.eventArea,
                     leftPadding: size.getWidthPx(8),
                     textColor: Colors.black,
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w800,
-                ),
-                SizedBox(height: size.getWidthPx(4)),
-                leftAlignText(
-                  text: property.eventArea,
-                  leftPadding: size.getWidthPx(8),
-                  textColor: Colors.black,
-                  fontSize: 13.0,
-                  //fontWeight: FontWeight.w800),
-                ),
-                leftAlignText(
-                    text: property.eventLocation,
-                    leftPadding: size.getWidthPx(8),
-                    textColor: Colors.black54,
-                    fontSize: 12.0),
-              ],
-            )));
+                    fontSize: 13.0,
+                    //fontWeight: FontWeight.w800),
+                  ),
+                  leftAlignText(
+                      text: property.eventLocation,
+                      leftPadding: size.getWidthPx(8),
+                      textColor: Colors.black54,
+                      fontSize: 12.0),
+                ],
+              ))),
+    );
   }
 
   Padding buildChoiceChip(index, chipName) {

@@ -120,10 +120,40 @@ class _ContactPageState extends State<ContactPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 25),
-                    child: Text("ID: 14552566",
-                      style: TextStyle(
-                          color: Colors.white
+                    padding: const EdgeInsets.only(top: 25.0),
+                    child: GestureDetector(
+                      onTap: (){
+
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
+                          child: Container(
+                            height: 45,
+                            width: MediaQuery.of(context).size.width/1.5,
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.white,
+                                    Colors.white,
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(50)
+                                )
+                            ),
+                            child: Center(
+                              child: Text('Connect'.toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  letterSpacing: 1.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),

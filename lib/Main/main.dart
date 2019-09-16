@@ -11,9 +11,15 @@ final FirebaseMessaging _messaging = FirebaseMessaging();
 final FirebaseMessaging _fcm = FirebaseMessaging();
 
 void main() async {
+
   //getData();
-  isSplash();
+  //isSplash();
   initFCM();
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: "login",
+    home: Login(),
+  ));
 }
 
 initFCM() async {

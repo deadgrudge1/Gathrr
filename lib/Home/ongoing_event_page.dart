@@ -16,6 +16,7 @@ class EventNow extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         actions: <Widget>[
+          /*
           IconButton(
             onPressed: (){
               Navigator.push(context,
@@ -25,13 +26,15 @@ class EventNow extends StatelessWidget {
             icon: new Icon(Icons.people,
               color: Colors.grey.shade300,),
           ),
+
+           */
           IconButton(
             onPressed: (){
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => OngoingNotifications()),
-              );
+              //Navigator.push(context,
+                //MaterialPageRoute(builder: (context) => OngoingNotifications()),
+              //);
             },
-            icon: new Icon(Icons.notifications_active,
+            icon: new Icon(Icons.share,
               color: Colors.grey.shade300,),
           )
         ],
@@ -154,7 +157,7 @@ class _EventNowPageState extends State<EventNowPage> {
 
                */
               Text(
-                /*eventTitle.toUpperCase()*/'Building Serverless Chatbots using Amazon Lex and Lambda',
+                /*eventTitle.toUpperCase()*/'EVENT TITLE',
                 style: new TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0,
@@ -165,7 +168,7 @@ class _EventNowPageState extends State<EventNowPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "by Gathrr Technologies" /*+ eventOrganizationName*/,
+                    "by Event Organiser" /*+ eventOrganizationName*/,
                     style: new TextStyle(
                       fontSize: 15.0,
                     ),
@@ -174,13 +177,13 @@ class _EventNowPageState extends State<EventNowPage> {
               ),
               ListTile(
                 leading: const Icon(Icons.calendar_today),
-                title: Text(""/*eventStartDate*/),
-                subtitle: Text(""/*eventTime*/),
+                title: Text("Event Date"/*eventStartDate*/),
+                subtitle: Text("Event Time (12:35pm)"/*eventTime*/),
               ),
               ListTile(
                 leading: const Icon(Icons.location_on),
-                title: Text(""/*eventOrganizationName*/),
-                subtitle: Text(""/*eventAddress*/),
+                title: Text("Event Location Name"/*eventOrganizationName*/),
+                subtitle: Text("Event Detailed Address"/*eventAddress*/),
               ),
               ListTile(
                 leading: const Icon(Icons.free_breakfast),
@@ -206,7 +209,10 @@ class _EventNowPageState extends State<EventNowPage> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0),
-                child: Text(""
+                child: Text("Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32.",
+                    style: TextStyle(
+                      wordSpacing: 1.5,
+                    ),
                     /*eventDetails*/),
               ),
               Padding(
@@ -214,7 +220,7 @@ class _EventNowPageState extends State<EventNowPage> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "See more...",
+                    "",
                     style: new TextStyle(
                       color: Colors.blue,
                     ),
@@ -238,11 +244,18 @@ class _EventNowPageState extends State<EventNowPage> {
                   ),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                child: Image.asset("images/location.png"),
+              ),
+              /*
               new Icon(
                 Icons.location_on,
                 size: 200,
                 color: Colors.grey.shade800,
               ),
+
+               */
               new Container(
                 height: 1.5,
                 color: Colors.grey.shade200,
@@ -274,9 +287,13 @@ class _EventNowPageState extends State<EventNowPage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Text(""
-                    /*eventOrganizationDetails*/),
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Text("Lorem Epsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
+                    ,
+                  style: TextStyle(
+                    wordSpacing: 1.5,
+                  ),
+                  /*eventOrganizationDetails*/),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -290,6 +307,7 @@ class _EventNowPageState extends State<EventNowPage> {
                   ),
                 ),
               ),
+              /*
               new ButtonTheme.bar(
                 child: new ButtonBar(
                   alignment: MainAxisAlignment.center,
@@ -371,6 +389,8 @@ class _EventNowPageState extends State<EventNowPage> {
                   ],
                 ),
               ),
+
+               */
               /*
               Padding(
                 padding: const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),

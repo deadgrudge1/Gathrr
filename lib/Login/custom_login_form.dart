@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
+import 'package:flutter_app/Login/forgot_password_screen.dart';
 import 'package:flutter_app/Main/main.dart';
 import 'package:path/path.dart';
 import 'package:flutter_app/Main/home_page.dart';
@@ -15,6 +16,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 BuildContext context;
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
 
 
 class CustomLoginForm extends StatefulWidget {
@@ -339,8 +342,10 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        physics: ScrollPhysics(),
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -379,7 +384,21 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                 ),
                 validator: (value){
                   if(value.isEmpty){
-                    return "Please enter your name";
+                    Scaffold
+                        .of(context)
+                        .showSnackBar(SnackBar
+                      (content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Email field is empty",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                      backgroundColor: Colors.blue,
+                    ));
                   }else{
                     return null;
                   }
@@ -419,7 +438,21 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                 ),
                 validator: (value){
                   if(value.isEmpty){
-                    return "Please enter a password";
+                    Scaffold
+                        .of(context)
+                        .showSnackBar(SnackBar
+                      (content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Password field is empty",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                      backgroundColor: Colors.blue,
+                    ));
                   }else{
                     return null;
                   }
@@ -431,15 +464,22 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        top: 16, left: 54
-                    ),
-                    child: Text('Forgot Password ?',
-                      style: TextStyle(
-                          color: Colors.grey
+                GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ForgotPassword()),
+                    );
+                  },
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 16, left: 54
+                      ),
+                      child: Text('Forgot Password ?',
+                        style: TextStyle(
+                            color: Colors.grey
+                        ),
                       ),
                     ),
                   ),
@@ -475,11 +515,21 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                 MaterialPageRoute(builder: (context) => HomePage()),
               );*/
               if(_formKey.currentState.validate()){
-                /*
                 Scaffold
                 .of(context)
-                    .showSnackBar(SnackBar(content: Text("Processing Data"),));
-                 */
+                    .showSnackBar(SnackBar
+                  (content: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("Processing Data",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                  ),
+                  backgroundColor: Colors.blue,
+                ));
               }
             },
             child: Center(

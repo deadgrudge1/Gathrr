@@ -34,6 +34,14 @@ dependencies:
   connectivity:
   flutter_chips_input:
   url_launcher:
+  image_picker:
+  image_cropper:
+  flutter_launcher_icons:
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/gathrrimg.png"
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,16 +74,16 @@ flutter:
     - images/gathrr_name.png
     - images/linkedin_icon.png
     - images/upcoming_sample.png
-    - assets/cm1.jpeg
-    - assets/cm2.jpeg
-    - assets/cm3.jpeg
-    - assets/cm4.jpeg
-    - assets/cm5.jpeg
-    - assets/cm6.jpeg
-    - assets/cm7.jpeg
-    - assets/cm8.jpeg
-    - assets/cm9.jpeg
-    - assets/cm0.jpeg
+    - assets/cm1.jpg
+    - assets/cm2.jpg
+    - assets/cm3.jpg
+    - assets/cm4.jpg
+    - assets/cm5.jpg
+    - assets/cm6.jpg
+    - assets/cm7.jpg
+    - assets/cm8.jpg
+    - assets/cm9.jpg
+    - assets/cm0.jpg
     - assets/
     - assets/background_curve.png
     - assets/feature_1.jpg
@@ -90,6 +98,12 @@ flutter:
     - images/linkedin.png
     - images/insta.png
     - images/twitter.png
+    - assets/bookingapp.png
+    - assets/upcoming_sample.png
+    - assets/event_1.jpg
+    - assets/event_2.jpg
+    - assets/event_3ted.jpg
+    - images/location.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

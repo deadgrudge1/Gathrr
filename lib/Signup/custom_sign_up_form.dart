@@ -130,8 +130,10 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        physics: ScrollPhysics(),
+        //crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Stack(
             children: <Widget>[
@@ -173,7 +175,21 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                             ),
                             validator: (value){
                               if(value.isEmpty){
-                                return "Please enter your email";
+                                Scaffold
+                                    .of(context)
+                                    .showSnackBar(SnackBar
+                                  (content: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text("Email field is empty",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                ),
+                                  backgroundColor: Colors.blue,
+                                ));
                               }else{
                                 return null;
                               }
@@ -213,7 +229,21 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                           ),
                           validator: (value){
                             if(value.isEmpty){
-                              return "Please enter your name";
+                              Scaffold
+                                  .of(context)
+                                  .showSnackBar(SnackBar
+                                (content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Name field is empty",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                                backgroundColor: Colors.blue,
+                              ));
                             }else{
                               return null;
                             }
@@ -253,7 +283,21 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                           ),
                           validator: (value){
                             if(value.isEmpty){
-                              return "Please enter a password";
+                              Scaffold
+                                  .of(context)
+                                  .showSnackBar(SnackBar
+                                (content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Password field is empty",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                                backgroundColor: Colors.blue,
+                              ));
                             }else{
                               return null;
                             }
@@ -293,7 +337,21 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                           ),
                           validator: (value){
                             if(value.isEmpty){
-                              return "Please enter your password one more time";
+                              Scaffold
+                                  .of(context)
+                                  .showSnackBar(SnackBar
+                                (content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text("Password field is empty",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold
+                                  ),
+                                ),
+                              ),
+                                backgroundColor: Colors.blue,
+                              ));
                             }else{
                               return null;
                             }
@@ -310,6 +368,23 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                             child: Center(
                               child: GestureDetector(
                                 onTap: (){
+                                  if(_formKey.currentState.validate()){
+                                    Scaffold
+                                        .of(context)
+                                        .showSnackBar(SnackBar
+                                      (content: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("Processing Data",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
+                                    ),
+                                      backgroundColor: Colors.blue,
+                                    ));
+                                  }
                                   Navigator.pop(context);
                                   //Navigator.pushReplacement(context,
                                   //MaterialPageRoute(builder: (context) => Login()),

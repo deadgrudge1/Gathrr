@@ -13,15 +13,15 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 
-BuildContext context;
-
-
+import 'package:flutter_app/Main/layout.dart';
+import 'package:flutter_app/Main/fab_bottom_app_bar.dart';
+import 'package:flutter_app/Main/fab_with_icons.dart';
 
 class BottomNavBar extends StatefulWidget {
-  final List<Widget> _children = [
+  final List<Widget> children = [
     Center(child: SearchPage()),
     Center(child: MyContacts()),
-    Center(child: SCAN()),
+    //Center(child: SCAN()),
     Center(child: MYQR()),
     Center(child: MainProfile()),
   ];
@@ -34,11 +34,25 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
 
+  String _lastSelected = 'TAB: 0';
+
+  void _selectedTab(int index) {
+    setState(() {
+      _lastSelected = 'TAB: $index';
+    });
+  }
+
+  void _selectedFab(int index) {
+    setState(() {
+      _lastSelected = 'FAB: $index';
+    });
+  }
+
   int _currentIndex = 0;
-  final List<Widget> _children = [
+  final List<Widget> children = [
     Center(child: SearchPage()),
     Center(child: MyContacts()),
-    null,
+    //null,
     //Center(child: SCAN()),
     Center(child: MYQR()),
     Center(child: MainProfile()),
@@ -47,18 +61,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
   String result = "Hey there !";
 
 
-  void qrFunction() async
-  {
+  void qrFunction() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.get("token");
-    if(token!=null)
-    {
+    if (token != null) {
       String url = globals.url + "scan-qr.php";
       http.post(url, body: {
-        "token" : token,
-        "qr_token" : result,
-      })
-          .then((http.Response response) {
+        "token": token,
+        "qr_token": result,
+      }).then((http.Response response) {
         final int statusCode = response.statusCode;
 
         if (statusCode < 200 || statusCode > 400 || json == null) {
@@ -73,7 +84,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         var contact_username = responseArray['contact_username'];
         setState(() {
           result = msg + " '" + contact_username + "'";
-          showDialog(context: context,builder: (context) => _onScanPass(context, result));
+          showDialog(
+              context: context,
+              builder: (context) => _onScanPass(context, result));
         });
         print(response.body);
         return true;
@@ -89,55 +102,131 @@ class _BottomNavBarState extends State<BottomNavBar> {
         result = qrResult;
       });
       qrFunction();
-
     } on PlatformException catch (ex) {
       if (ex.code == BarcodeScanner.CameraAccessDenied) {
         setState(() {
           result = "Camera permission was denied";
-          showDialog(context: context,builder: (context) => _onScanFail(context));
+          showDialog(
+              context: context, builder: (context) => _onScanFail(context));
         });
       } else {
         setState(() {
           result = "Unknown Error $ex";
-          showDialog(context: context,builder: (context) => _onScanFail(context));
+          showDialog(
+              context: context, builder: (context) => _onScanFail(context));
         });
       }
     } on FormatException {
       setState(() {
         result = "You pressed the back button before scanning anything";
-        showDialog(context: context,builder: (context) => _onScanFail(context));
+        showDialog(
+            context: context, builder: (context) => _onScanFail(context));
       });
     } catch (ex) {
       setState(() {
         result = "Unknown Error $ex";
-        showDialog(context: context,builder: (context) => _onScanFail(context));
+        showDialog(
+            context: context, builder: (context) => _onScanFail(context));
       });
     }
   }
 
   _onScanFail(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)), //this right here
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      //this right here
       child: Container(
         height: 300.0,
         width: 300.0,
-
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding:  EdgeInsets.all(15.0),
-              child: Text('FAIL!', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
+            Stack(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        topLeft: Radius.circular(12)),
+                  ),
+                  height: 100.0,
+                  //color: Colors.green,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: Center(
+                    child: Text(
+                      "ALERT",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25.0,
+                          color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
             ),
-            Padding(
-              padding: EdgeInsets.all(25.0),
-              child: Text("Scan failed! Please try scanning the qr of user or an event!", style: TextStyle(color: Colors.black),),
+            Container(
+              height: 100.0,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 40.0),
+                        child: Text(
+                          "You pressed the back button before",
+                          style: TextStyle(
+                            wordSpacing: 1,
+                              fontSize: 16.0, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Text(
+                        "scanning anything!",
+                        style: TextStyle(
+                          wordSpacing: 1.0,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            Padding(padding: EdgeInsets.only(top: 50.0)),
-            FlatButton(onPressed: (){
-              Navigator.of(context).pop();
-            },
-                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
+            Container(
+              height: 100.0,
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
+                  child: Container(
+                    height: 30,
+                    width: MediaQuery.of(context).size.width / 3.5,
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.grey.shade400,
+                            Colors.grey.shade400,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.all(Radius.circular(50))),
+                    child: Center(
+                      child: Text(
+                        'CLOSE'.toUpperCase(),
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                          letterSpacing: 1.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -179,9 +268,29 @@ class _BottomNavBarState extends State<BottomNavBar> {
       //body: _children[_currentIndex],
       body: IndexedStack(
         index: _currentIndex,
-        children: widget._children,
+        children: widget.children,
       ), //bottom nav pages won't reload everytime
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar:
+      FABBottomAppBar(
+        centerItemText: '',
+        color: Colors.black,
+        selectedColor: Colors.blue,
+        notchedShape: CircularNotchedRectangle(),
+        onTabSelected: onTabTapped,
+        items: [
+          FABBottomAppBarItem(iconData: IconData(0xe90c, fontFamily: 'pro'), text: ''),
+          FABBottomAppBarItem(iconData: Icons.contacts, text: ''),
+          FABBottomAppBarItem(iconData: IconData(0xe908, fontFamily: 'pro'), text: ''),
+          FABBottomAppBarItem(iconData: IconData(0xe90a, fontFamily: 'pro'), text: ''),
+        ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: _buildFab(
+          context),
+
+
+      /*
+      BottomNavigationBar(
         iconSize: 25.0,
         elevation: 20.0,
         //selectedFontSize: 15.0,
@@ -230,6 +339,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           ),
         ],
       ),
+
+       */
     );
   }
 
@@ -238,4 +349,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
       _currentIndex = index;
     });
   }
+
+  Widget _buildFab(BuildContext context) {
+    //final icons = [ Icons.sms, Icons.mail, Icons.phone ];
+    return FloatingActionButton(
+        onPressed: _scanQR,
+        tooltip: 'Scan',
+        child: Icon(IconData(0xe900, fontFamily: 'pro')),
+        elevation: 15.0,
+      );
+  }
+
 }

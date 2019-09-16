@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Profile/image_picker_widget.dart';
 import 'package:flutter_app/Profile/main_profile.dart' as prefix0;
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_app/util/image_picker_handler.dart';
 
 class EditScren extends StatelessWidget {
   //String name, bio, designation;
@@ -80,7 +83,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
 
         print(response.body);
       });
-
       //return true;
 
     }
@@ -88,10 +90,13 @@ class _CreateEditBodyState extends State<CreateEditBody> {
 
   @override
   void initState() {
+    
     _textFieldControllerName = TextEditingController(text: prefix0.name);
     _textFieldControllerDesignation = TextEditingController(text: prefix0.designation);
     _textFieldControllerDescription = TextEditingController(text: prefix0.description);
+
     super.initState();
+
   }
 
   @override
@@ -103,25 +108,11 @@ class _CreateEditBodyState extends State<CreateEditBody> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    decoration: BoxDecoration(
-                        border: new Border.all(
-                          width: 1.5,
-                          color: Colors.white,
-                        ),
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: NetworkImage(
-                                "https://qph.fs.quoracdn.net/main-raw-226477733-zskxlexzsxfiubrenlkcrywxnrzoswrk.jpeg"))),
-                  ),
-                ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: ImagePickerGetter(),
               ),
+              /*
               Padding(
                 padding: const EdgeInsets.only(top: 130.0, left: 50.0),
                 child: Center(
@@ -137,6 +128,8 @@ class _CreateEditBodyState extends State<CreateEditBody> {
                   ),
                 ),
               ),
+
+               */
             ],
           ),
           ListTile(

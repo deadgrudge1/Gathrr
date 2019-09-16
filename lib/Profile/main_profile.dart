@@ -188,11 +188,10 @@ class MainProfile extends StatelessWidget {
             },
           ),
         ],
-        title: Text('Profile',
+        title: Text("Profile",
           style: TextStyle(
-            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 22.0,
           ),
         ),
         centerTitle: true,
@@ -262,14 +261,12 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     print(details);
-
+    getData(context);
     setState(() {
       name = "";
       description = "";
       designation = "";
     });
-    getData(context);
-
     //getData(context);
   }
 

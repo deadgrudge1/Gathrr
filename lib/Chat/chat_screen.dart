@@ -57,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
               text: "Message",
             ),
             Tab(
-              text: "Groups",
+              text: "Event-Notifications",
             ),
           ],
         ),

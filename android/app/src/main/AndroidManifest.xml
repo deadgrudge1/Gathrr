@@ -12,8 +12,8 @@
     
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_app"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Gathrr"
+        android:icon="@mipmap/gathrrlogo">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -38,6 +38,10 @@
             </intent-filter>
         </activity>
         <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity"/>
+        <activity
+                android:name="com.yalantis.ucrop.UCropActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
 
     </application>
