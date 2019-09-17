@@ -20,7 +20,11 @@ class EventNotices extends StatelessWidget {
           ),
         ),
         title: Text(
-          "Notifications",
+          "Live Updates",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22.0,
+          ),
         ),
         centerTitle: true,
         actions: <Widget>[

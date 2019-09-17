@@ -183,7 +183,7 @@ class _SearchPageState extends State<SearchPage> {
             statusBarBrightness: Brightness.light,
             statusBarIconBrightness: Brightness.dark,
             systemNavigationBarIconBrightness: Brightness.dark,
-            systemNavigationBarColor: Colors.blue.shade500),
+            systemNavigationBarColor: Colors.transparent),
         child: Container(
           child: SingleChildScrollView(
             child: Column(
@@ -320,7 +320,7 @@ class _SearchPageState extends State<SearchPage> {
             horizontal: size.getWidthPx(20), vertical: size.getWidthPx(16)),
         borderOnForeground: true,
         child: Container(
-          width: size.getWidthPx(300),
+          width: size.getWidthPx(350),
           height: size.getWidthPx(150),
           child: Column(
             children: <Widget>[
@@ -361,7 +361,7 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       Text("Pune"),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5.0),
+                        padding: const EdgeInsets.only(top: 5.0, bottom: 30.0),
                         child: Row(
                           children: <Widget>[
                             Text("Time Till Live :",
@@ -517,7 +517,7 @@ class _SearchPageState extends State<SearchPage> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           borderOnForeground: true,
           child: Container(
-              height: size.getWidthPx(150),
+              height: size.getWidthPx(170),
               width: size.getWidthPx(170),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,

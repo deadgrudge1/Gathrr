@@ -31,7 +31,9 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
             Icons.keyboard_backspace,
             color: Colors.black,
           ),
-          onPressed: (){},
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
         ),
         title: TextField(
           decoration: InputDecoration.collapsed(

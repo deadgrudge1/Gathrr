@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:flutter_app/Login/forgot_password_screen.dart';
-import 'package:flutter_app/Main/main.dart';
+import 'package:flutter_app/main.dart';
 import 'package:path/path.dart';
 import 'package:flutter_app/Main/home_page.dart';
 import 'package:flutter_app/Signup/signup.dart';
@@ -474,7 +474,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                     alignment: Alignment.centerLeft,
                     child: Padding(
                       padding: const EdgeInsets.only(
-                          top: 16, left: 54
+                          top: 16, left: 30
                       ),
                       child: Text('Forgot Password ?',
                         style: TextStyle(
@@ -488,7 +488,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                   alignment: Alignment.centerRight,
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        top: 16, left: 54
+                        top: 16, left: 30
                     ),
                     child: GestureDetector(
                       onTap: (){
@@ -563,56 +563,60 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               ),
             ),
           ),
-          Container(
-            height: 45.0,
-            margin: const EdgeInsets.only(top: 10.0),
-            padding: const EdgeInsets.only(left: 35.0, right: 35.0),
-            child: new Row(
-              children: <Widget>[
-                new Expanded(
-                  child: FlatButton(
-                    shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)),
-                    splashColor: Color(0xFF3B5998),
-                    color: Color(0xff3B5998),
-                    child: new Row(
-                      children: <Widget>[
-                        new Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Text(
-                            "LOGIN WITH LINKED-IN",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                        new Expanded(
-                          child: Container(),
-                        ),
-                        new Transform.translate(
-                          offset: Offset(15.0, 0.0),
-                          child: new Container(
-                            padding: const EdgeInsets.all(5.0),
-                            child: FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius:
-                                  new BorderRadius.circular(28.0)),
-                              splashColor: Colors.white,
-                              color: Colors.white,
-                              child: Text("in",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              ),
-                              onPressed: () => {},
+          Padding(
+            padding: const EdgeInsets.only(bottom: 50.0),
+            child: Container(
+              height: 45.0,
+              width: MediaQuery.of(context).size.width/1.2,
+              margin: const EdgeInsets.only(top: 10.0),
+              padding: const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 0.0),
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(
+                    child: FlatButton(
+                      shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(30.0)),
+                      splashColor: Color(0xFF3B5998),
+                      color: Color(0xff3B5998),
+                      child: new Row(
+                        children: <Widget>[
+                          new Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: Text(
+                              "LOGIN WITH LINKED-IN",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
-                        )
-                      ],
+                          new Expanded(
+                            child: Container(),
+                          ),
+                          new Transform.translate(
+                            offset: Offset(15.0, 0.0),
+                            child: new Container(
+                              padding: const EdgeInsets.all(0.0),
+                              child: FlatButton(
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                    new BorderRadius.circular(28.0)),
+                                splashColor: Colors.white,
+                                color: Colors.white,
+                                child: Text("in",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                ),
+                                onPressed: () => {},
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                      onPressed: () => {},
                     ),
-                    onPressed: () => {},
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

@@ -440,56 +440,60 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                         ),
                       ),
                     ),
-                    Container(
-                      height: 45.0,
-                      margin: const EdgeInsets.only(top: 10.0),
-                      padding: const EdgeInsets.only(left: 35.0, right: 35.0),
-                      child: new Row(
-                        children: <Widget>[
-                          new Expanded(
-                            child: FlatButton(
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(30.0)),
-                              splashColor: Color(0xFF3B5998),
-                              color: Color(0xff3B5998),
-                              child: new Row(
-                                children: <Widget>[
-                                  new Padding(
-                                    padding: const EdgeInsets.only(left: 20.0),
-                                    child: Text(
-                                      "SIGN-UP WITH LINKED-IN",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ),
-                                  new Expanded(
-                                    child: Container(),
-                                  ),
-                                  new Transform.translate(
-                                    offset: Offset(15.0, 0.0),
-                                    child: new Container(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: FlatButton(
-                                        shape: new RoundedRectangleBorder(
-                                            borderRadius:
-                                            new BorderRadius.circular(28.0)),
-                                        splashColor: Colors.white,
-                                        color: Colors.white,
-                                        child: Text("in",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        onPressed: () => {},
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 50.0),
+                      child: Container(
+                        height: 45.0,
+                        width: MediaQuery.of(context).size.width/1.2,
+                        margin: const EdgeInsets.only(top: 10.0),
+                        padding: const EdgeInsets.only(left: 0.0, right: 0.0, bottom: 0.0),
+                        child: new Row(
+                          children: <Widget>[
+                            new Expanded(
+                              child: FlatButton(
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(30.0)),
+                                splashColor: Color(0xFF3B5998),
+                                color: Color(0xff3B5998),
+                                child: new Row(
+                                  children: <Widget>[
+                                    new Padding(
+                                      padding: const EdgeInsets.only(left: 0.0),
+                                      child: Text(
+                                        "SIGN-UP WITH LINKED-IN",
+                                        style: TextStyle(color: Colors.white),
                                       ),
                                     ),
-                                  )
-                                ],
+                                    new Expanded(
+                                      child: Container(),
+                                    ),
+                                    new Transform.translate(
+                                      offset: Offset(15.0, 0.0),
+                                      child: new Container(
+                                        padding: const EdgeInsets.all(0.0),
+                                        child: FlatButton(
+                                          shape: new RoundedRectangleBorder(
+                                              borderRadius:
+                                              new BorderRadius.circular(28.0)),
+                                          splashColor: Colors.white,
+                                          color: Colors.white,
+                                          child: Text("in",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          onPressed: () => {},
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () => {},
                               ),
-                              onPressed: () => {},
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

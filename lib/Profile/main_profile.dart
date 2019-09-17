@@ -190,8 +190,9 @@ class MainProfile extends StatelessWidget {
         ],
         title: Text("Profile",
           style: TextStyle(
+            color: Colors.white,
             fontWeight: FontWeight.bold,
-            fontSize: 22.0,
+            fontSize: 22,
           ),
         ),
         centerTitle: true,

@@ -177,14 +177,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       Padding(
                         padding: const EdgeInsets.only(top: 40.0),
                         child: Text(
-                          "You pressed the back button before",
+                          "You pressed the back button",
                           style: TextStyle(
                             wordSpacing: 1,
                               fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                       ),
                       Text(
-                        "scanning anything!",
+                        "before scanning anything!",
                         style: TextStyle(
                           wordSpacing: 1.0,
                           fontSize: 16.0,
@@ -199,27 +199,32 @@ class _BottomNavBarState extends State<BottomNavBar> {
             Container(
               height: 100.0,
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
-                  child: Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width / 3.5,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.shade400,
-                            Colors.grey.shade400,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Center(
-                      child: Text(
-                        'CLOSE'.toUpperCase(),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          letterSpacing: 1.0,
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
+                    child: Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.grey.shade400,
+                              Colors.grey.shade400,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(50))),
+                      child: Center(
+                        child: Text(
+                          'CLOSE'.toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                            letterSpacing: 1.0,
+                          ),
                         ),
                       ),
                     ),
@@ -355,7 +360,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return FloatingActionButton(
         onPressed: _scanQR,
         tooltip: 'Scan',
-        child: Icon(IconData(0xe900, fontFamily: 'pro')),
+        child: Icon(IconData(0xe900, fontFamily: 'pro'),
+          size: 30.0,
+        ),
         elevation: 15.0,
       );
   }
