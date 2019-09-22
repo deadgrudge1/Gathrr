@@ -86,22 +86,24 @@ class _SearchPageState extends State<SearchPage> {
         //var status = responseArray['status'];
         //if(status == true) {
         setState(() {
+          featuredList =  List();
+          premiumList =  List();
           for(var i=0; i<responseArray.length; i++)
             {
 
-              if(responseArray['past']!=null) {
-                featuredList =  List();
+              //if(responseArray['past'][i]!=null) {
+
                 featuredList.add(Event(id: responseArray['past'][i]['event_id'],
                     eventName: responseArray['past'][i]['title'],
                     eventLocation: responseArray['past'][i]['location']));
-              }
+              //}
 
-                if(responseArray['upcoming']!=null) {
-                  premiumList =  List();
+                //if(responseArray['upcoming'][i]!=null) {
+
                     premiumList.add(Event(id: responseArray['upcoming'][i]['event_id'],
                         eventName: responseArray['upcoming'][i]['title'],
                         eventLocation: responseArray['upcoming'][i]['location']));
-                  }
+                  //}
 
 
             }

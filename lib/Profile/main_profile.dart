@@ -11,6 +11,7 @@ import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/util/utils.dart';
+import 'package:flutter_app/util/rest.dart';
 import 'package:flutter/widgets.dart';
 import 'hyperlink_one.dart';
 import 'package:flutter_app/widgets/upper_curve_clipper.dart';
@@ -275,7 +276,35 @@ class _ProfilePageState extends State<ProfilePage> {
     refreshKey.currentState?.show(atTop: false);
     //await Future.delayed(Duration(seconds: 2));
 
-    getData(context);
+    //getData(context);
+
+    print('TEST');
+
+    Map map = new Map<String, String>();
+    map['get-profile'] = '1';
+
+    var url = 'profile.php';
+
+    Rest response = new Rest(url);
+    String responseString = await response.getData(map);
+    print(responseString);
+
+    //HTTP Call
+    /*Rest rest = new Rest('profile.php');
+    rest.authenticate().then((dynamic)
+    {
+      print('mycallback');
+      rest.getData(map).then((dynamic)
+      {
+        print('mycallback2');
+        print(rest.getResponse());
+      }
+      );
+    }
+    );
+    */
+
+
 
     /*setState(() {
       list = List.generate(random.nextInt(10), (i) => "Var Name $i");
