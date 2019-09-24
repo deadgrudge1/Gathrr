@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Data/Event.dart' as prefix0;
 import 'package:flutter_app/Profile/edit_profile_screen.dart';
 import 'package:flutter_app/Profile/setting_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/util/utils.dart';
 import 'package:flutter_app/util/rest.dart';
+import 'package:flutter_app/Data/Event.dart';
 import 'package:flutter/widgets.dart';
 import 'hyperlink_one.dart';
 import 'package:flutter_app/widgets/upper_curve_clipper.dart';
@@ -247,6 +249,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+  prefix0.Event event;
   List<String> ids = new List<String>();
   List<String> company = new List<String>();
   List<String> title = new List<String>();
@@ -269,6 +272,8 @@ class _ProfilePageState extends State<ProfilePage> {
       description = "";
       designation = "";
     });
+    event = new prefix0.Event();
+
     //getData(context);
   }
 
@@ -280,6 +285,14 @@ class _ProfilePageState extends State<ProfilePage> {
 
     print('TEST');
 
+    /*var data = await event.getUpcomingEvents();
+    var resp = json.decode(data);
+    print(resp['past']);*/
+
+    await event.getEvents();
+    var pastEvents = event.pastEvents;
+    print(pastEvents[0]);
+
     Map map = new Map<String, String>();
     map['get-profile'] = '1';
 
@@ -287,7 +300,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     Rest response = new Rest(url);
     String responseString = await response.getData(map);
-    print(responseString);
+    print("call : " + responseString);
 
     //HTTP Call
     /*Rest rest = new Rest('profile.php');

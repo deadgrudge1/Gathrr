@@ -23,10 +23,11 @@ class Rest
 
   }
 
-  Future<String> getResponse(Map<String, String> map) async
+  /*Future<String> getResponse(Map<String, String> map) async
   {
-    authenticate().then((dynamic)
+    authenticate().then((String token)
     {
+      map['token'] = token;
       getData(map).then((dynamic){
         return myString;
       }
@@ -34,12 +35,23 @@ class Rest
     }
     );
 
+  }*/
+
+  Future<String> getResponse(Map<String, String> map) async
+  {
+    map['token'] = await authenticate();
+    print("maaap : " + map.toString());
+    await getData(map);
+        return myString;
+
+
   }
 
   Future<String> authenticate() async
   {
     final prefs = await SharedPreferences.getInstance();
-    var token = prefs.get("token");
+    var token = await prefs.get("token");
+    print("tokennn : " + token);
     if (token != null) {
       this.token = token;
     }
@@ -50,7 +62,7 @@ class Rest
   Future<String> getData(Map<String, String> map) async
   {
     if (this.token != null) {
-      map['token'] = this.token;
+      //map['token'] = this.token;
       //print("dd : "+ map.toString());
     }
 
