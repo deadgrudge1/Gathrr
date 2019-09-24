@@ -48,12 +48,12 @@ class _SearchPageState extends State<SearchPage> {
     premiumList
       ..add(Event(eventName:"Artificial Intelligence", eventLocation:"Pune ", image: "bookingapp.png", eventArea:"Kothrud"))
       ..add(Event(eventName:"Social NETwork", eventLocation:"Pune ", image:"upcoming_sample.png", eventArea:"Koregaon Park"))
-      ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"", eventArea:"Kalyani Nagar"))
-      ..add(Event(eventName:"Times Group", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
-      ..add(Event(eventName:"EventTECH", eventLocation:"Pune ", image:"", eventArea:"SB Road"))
-      ..add(Event(eventName:"Panhala Trek", eventLocation:"Pune ", image:"", eventArea:"Kalyani Nagar"))
+      ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"event_3ted.jpg", eventArea:"Kalyani Nagar"))
+      ..add(Event(eventName:"Times Group", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"JM Road"))
+      ..add(Event(eventName:"EventTECH", eventLocation:"Pune ", image:"event_3ted.jpg", eventArea:"SB Road"))
+      ..add(Event(eventName:"Panhala Trek", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"Kalyani Nagar"))
       ..add(Event(eventName:"The ComedyPrime", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
-      ..add(Event(eventName:"Smart City", eventLocation:"Pune ", image:"", eventArea:"Camp"))
+      ..add(Event(eventName:"Smart City", eventLocation:"Pune ", image:"bookingapp.png", eventArea:"Camp"))
       ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"Koregaon Park"))
       ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"event_3ted.jpg", eventArea:"JW Mariott, SB.Road"));
 
@@ -519,8 +519,8 @@ class _SearchPageState extends State<SearchPage> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           borderOnForeground: true,
           child: Container(
-              height: size.getWidthPx(170),
-              width: size.getWidthPx(170),
+              height: 170.0,//size.getWidthPx(170),
+              width: 155.0,//size.getWidthPx(170),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
