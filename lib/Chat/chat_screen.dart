@@ -37,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateM
         ),
         title: TextField(
           decoration: InputDecoration.collapsed(
-            hintText: 'Search',
+            hintText: 'Dummy Feed',
           ),
         ),
         actions: <Widget>[

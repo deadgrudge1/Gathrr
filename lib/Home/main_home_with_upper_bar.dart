@@ -52,7 +52,7 @@ class _SearchPageState extends State<SearchPage> {
       ..add(Event(eventName:"Times Group", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"JM Road"))
       ..add(Event(eventName:"EventTECH", eventLocation:"Pune ", image:"event_3ted.jpg", eventArea:"SB Road"))
       ..add(Event(eventName:"Panhala Trek", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"Kalyani Nagar"))
-      ..add(Event(eventName:"The ComedyPrime", eventLocation:"Pune ", image:"", eventArea:"JM Road"))
+      ..add(Event(eventName:"The ComedyPrime", eventLocation:"Pune ", image:"event_1.jpg", eventArea:"JM Road"))
       ..add(Event(eventName:"Smart City", eventLocation:"Pune ", image:"bookingapp.png", eventArea:"Camp"))
       ..add(Event(eventName:"Modern UI", eventLocation:"Pune ", image:"event_2.jpg", eventArea:"Koregaon Park"))
       ..add(Event(eventName:"The TEDx", eventLocation:"Pune", image:"event_3ted.jpg", eventArea:"JW Mariott, SB.Road"));
@@ -333,7 +333,7 @@ class _SearchPageState extends State<SearchPage> {
                       Container(
                         child: FlutterLogo(),
                         height: size.getWidthPx(150),
-                        width: 150.0,
+                        width: size.getWidthPx(150),
                         decoration: new BoxDecoration(
                           image: DecorationImage(
                             image: new AssetImage(
@@ -352,13 +352,13 @@ class _SearchPageState extends State<SearchPage> {
                       Text("Flutter",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+                          fontSize: MediaQuery.of(context).size.width/12.0,
                         ),
                       ),
                       Text("Workshop",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
+                          fontSize: MediaQuery.of(context).size.width/12.0,
                         ),
                       ),
                       Text("Pune"),
@@ -385,58 +385,6 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ],
               ),
-              /*
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Text("ongoing event".toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              Center(child: Text("Details",
-                style: TextStyle(
-                  fontSize: 13.0
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Text("no ongoing event",
-                  style: TextStyle(
-                    fontSize: 13.0,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Text("please scan to see the ongoing event details",
-                    style: TextStyle(
-                      fontSize: 13.0,
-                    ),
-                ),
-              ),
-
-
-              //_searchWidget(),
-
-              Padding(
-                padding: EdgeInsets.only(top: 25.0),
-                child: leftAlignText(
-                    text: "Top Cities :",
-                    leftPadding: size.getWidthPx(16),
-                    textColor: Colors.black,
-                    fontSize: 16.0),
-              ),
-              HorizontalList(
-                children: <Widget>[
-                  for(int i=0;i<citiesList.length;i++)
-                    buildChoiceChip(i, citiesList[i])
-                ],
-              ),
-
-               */
             ],
           ),
         ),),
@@ -536,25 +484,25 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                       ),
                   ),
-                  SizedBox(height: size.getWidthPx(8)),
+                  SizedBox(height: size.getWidthPx(3)),
                   leftAlignText(
                       text: property.eventName,
-                      leftPadding: size.getWidthPx(8),
+                      leftPadding: size.getWidthPx(6),
                       textColor: Colors.black,
                       fontSize: 14.0,
                       fontWeight: FontWeight.w800,
                   ),
-                  SizedBox(height: size.getWidthPx(4)),
+                  SizedBox(height: size.getWidthPx(1)),
                   leftAlignText(
                     text: property.eventArea,
-                    leftPadding: size.getWidthPx(8),
+                    leftPadding: size.getWidthPx(6),
                     textColor: Colors.black,
                     fontSize: 13.0,
                     //fontWeight: FontWeight.w800),
                   ),
                   leftAlignText(
                       text: property.eventLocation,
-                      leftPadding: size.getWidthPx(8),
+                      leftPadding: size.getWidthPx(6),
                       textColor: Colors.black54,
                       fontSize: 12.0),
                 ],

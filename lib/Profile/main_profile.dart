@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Data/Event.dart' as prefix0;
 import 'package:flutter_app/Profile/edit_profile_screen.dart';
 import 'package:flutter_app/Profile/setting_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_app/Profile/add_experience.dart';
 import 'package:flutter_app/Profile/add_interests.dart';
 import 'package:flutter_app/Profile/add_social_media.dart';
 import 'package:flutter_app/Profile/edit_experience_list.dart';
@@ -13,164 +11,18 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/util/utils.dart';
 import 'package:flutter_app/util/rest.dart';
-import 'package:flutter_app/Data/Event.dart';
+import 'package:flutter_app/Data/Profile.dart' as prefix1;
 import 'package:flutter/widgets.dart';
-import 'hyperlink_one.dart';
-import 'package:flutter_app/widgets/upper_curve_clipper.dart';
-import 'package:flutter_app/widgets/boxfield.dart';
-import 'package:flutter_app/widgets/tabs_chips.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_app/util/models.dart';
-import 'package:flutter_app/widgets/tabs_chips.dart';
-import 'package:flutter_app/Chat/chat_screen.dart';
-import 'package:flutter_app/Notifications/notification_screen.dart';
-import 'package:flutter_app/util/utils.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_app/widgets/upper_curve_clipper.dart';
-import 'package:flutter_app/widgets/boxfield.dart';
+
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 class MainProfile extends StatelessWidget {
 
-  //showDialog(
-  //context: context, builder: (context) => _onFirstTapOnProfile(context));
-  //use the above function for calling...
-  _onFirstTapOnProfile(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      //this right here
-      child: Container(
-        height: 300.0,
-        width: 300.0,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        topLeft: Radius.circular(12)),
-                  ),
-                  height: 100.0,
-                  //color: Colors.green,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: Center(
-                    child: Text(
-                      "ALERT",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25.0,
-                          color: Colors.white),
-                    ),
-                  ),
-                )
-              ],
-            ),
-            Container(
-              height: 100.0,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0, right: 20.0),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 40.0),
-                        child: Text(
-                          "Please create your profile",
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Text(
-                        "to get maximum benefits!",
-                        style: TextStyle(
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              //color: Colors.green,
-            ),
-            Container(
-              height: 100.0,
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 35, 20, 20),
-                  child: Container(
-                    height: 30,
-                    width: MediaQuery.of(context).size.width / 3.5,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.shade400,
-                            Colors.grey.shade400,
-                          ],
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(50))),
-                    child: Center(
-                      child: Text(
-                        'CLOSE'.toUpperCase(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13,
-                          letterSpacing: 1.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              //color: Colors.green,
-            ),
-            /*
-            Padding(
-              padding:  EdgeInsets.all(15.0),
-              child: Text('FAIL!', style: TextStyle(color: Colors.black, fontSize: 20.0, fontWeight: FontWeight.bold),),
-            ),
-            Padding(
-              padding: EdgeInsets.all(25.0),
-              child: Text("Scan failed! Please try scanning the qr of user or an event!", style: TextStyle(color: Colors.black),),
-            ),
-            Padding(padding: EdgeInsets.only(top: 50.0)),
-            FlatButton(onPressed: (){
-              Navigator.of(context).pop();
-            },
-                child: Text('Discard', style: TextStyle(color: Colors.black, fontSize: 18.0),))
-
-             */
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    //showDialog(context: context,builder: (context) => _onFirstTapOnProfile(context));
     return Scaffold(
-      //backgroundColor: Colors.white,
+      key: _scaffoldKey,
       appBar: AppBar(
-        /*flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.blue.shade900,
-                Colors.blue.shade500
-              ],
-            ),
-          ),
-        ),*/
         leading: IconButton(
           icon: Icon(Icons.settings,
             color: Colors.white,),
@@ -202,7 +54,7 @@ class MainProfile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue.shade900,
       ),
-      body: ProfilePage("", details),
+      body: ProfilePage("",details),
     );
   }
 }
@@ -213,26 +65,15 @@ String username = "";
 String description = "";
 String designation = "";
 
-List<String> company = new List<String>();
-List<String> title = new List<String>();
-List<String> startDate = new List<String>();
-List<String> endDate = new List<String>();
-//String location = "";
-List<String> expDescription = new List<String>();
-var interests;
-List<String> socialMediaLinks = new List<String>();
-List<String> details;
+List<String> company = ['loading'];
+List<String> title = ['loading'];
+List<String> startDate = ['loading'];
+List<String> endDate = ['loading'];
 
-
-//var company = ["AI", "Flutter", "Java "];
-//var title = ["EVentTech", "Automation"];
-//var startDate = ["AI", "Flutter", "Java "];
-//var endDate = ["EVentTech", "Automation"];
-//var expDescription = ["AI", "Flutter", "Java "];
-
-//var interests = ["Flutter", "Artificial Intelligence", "EventTech"];
-
-//zvar socialMediaLinks = ["EVentTech", "Automation"];
+List<String> expDescription = ['loading'];
+var interests = ['loading'];
+List<String> socialMediaLinks = ['loading'];
+List<String> details = ['loading'];
 
 
 bool isFetched = false;
@@ -250,15 +91,17 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
 
   prefix0.Event event;
-  List<String> ids = new List<String>();
-  List<String> company = new List<String>();
-  List<String> title = new List<String>();
-  List<String> startDate = new List<String>();
-  List<String> endDate = new List<String>();
+  prefix1.Profile profile_data;
+
+  List<String> ids = ['loading'];
+  List<String> company = ['loading'];
+  List<String> title = ['loading'];
+  List<String> startDate = ['loading'];
+  List<String> endDate = ['loading'];
 //String location = "";
-  List<String> expDescription = new List<String>();
-  var interests;
-  List<String> socialMediaLinks = new List<String>();
+  List<String> expDescription = ['loading'];
+  var interests = ['loading', 'loading', 'loading'];
+  List<String> socialMediaLinks = ['loading'];
 
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
@@ -273,6 +116,7 @@ class _ProfilePageState extends State<ProfilePage> {
       designation = "";
     });
     event = new prefix0.Event();
+    profile_data = new prefix1.Profile();
 
     //getData(context);
   }
@@ -281,13 +125,25 @@ class _ProfilePageState extends State<ProfilePage> {
     refreshKey.currentState?.show(atTop: false);
     //await Future.delayed(Duration(seconds: 2));
 
-    //getData(context);
+    getData(context);
 
     print('TEST');
 
     /*var data = await event.getUpcomingEvents();
     var resp = json.decode(data);
     print(resp['past']);*/
+
+    await this.profile_data.getProfile();
+    var details = this.profile_data.details;
+    var interest_details = profile_data.interests;
+
+    interests = List.generate(interest_details.length, (i) => interest_details[i]['user_interest']);
+
+
+    print("intersts oiwdhc : " + interests.toString());
+    print("1st interest : " + interests[0].toString());
+    print("dbscikbdc : " + details['name']);
+
 
     await event.getEvents();
     var pastEvents = event.pastEvents;
@@ -316,13 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
     }
     );
     */
-
-
-
-    /*setState(() {
-      list = List.generate(random.nextInt(10), (i) => "Var Name $i");
-    });*/
-
     return null;
   }
 
@@ -378,6 +227,9 @@ class _ProfilePageState extends State<ProfilePage> {
           }
           isFetched = true;
 
+          name = responseArray['payload']['details']['name'];
+          description = responseArray['payload']['details']['bio'];
+          designation = responseArray['payload']['details']['designation'];
           company = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
           print("test : " + company.toString());
           title = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['title']);
@@ -387,6 +239,10 @@ class _ProfilePageState extends State<ProfilePage> {
           interests = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['user_interest']);
           //socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
 
+          if(interests.length < 1)
+            {
+              //interests = ['loading', 'loading', 'loading'];
+            }
         });
 
         //return true;
@@ -437,10 +293,11 @@ class _ProfilePageState extends State<ProfilePage> {
                                 color: Colors.white,
                               ),
                               shape: BoxShape.circle,
-                              image: DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: NetworkImage(
-                                      "https://qph.fs.quoracdn.net/main-raw-226477733-zskxlexzsxfiubrenlkcrywxnrzoswrk.jpeg"))),
+                              ),
+                          child: Icon(Icons.person,
+                            size: 80,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       Padding(
@@ -524,9 +381,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     Spacer(),
                                     IconButton(
                                       onPressed: (){
-                                        Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) => EditExperience()),
-                                        );
+                                          Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) => EditExperience()),
+                                          );
                                       },
                                       icon: Icon(Icons.edit,
                                         color: Colors.grey.shade700,
@@ -546,7 +403,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                     child: ListTile(
                                       leading: const Icon(Icons.supervised_user_circle),
                                       title: Text(
-                                        title[i].toString() + "@" + company[i].toString(),
+                                        title[i].toString() + " @ " + company[i].toString(),
                                         style: new TextStyle(
                                           fontSize: 15.0,
                                         ),
@@ -554,7 +411,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       subtitle: Row(
                                         children: <Widget>[
                                           Text(
-                                            startDate[i].toString() +"-"+ endDate[i].toString(),
+                                            startDate[i].toString() +" to "+ endDate[i].toString(),
                                             style: new TextStyle(
                                               fontSize: 13.0,
                                             ),
@@ -564,66 +421,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ),
                                 ),
-
-                                /*
-                                ListTile(
-                                  leading: const Icon(Icons.supervised_user_circle),
-                                  title: Text(
-                                    title[0].toString() + "@" + company[0].toString(),
-                                    style: new TextStyle(
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  subtitle: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        'Present - 2 months',
-                                        style: new TextStyle(
-                                          fontSize: 13.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.supervised_user_circle),
-                                  title: Text(
-                                    'Flutter Developer @Spaising Technologies',
-                                    style: new TextStyle(
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  subtitle: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        'Jan 2019 - May 2019',
-                                        style: new TextStyle(
-                                          fontSize: 13.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.supervised_user_circle),
-                                  title: Text(
-                                    'Student at SKNCOE',
-                                    style: new TextStyle(
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                  subtitle: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        '2015 - 2019',
-                                        style: new TextStyle(
-                                          fontSize: 13.0,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                 */
                               ],
                             ),
                           ),
@@ -699,66 +496,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       Row(),
-                      /*
-                      Row(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                "#",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 15.0),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 8.0, 8.0, 8.0),
-                                child: Text(
-                                  "Artificial Intelligence",
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 15.0),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                "#",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 15.0),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 8.0, 8.0, 8.0),
-                                child: Text(
-                                  "Flutter",
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 15.0),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                "#",
-                                style: TextStyle(
-                                    color: Colors.blue, fontSize: 15.0),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(
-                                    0.0, 8.0, 8.0, 8.0),
-                                child: Text(
-                                  "Dart",
-                                  style: TextStyle(
-                                      color: Colors.blue, fontSize: 15.0),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                       */
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: new Container(
@@ -858,93 +595,6 @@ class _ProfilePageState extends State<ProfilePage> {
                     ],
                   ),
                 ),
-
-                /*
-        Container(
-          height: MediaQuery.of(context).size.height/3,
-          padding: EdgeInsets.all(50),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.account_box, color: Colors.grey,),
-                        Text('Friends',
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.center_focus_strong, color: Colors.grey,),
-                        Text('Scan Now',
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.chat_bubble, color: Colors.grey,),
-                        Text('My-Chats',
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.aspect_ratio, color: Colors.grey,),
-                        Text('My-QR',style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold
-                        ),)
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.settings, color: Colors.grey,),
-                        Text('My-Settings',style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold
-                        ),)
-                      ],
-                    ),
-                    Column(
-                      children: <Widget>[
-                        Icon(Icons.visibility, color: Colors.grey,),
-                        Text('Visitors',style: TextStyle(
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold
-                        ),)
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),*/
               ],
             ),
           ],
@@ -993,4 +643,5 @@ Padding leftAlignText({text, leftPadding, textColor, fontSize, fontWeight}) {
     ),
   );
 }
+
 

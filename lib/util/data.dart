@@ -29,16 +29,16 @@ List designations = [
 ];
 
 List messages = [
-  "Hey, how are you doing?",
-  "Are you available tomorrow?",
-  "It's late. Go to bed!",
-  "This cracked me up 😂😂",
-  "Flutter Rocks!!!",
-  "The last rocket🚀",
-  "Griezmann signed for Barca❤️❤️",
+  "Hey, when are you cheking in?",
+  "Hey guys,just have a look at the event schedule?",
+  "@XYZ, can we meet to scan?",
+  "See who just checked-in 😂😂",
+  "Dude pls send me the files shared at yesterday's event",
+  "@XYZ, can we meet to scan?",
+  "Hey guys,just have a look at the event schedule?❤️❤️",
   "Will you be attending the meetup tomorrow?",
-  "Are you angry at something?",
-  "Let's make a UI serie.",
+  "Hey, when are you cheking in?",
+  "Let's make a UI series.",
   "Can i hear your voice?",
 ];
 

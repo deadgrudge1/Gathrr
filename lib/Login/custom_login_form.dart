@@ -392,7 +392,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                       child: Text("Email field is empty",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.bold
                         ),
                       ),
@@ -446,7 +446,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                       child: Text("Password field is empty",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18.0,
+                            fontSize: 15.0,
                             fontWeight: FontWeight.bold
                         ),
                       ),
@@ -515,21 +515,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                 MaterialPageRoute(builder: (context) => HomePage()),
               );*/
               if(_formKey.currentState.validate()){
-                Scaffold
-                .of(context)
-                    .showSnackBar(SnackBar
-                  (content: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("Processing Data",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ),
-                  ),
-                  backgroundColor: Colors.blue,
-                ));
+
               }
             },
             child: Center(

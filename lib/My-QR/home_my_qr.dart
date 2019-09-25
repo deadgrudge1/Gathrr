@@ -1,13 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/util/utils.dart';
+import 'package:flutter_app/Data/QR.dart';
 
 class MYQR extends StatelessWidget {
+
+  var linkQr = "images/qr.png";
+  QR qr;
+
+  Future<void> getQR() async
+  {
+    qr = new QR();
+    await this.qr.getQR();
+    linkQr = qr.linkQR;
+    print("link : " + linkQr);
+  }
 
   Screen size;
 
   @override
   Widget build(BuildContext context) {
+
+    getQR();
 
     size = Screen(MediaQuery.of(context).size);
 
@@ -34,13 +48,6 @@ class MYQR extends StatelessWidget {
             fontSize: 22.0,
           ),
         ),
-        /*
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset("images/gathrr_name.png"),
-        )
-
-         */
       ),
       body: Center(
         child: Padding(
@@ -72,7 +79,7 @@ class MYQR extends StatelessWidget {
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(top: 10.0, left: 0.0),
-                                        child: Text("Amit",
+                                        child: Text("Test",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -84,7 +91,7 @@ class MYQR extends StatelessWidget {
                                     Center(
                                       child: Padding(
                                         padding: const EdgeInsets.only(left: 0.0),
-                                        child: Text("Chaudhari",
+                                        child: Text("Name",
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -106,8 +113,8 @@ class MYQR extends StatelessWidget {
                                           elevation: 0.0,
                                           color: Colors.white,//grey.shade200,
                                           child: Center(
-                                            child: Image.asset("images/qr.png",
-                                              scale: 1.0,
+                                            child: Image.network(linkQr,
+                                              color: Colors.black,
                                             ),
                                           ),
                                         ),

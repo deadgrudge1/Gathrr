@@ -11,6 +11,7 @@ var _passoneController = new TextEditingController();
 var _usernameController = new TextEditingController();
 var _passtwoController = new TextEditingController();
 
+
 BuildContext context;
 
 void sendData(context) async {
@@ -27,7 +28,8 @@ void sendData(context) async {
 
   String url = globals.url+"create-account.php";
   final response = await http.post(url, body: {
-    "createaccount" : "1",
+    //"createaccount" : "1",
+    "name" : _usernameController.text,
     "email" : _emailController.text,
     "password" : _passoneController.text,
   });

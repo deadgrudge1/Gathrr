@@ -37,6 +37,8 @@ dependencies:
   image_picker:
   image_cropper:
   flutter_launcher_icons:
+  progress_hud:
+  async_loader:
 
 flutter_icons:
   android: true

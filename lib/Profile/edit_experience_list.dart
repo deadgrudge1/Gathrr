@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Profile/add_experience.dart';
+import 'package:flutter_app/Profile/add_new_experience.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:async_loader/async_loader.dart';
+
+final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+final GlobalKey<AsyncLoaderState> _asyncLoaderState =
+new GlobalKey<AsyncLoaderState>();
 
 class EditExperience extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            onPressed: (){
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => AddNewExperience(),
+              ));
+            },
+            icon: Icon(Icons.add),
+          ),
+        ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -38,6 +54,7 @@ class EditExperience extends StatelessWidget {
 }
 
 class EditExpBody extends StatefulWidget {
+
   @override
 
   _EditExpBodyState createState() => _EditExpBodyState();
@@ -91,7 +108,7 @@ class _EditExpBodyState extends State<EditExpBody> {
           //expDescription = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
           //interests = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['interests'][i]['user_interest']);
           //socialMediaLinks = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['socialMediaLinks']);
-          ids = List.generate(responseArray['payload']['interests'].length, (i) => responseArray['payload']['experiences'][i]['id']);
+          ids = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['id']);
 
         });
 
@@ -103,163 +120,67 @@ class _EditExpBodyState extends State<EditExpBody> {
   @override
   void initState() {
     super.initState();
+    getData(context);
+
+  }
+
+  var refreshKey = GlobalKey<RefreshIndicatorState>();
+
+  Future<Null> refreshList() async {
+    refreshKey.currentState?.show(atTop: false);
+    await Future.delayed(Duration(seconds: 2));
 
     getData(context);
+
+    print('TEST');
+
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      physics: ScrollPhysics(),
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemCount: company == null? 0 : company.length,
-      itemBuilder: (context, i) => GestureDetector(
-        onTap: (){
-          Navigator.push(context,
-            MaterialPageRoute(builder: (context) => AddExperience(ids[i].toString(), company[i].toString(), title[i].toString(), startDate[i].toString(), endDate[i])),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Container(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.supervised_user_circle),
-              title: Text(
-                title[i].toString() + "@" + company[i].toString(),
-                style: new TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              subtitle: Row(
-                children: <Widget>[
-                  Text(
-                    startDate[i].toString() +"-"+ endDate[i].toString(),
-                    style: new TextStyle(
-                      fontSize: 13.0,
-                    ),
+    return RefreshIndicator(
+      onRefresh: refreshList,
+      key: refreshKey,
+      child: ListView.builder(
+        physics: ScrollPhysics(),
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        itemCount: company == null? 0 : company.length,
+        itemBuilder: (context, i) => GestureDetector(
+          onTap: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AddExperience(ids[i].toString(), company[i].toString(), title[i].toString(), startDate[i].toString(), endDate[i])),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Container(
+              color: Colors.white,
+              child: ListTile(
+                leading: const Icon(Icons.supervised_user_circle),
+                title: Text(
+                  title[i].toString() + "@" + company[i].toString(),
+                  style: new TextStyle(
+                    fontSize: 15.0,
                   ),
-                ],
+                ),
+                subtitle: Row(
+                  children: <Widget>[
+                    Text(
+                      startDate[i].toString() +"-"+ endDate[i].toString(),
+                      style: new TextStyle(
+                        fontSize: 13.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ),
       ),
     );
-      /*
-      ListView(
-      scrollDirection: Axis.vertical,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Container(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.supervised_user_circle),
-              title: Text(
-                company[0].toString(),
-                style: new TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              subtitle: Row(
-                children: <Widget>[
-                  Text(
-                    'Present - 2 months',
-                    style: new TextStyle(
-                      fontSize: 13.0,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: (){
-                      Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => AddExperience(ids[0].toString(), company[0].toString(), title[0].toString(), startDate[0].toString(), endDate[0])),
-                      );
-                    },
-                    icon: Icon(Icons.edit,
-                      color: Colors.black,
-                      size: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Container(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.supervised_user_circle),
-              title: Text(
-                'Flutter Developer @Spaising Technologies',
-                style: new TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              subtitle: Row(
-                children: <Widget>[
-                  Text(
-                    'Jan 2019 - May 2019',
-                    style: new TextStyle(
-                      fontSize: 13.0,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: (){},
-                    icon: Icon(Icons.edit,
-                      color: Colors.black,
-                      size: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: Container(
-            color: Colors.white,
-            child: ListTile(
-              leading: const Icon(Icons.supervised_user_circle),
-              title: Text(
-                'Student at SKNCOE',
-                style: new TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              subtitle: Row(
-                children: <Widget>[
-                  Text(
-                    '2015 - 2019',
-                    style: new TextStyle(
-                      fontSize: 13.0,
-                    ),
-                  ),
-                  Spacer(),
-                  IconButton(
-                    onPressed: (){
-
-                    },
-                    icon: Icon(Icons.edit,
-                      color: Colors.black,
-                      size: 15.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ],
-    );
-
-       */
   }
 }
 

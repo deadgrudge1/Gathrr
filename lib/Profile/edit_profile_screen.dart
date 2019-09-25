@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter_app/util/image_picker_handler.dart';
 
 class EditScren extends StatelessWidget {
   //String name, bio, designation;
@@ -83,7 +81,7 @@ class _CreateEditBodyState extends State<CreateEditBody> {
 
         print(response.body);
       });
-      //return true;
+
 
     }
   }
@@ -112,24 +110,6 @@ class _CreateEditBodyState extends State<CreateEditBody> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ImagePickerGetter(),
               ),
-              /*
-              Padding(
-                padding: const EdgeInsets.only(top: 130.0, left: 50.0),
-                child: Center(
-                  child: Container(
-                    height: 40.0,
-                    width: 40.0,
-                    child: FloatingActionButton(
-                      onPressed: (){
-                        //PENDING...
-                      },
-                      child: Icon(Icons.edit),
-                    ),
-                  ),
-                ),
-              ),
-
-               */
             ],
           ),
           ListTile(
@@ -178,7 +158,26 @@ class _CreateEditBodyState extends State<CreateEditBody> {
           GestureDetector(
             onTap: (){
               updateData(context);
-              //Navigator.of(context).pop();
+              Scaffold
+                  .of(context)
+                  .showSnackBar(SnackBar
+                (content: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Refresh profile to see changes",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+                backgroundColor: Colors.blueGrey,
+              ));
+              Future.delayed(const Duration(seconds: 2), () {
+                setState(() {
+                  Navigator.of(context).pop();
+                });
+              });
             },
             child: Center(
               child: Padding(

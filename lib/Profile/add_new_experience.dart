@@ -4,7 +4,7 @@ import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AddExperience extends StatelessWidget {
+class AddNewExperience extends StatelessWidget {
 
   String id = "";
   String company = "";
@@ -13,8 +13,6 @@ class AddExperience extends StatelessWidget {
   String endDate = "";
 //String location = "";
   String expDescription = "";
-
-  AddExperience(this.id, this.company, this.title, this.startDate, this.endDate) : super();
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +38,12 @@ class AddExperience extends StatelessWidget {
           ),
         ),
       ),
-      body: ExpBody(this.id, this.company, this.title, this.startDate, this.endDate),
+      body: NewExpBody(),
     );
   }
 }
 
-class ExpBody extends StatefulWidget {
+class NewExpBody extends StatefulWidget {
   @override
 
   String company = "";
@@ -56,12 +54,11 @@ class ExpBody extends StatefulWidget {
   String expDescription = "";
   String id = "";
 
-  ExpBody(this.id, this.company, this.title, this.startDate, this.endDate) : super();
 
-  _ExpBodyState createState() => _ExpBodyState();
+  _NewExpBodyState createState() => _NewExpBodyState();
 }
 
-class _ExpBodyState extends State<ExpBody> {
+class _NewExpBodyState extends State<NewExpBody> {
 
   TextEditingController textFieldControllercompany = TextEditingController();
   TextEditingController textFieldControllertitle = TextEditingController();
@@ -82,12 +79,13 @@ class _ExpBodyState extends State<ExpBody> {
 
       http.post(url, body: {
         "token": token,
-        "update-experience": "1",
-        "id":widget.id,
+        "add-experience": "1",
+        //"id":widget.id,
         "company":textFieldControllercompany.text,
         "title":textFieldControllertitle.text,
-        //"start_date":textFieldControllerstartDate.text,
-        //"end_date":textFieldControllerendDate.text
+        //"location":textFieldControllerlocation.text;
+        "start_date":textFieldControllerstartDate.text,
+        "end_date":textFieldControllerendDate.text
       }).then((http.Response response) {
         final int statusCode = response.statusCode;
 
@@ -105,10 +103,10 @@ class _ExpBodyState extends State<ExpBody> {
 
   @override
   void initState() {
-    textFieldControllercompany = TextEditingController(text: widget.company);
-    textFieldControllertitle = TextEditingController(text: widget.title);
-    textFieldControllerstartDate = TextEditingController(text: widget.startDate);
-    textFieldControllerendDate = TextEditingController(text: widget.endDate);
+    //textFieldControllercompany = TextEditingController(text: widget.company);
+    //textFieldControllertitle = TextEditingController(text: widget.title);
+    //textFieldControllerstartDate = TextEditingController(text: widget.startDate);
+    //textFieldControllerendDate = TextEditingController(text: widget.endDate);
     super.initState();
   }
 
@@ -124,6 +122,9 @@ class _ExpBodyState extends State<ExpBody> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0),
                   child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: "company"
+                    ),
                     //initialValue: widget.company,
                     controller: textFieldControllercompany,
                   ),
@@ -131,6 +132,9 @@ class _ExpBodyState extends State<ExpBody> {
                 Padding(
                   padding: const EdgeInsets.only(top: 40.0),
                   child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "title"
+                    ),
                     controller: textFieldControllertitle,
                   ),
                 ),
@@ -152,6 +156,9 @@ class _ExpBodyState extends State<ExpBody> {
                       Container(
                         width: 150.0,
                         child: TextField(
+                          decoration: InputDecoration(
+                            hintText: "start date"
+                          ),
                           controller: textFieldControllerstartDate,
                         ),
                       ),
@@ -160,6 +167,9 @@ class _ExpBodyState extends State<ExpBody> {
                         child: Container(
                           width: 150.0,
                           child: TextField(
+                            decoration: InputDecoration(
+                              hintText: "end date"
+                            ),
                             controller: textFieldControllerendDate,
                           ),
                         ),
@@ -171,33 +181,33 @@ class _ExpBodyState extends State<ExpBody> {
                   padding: const EdgeInsets.only(top: 40.0),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: widget.expDescription,
+                      hintText: "description",
                     ),
                   ),
                 ),
                 GestureDetector(
                   onTap: (){
-                      updateData(context);
-                      Scaffold
-                          .of(context)
-                          .showSnackBar(SnackBar
-                        (content: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text("Refresh profile page to see changes",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold
-                          ),
+                    updateData(context);
+                    Scaffold
+                        .of(context)
+                        .showSnackBar(SnackBar
+                      (content: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("Refresh profile to see changes",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold
                         ),
                       ),
-                        backgroundColor: Colors.blueGrey,
-                      ));
-                      Future.delayed(const Duration(seconds: 2), () {
-                        setState(() {
-                          Navigator.popUntil(context, ModalRoute.withName(Navigator.defaultRouteName));
-                        });
+                    ),
+                      backgroundColor: Colors.blueGrey,
+                    ));
+                    Future.delayed(const Duration(seconds: 2), () {
+                      setState(() {
+                        Navigator.of(context).pop();
                       });
+                    });
                   },
                   child: Center(
                     child: Padding(
