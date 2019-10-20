@@ -21,6 +21,10 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchPage extends StatefulWidget {
+
+  final String currentUserId;
+  SearchPage({Key key, @required this.currentUserId}) : super(key: key);
+
   @override
   _SearchPageState createState() => _SearchPageState();
 }
@@ -39,6 +43,25 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    /*
+    Scaffold
+        .of(context)
+        .showSnackBar(SnackBar
+      (content: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text("Please create your profile to be visible to others",
+        style: TextStyle(
+            color: Colors.white,
+            fontSize: 15.0,
+            fontWeight: FontWeight.bold
+        ),
+      ),
+    ),
+      backgroundColor: Colors.blue,
+    ));
+
+     */
 
     //premiumList.add(Event(eventName: "NO UPCOMING EVENTS"));
     //featuredList.add(Event(eventName: "NO PAST EVENTS"));
@@ -137,6 +160,7 @@ class _SearchPageState extends State<SearchPage> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
+          /*
           leading: IconButton(
             icon: Icon(const IconData(0xe901, fontFamily: 'pro'),
               color: Colors.white,),
@@ -146,6 +170,8 @@ class _SearchPageState extends State<SearchPage> {
               );
             },
           ),
+          
+           */
           actions: <Widget>[
             IconButton(
               icon: new Icon(const IconData(0xe909, fontFamily: 'pro'),

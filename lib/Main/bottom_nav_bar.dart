@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Notifications/notification_screen.dart';
 import 'package:flutter_app/util/custom_icons.dart';
 import 'package:flutter_app/Contacts/home_my_contacts.dart';
 import 'package:flutter_app/My-QR/home_my_qr.dart';
@@ -12,7 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_app/util/globals.dart' as globals;
 import 'dart:convert';
-
 import 'package:flutter_app/Main/layout.dart';
 import 'package:flutter_app/Main/fab_bottom_app_bar.dart';
 import 'package:flutter_app/Main/fab_with_icons.dart';
@@ -22,7 +22,7 @@ class BottomNavBar extends StatefulWidget {
     Center(child: SearchPage()),
     Center(child: MyContacts()),
     //Center(child: SCAN()),
-    Center(child: MYQR()),
+    Center(child: EventNotices()),
     Center(child: MainProfile()),
   ];
   @override
@@ -54,7 +54,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     Center(child: MyContacts()),
     //null,
     //Center(child: SCAN()),
-    Center(child: MYQR()),
+    Center(child: EventNotices()),
     Center(child: MainProfile()),
   ];
 
@@ -274,7 +274,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: IndexedStack(
         index: _currentIndex,
         children: widget.children,
-      ), //bottom nav pages won't reload everytime
+      ),
       bottomNavigationBar:
       FABBottomAppBar(
         centerItemText: '',
@@ -283,69 +283,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
         notchedShape: CircularNotchedRectangle(),
         onTabSelected: onTabTapped,
         items: [
-          FABBottomAppBarItem(iconData: IconData(0xe90c, fontFamily: 'pro'), text: ''),
-          FABBottomAppBarItem(iconData: Icons.contacts, text: ''),
-          FABBottomAppBarItem(iconData: IconData(0xe908, fontFamily: 'pro'), text: ''),
-          FABBottomAppBarItem(iconData: IconData(0xe90a, fontFamily: 'pro'), text: ''),
+          FABBottomAppBarItem(iconData: IconData(0xe90c, fontFamily: 'pro'), text: 'home'),
+          FABBottomAppBarItem(iconData: Icons.contacts, text: 'contacts'),
+          FABBottomAppBarItem(iconData: IconData(0xe901, fontFamily: 'pro'), text: 'updates'),
+          FABBottomAppBarItem(iconData: IconData(0xe90a, fontFamily: 'pro'), text: 'profile'),
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: _buildFab(
           context),
-
-
-      /*
-      BottomNavigationBar(
-        iconSize: 25.0,
-        elevation: 20.0,
-        //selectedFontSize: 15.0,
-        unselectedItemColor: Colors.grey.shade800,
-        selectedItemColor: Colors.blue,
-        type: BottomNavigationBarType.fixed,
-        onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // this will be set when a new tab is tapped
-        items: [
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: new Icon(IconData(0xe90c, fontFamily: 'pro'),
-              //color: Colors.grey.shade700,
-              ),
-            ),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Icon(IconData(0xe90b, fontFamily: 'pro')),
-            ),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: const EdgeInsets.only(top: 5.0),
-              child: Icon(IconData(0xe900, fontFamily: 'pro')),
-            ),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Icon(IconData(0xe908, fontFamily: 'pro')),
-              ),
-            title: Text(""),
-          ),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(top: 5.0),
-                child: Icon(IconData(0xe90a, fontFamily: 'pro')),
-              ),
-            title: Text(""),
-          ),
-        ],
-      ),
-
-       */
     );
   }
 
@@ -356,7 +302,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   Widget _buildFab(BuildContext context) {
-    //final icons = [ Icons.sms, Icons.mail, Icons.phone ];
     return FloatingActionButton(
         onPressed: _scanQR,
         tooltip: 'Scan',

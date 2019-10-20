@@ -20,6 +20,7 @@ class Rest
   Rest(String url)
   {
     this.url = this.url + url;
+    print("url" + this.url);
 
   }
 

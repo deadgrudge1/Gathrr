@@ -39,6 +39,7 @@ dependencies:
   flutter_launcher_icons:
   progress_hud:
   async_loader:
+  google_sign_in:
 
 flutter_icons:
   android: true

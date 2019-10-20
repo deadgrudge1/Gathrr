@@ -407,6 +407,21 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                     GestureDetector(
                       onTap: (){
                         if(_formKey.currentState.validate()){
+                          Scaffold
+                              .of(context)
+                              .showSnackBar(SnackBar
+                            (content: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("Please create profile to be visible to others",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold
+                              ),
+                            ),
+                          ),
+                            backgroundColor: Colors.blue,
+                          ));
                           sendData(context);
                           //  showDialog(context: context,builder: (context) => _onTapSignUp(context));
                         }
@@ -442,6 +457,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                         ),
                       ),
                     ),
+                    /*
                     Padding(
                       padding: const EdgeInsets.only(bottom: 50.0),
                       child: Container(
@@ -498,6 +514,7 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                         ),
                       ),
                     ),
+                     */
                   ],
                 ),
               ),

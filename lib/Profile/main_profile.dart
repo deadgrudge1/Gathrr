@@ -13,6 +13,8 @@ import 'package:flutter_app/util/utils.dart';
 import 'package:flutter_app/util/rest.dart';
 import 'package:flutter_app/Data/Profile.dart' as prefix1;
 import 'package:flutter/widgets.dart';
+import 'dart:async';
+import 'dart:io';
 
 final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
@@ -23,14 +25,27 @@ class MainProfile extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.settings,
-            color: Colors.white,),
-          onPressed: (){
-            Navigator.push(context,
-              MaterialPageRoute(builder: (context) => Settings()),
-            );
-          },
+        leading: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.settings,
+                color: Colors.white,),
+              onPressed: (){
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Settings()),
+                );
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.settings,
+                color: Colors.white,),
+              onPressed: (){
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Settings()),
+                );
+              },
+            ),
+          ],
         ),
         actions: <Widget>[
           new IconButton(
@@ -54,7 +69,7 @@ class MainProfile extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.blue.shade900,
       ),
-      body: ProfilePage("",details),
+      body: ProfilePage("test", details),
     );
   }
 }
@@ -124,54 +139,24 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<Null> refreshList() async {
     refreshKey.currentState?.show(atTop: false);
     //await Future.delayed(Duration(seconds: 2));
-
     getData(context);
-
     print('TEST');
-
-    /*var data = await event.getUpcomingEvents();
-    var resp = json.decode(data);
-    print(resp['past']);*/
-
     await this.profile_data.getProfile();
     var details = this.profile_data.details;
     var interest_details = profile_data.interests;
-
     interests = List.generate(interest_details.length, (i) => interest_details[i]['user_interest']);
-
-
     print("intersts oiwdhc : " + interests.toString());
-    print("1st interest : " + interests[0].toString());
+    //print("1st interest : " + interests[0].toString());
     print("dbscikbdc : " + details['name']);
-
-
     await event.getEvents();
     var pastEvents = event.pastEvents;
     print(pastEvents[0]);
-
     Map map = new Map<String, String>();
     map['get-profile'] = '1';
-
     var url = 'profile.php';
-
     Rest response = new Rest(url);
     String responseString = await response.getData(map);
     print("call : " + responseString);
-
-    //HTTP Call
-    /*Rest rest = new Rest('profile.php');
-    rest.authenticate().then((dynamic)
-    {
-      print('mycallback');
-      rest.getData(map).then((dynamic)
-      {
-        print('mycallback2');
-        print(rest.getResponse());
-      }
-      );
-    }
-    );
-    */
     return null;
   }
 
@@ -183,10 +168,10 @@ class _ProfilePageState extends State<ProfilePage> {
     if (token != null) {
       String action = "get-profile";
       String value = "1";
-      if (username.length >= 3) {
+      /*if (username.length >= 3) {
         action = "username";
         value = username;
-      }
+      }*/
       String url = globals.url + "profile.php";
       http.post(url, body: {
         "token": token,
@@ -218,18 +203,29 @@ class _ProfilePageState extends State<ProfilePage> {
             //var interest = interests[0];  //id, user_id, interest
 
             print(responseArray['payload']['interests']);
+            if(responseArray['payload']['details']['name'] != null)
             name = responseArray['payload']['details']['name'];
+
+            if(responseArray['payload']['details']['bio'] != null)
             description = responseArray['payload']['details']['bio'];
+
+            if(responseArray['payload']['details']['designation'] != null)
             designation = responseArray['payload']['details']['designation'];
+
           }
           else {
             name = "Username : " + username;
           }
           isFetched = true;
 
-          name = responseArray['payload']['details']['name'];
-          description = responseArray['payload']['details']['bio'];
-          designation = responseArray['payload']['details']['designation'];
+          if(responseArray['payload']['details']['name'] != null)
+            name = responseArray['payload']['details']['name'];
+
+          if(responseArray['payload']['details']['bio'] != null)
+            description = responseArray['payload']['details']['bio'];
+
+          if(responseArray['payload']['details']['designation'] != null)
+            designation = responseArray['payload']['details']['designation'];
           company = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['company']);
           print("test : " + company.toString());
           title = List.generate(responseArray['payload']['experiences'].length, (i) => responseArray['payload']['experiences'][i]['title']);
@@ -245,13 +241,12 @@ class _ProfilePageState extends State<ProfilePage> {
             }
         });
 
-        //return true;
       });
     }
   }
 
   var interestListOne = ["AI", "Flutter", "Java "];
-  var interestListTwo = ["EVentTech", "Automation"];
+  //var interestListTwo = ["EVentTech", "Automation"];
   Screen size;
   int _selectedIndex = 1;
 
@@ -433,6 +428,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.grey.shade200,
                         ),
                       ),
+                      /*
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Container(
@@ -468,6 +464,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ],
                                 ),
+                                /*
+                                ListView.builder(
+                                  physics: ScrollPhysics(),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: interests == null? 0 : interests.length,
+                                  itemBuilder: (context, i) => GestureDetector(
+                                    onTap: (){},
+                                    child: ListTile(
+                                      //leading: MyBullet(),
+                                      title: Row(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.only(right: 10.0),
+                                            child: MyBullet(),
+                                          ),
+                                          Text(interests[i]),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                                 Row(
                                   children: <Widget>[
                                     Padding(
@@ -490,11 +508,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     ),
                                   ],
                                 ),
+                                 */
                               ],
                             ),
                           ),
                         ),
                       ),
+                       */
                       Row(),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
@@ -644,4 +664,16 @@ Padding leftAlignText({text, leftPadding, textColor, fontSize, fontWeight}) {
   );
 }
 
-
+class MyBullet extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return new Container(
+      height: 7.0,
+      width: 7.0,
+      decoration: new BoxDecoration(
+        color: Colors.black,
+        shape: BoxShape.circle,
+      ),
+    );
+  }
+}

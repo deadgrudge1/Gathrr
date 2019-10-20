@@ -38,22 +38,10 @@ class _AllUpcomingState extends State<AllUpcoming> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.grey.shade50,
-        /*
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue.shade900, Colors.blue.shade500],
-            ),
-          ),
-        ),
-
-         */
+        backgroundColor: Colors.white,
         title: Text("all upcoming events...",
           style: TextStyle(
-            color: Colors.blueGrey,
+            color: Colors.black,
             fontSize: 18.0
           ),
         ),

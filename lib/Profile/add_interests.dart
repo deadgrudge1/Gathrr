@@ -45,7 +45,7 @@ class _AddInterestsBodyState extends State<AddInterestsBody> {
   TextEditingController _textFieldControllertwo = TextEditingController();
   TextEditingController _textFieldControllerthree = TextEditingController();
 
-  var interests = ['flutter', 'artificial intelligence', 'dart'];
+  var interests = ['null', 'null', 'null'];
   var id;
 
   @override
@@ -138,6 +138,7 @@ class _AddInterestsBodyState extends State<AddInterestsBody> {
 
         print(response.body);
       });
+
 
       http.post(url, body: {
         "token": token,

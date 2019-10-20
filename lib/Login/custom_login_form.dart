@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
+import 'package:flutter_app/Home/main_home_with_upper_bar.dart';
 import 'package:flutter_app/Login/forgot_password_screen.dart';
 import 'package:flutter_app/main.dart';
 import 'package:path/path.dart';
@@ -14,6 +15,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 BuildContext context;
 final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -39,7 +45,7 @@ var _usernameController = new TextEditingController();
 var _passwordController = new TextEditingController();
 //the class for posting receiving http requests and responses: STARTS HERE...................
 
-Future<String> getData(context) async{
+Future<String> getData(context) async {
   String url = globals.url + "login.php";
   var token;
   var responseArray;
@@ -125,7 +131,7 @@ Future<String> getData(context) async{
 
 
 
-void isLoggedIn() async {
+_isLoggedIn() async {
 
   var token;
   var responseArray;
@@ -175,7 +181,6 @@ void isLoggedIn() async {
 
   }
 }
-
 
 //the class for posting receiving http requests and responses: ENDS HERE ....................
 
@@ -242,7 +247,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
     super.initState();
     fcmSubscribe();
     _focusNode.addListener(_focusNodeListener);
-    isLoggedIn();
+    _isLoggedIn();
     _messaging.getToken().then((token) {
       print(token);
     });
@@ -336,7 +341,71 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
 
   final image = new Image.asset("images/gathrrimg.png");
 
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  SharedPreferences prefs;
 
+  bool isLoading = false;
+  bool isLoggedIn = false;
+  FirebaseUser currentUser;
+
+  Future<Null> handleSignIn() async {
+    prefs = await SharedPreferences.getInstance();
+
+    this.setState(() {
+      isLoading = true;
+    });
+
+    GoogleSignInAccount googleUser = await googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.getCredential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    FirebaseUser firebaseUser = await firebaseAuth.signInWithCredential(credential);
+
+    if (firebaseUser != null) {
+      // Check is already sign up
+      final QuerySnapshot result =
+      await Firestore.instance.collection('users').where('id', isEqualTo: firebaseUser.uid).getDocuments();
+      final List<DocumentSnapshot> documents = result.documents;
+      if (documents.length == 0) {
+        // Update data to server if new user
+        Firestore.instance.collection('users').document(firebaseUser.uid).setData({
+          'nickname': firebaseUser.displayName,
+          'photoUrl': firebaseUser.photoUrl,
+          'id': firebaseUser.uid,
+          'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
+          'chattingWith': null
+        });
+
+        // Write data to local
+        currentUser = firebaseUser;
+        await prefs.setString('id', currentUser.uid);
+        await prefs.setString('nickname', currentUser.displayName);
+        await prefs.setString('photoUrl', currentUser.photoUrl);
+      } else {
+        // Write data to local
+        await prefs.setString('id', documents[0]['id']);
+        await prefs.setString('nickname', documents[0]['nickname']);
+        await prefs.setString('photoUrl', documents[0]['photoUrl']);
+        await prefs.setString('aboutMe', documents[0]['aboutMe']);
+      }
+      Fluttertoast.showToast(msg: "Sign in success");
+      this.setState(() {
+        isLoading = false;
+      });
+
+      Navigator.push(context, MaterialPageRoute(builder: (context) => SearchPage(currentUserId: firebaseUser.uid)));
+    } else {
+      Fluttertoast.showToast(msg: "Sign in fail");
+      this.setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -463,6 +532,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+//             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
                   onTap: (){
@@ -484,6 +554,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
                     ),
                   ),
                 ),
+                SizedBox(width: 58,),
                 Align(
                   alignment: Alignment.centerRight,
                   child: Padding(
@@ -549,6 +620,40 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               ),
             ),
           ),
+          GestureDetector(
+            onTap: handleSignIn,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                child: Container(
+                  height: 45,
+                  width: MediaQuery.of(context).size.width/1.2,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.red,
+                          Colors.red,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                          Radius.circular(50)
+                      )
+                  ),
+                  child: Center(
+                    child: Text('Sing in with google'.toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          /*
           Padding(
             padding: const EdgeInsets.only(bottom: 50.0),
             child: Container(
@@ -605,6 +710,7 @@ class _CustomLoginFormState extends State<CustomLoginForm> {
               ),
             ),
           ),
+           */
         ],
       ),
     );

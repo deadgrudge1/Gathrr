@@ -113,9 +113,9 @@ class MYQR extends StatelessWidget {
                                           elevation: 0.0,
                                           color: Colors.white,//grey.shade200,
                                           child: Center(
-                                            child: Image.network(linkQr,
-                                              color: Colors.black,
-                                            ),
+                                            child: Image.asset("images/qr.png",
+                                              scale: 1.0,
+                                            )
                                           ),
                                         ),
                                     ),

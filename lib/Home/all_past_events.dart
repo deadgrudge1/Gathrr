@@ -38,22 +38,11 @@ class _AllPastState extends State<AllPast> {
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.grey.shade50,
-        /*
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.blue.shade900, Colors.blue.shade500],
-            ),
-          ),
-        ),
-
-         */
+        backgroundColor: Colors.white,
         title: Text("your past events...",
           style: TextStyle(
-            color: Colors.black,
+              color: Colors.black,
+              fontSize: 18.0
           ),
         ),
       ),
@@ -63,390 +52,8 @@ class _AllPastState extends State<AllPast> {
           scrollDirection: Axis.vertical,
           children: <Widget>[
             //propertyCard(),
-            Row(
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Container(
-                      height: 100.0,
-                      width: 100.0,
-                      decoration: new BoxDecoration(
-                        image: DecorationImage(
-                          image: new AssetImage(
-                              "images/bookingapp.png"),
-                          fit: BoxFit.fill,
-                        ),
-                        shape: BoxShape.rectangle,
-                      ),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("Social NETwork",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 25.0,
-                        ),
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Text("Koregaon Park, Pune,",
-                            style: TextStyle(
-                              fontSize: 12.0,
-                            ),
-                          ),
-                          //Spacer(),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Text("8 Aug",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlutterLogo(),
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                ""),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.rectangle,
-                        ),
-                      )
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Hotel Management",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Westin, KP , Pune,",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("17 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlutterLogo(),
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                ""),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.rectangle,
-                        ),
-                      )
-                      /*
-                        Container(
-                          height: 125.0,
-                          width: 125.0,
-                          child: Image.asset(
-                            "assets/hall_2.jpeg",
-                          ),
-                        ),
-
-                         */
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Event Management",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Koregaon Park, Pune,",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("20 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                "assets/onboard_1.png"),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.rectangle,
-                        ),
-                      )
-                      /*
-                        Container(
-                          height: 125.0,
-                          width: 125.0,
-                          child: Image.asset(
-                            "assets/onboard_1.png",
-                          ),
-                        ),
-
-                         */
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Dart Master",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Kalyani Nagar, Pune,",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("22 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                "assets/onboard_2.png"),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.rectangle,
-                        ),
-                      )
-                      /*
-                        Container(
-                          height: 125.0,
-                          width: 125.0,
-                          child: Image.asset(
-                            "assets/onboard_2.png",
-                          ),
-                        ),
-
-                         */
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Art Of UI/UX",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Amanora ParkTown, Pune,",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("28 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: Row(
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Container(
-                        child: FlutterLogo(),
-                        height: 100.0,
-                        width: 100.0,
-                        decoration: new BoxDecoration(
-                          image: DecorationImage(
-                            image: new AssetImage(
-                                ""),
-                            fit: BoxFit.fill,
-                          ),
-                          shape: BoxShape.rectangle,
-                        ),
-                      )
-                      /*
-                        Container(
-                          height: 125.0,
-                          width: 125.0,
-                          child: Image.asset(
-                            "assets/hall_1.jpg",
-                          ),
-                        ),
-
-                         */
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text("Hotel Management",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                            fontSize: 25.0,
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text("Westin, KP , Pune,",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                              ),
-                            ),
-                            //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("17 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
+            Container(
+              color: Colors.blueGrey.shade50,
               child: Row(
                 children: <Widget>[
                   Column(
@@ -463,16 +70,6 @@ class _AllPastState extends State<AllPast> {
                           shape: BoxShape.rectangle,
                         ),
                       )
-                      /*
-                        Container(
-                          height: 125.0,
-                          width: 125.0,
-                          child: Image.asset(
-                            "assets/hall_1.jpg",
-                          ),
-                        ),
-
-                         */
                     ],
                   ),
                   Padding(
@@ -481,7 +78,7 @@ class _AllPastState extends State<AllPast> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text("Hotel Management",
+                        Text("Social NETwork",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -489,27 +86,450 @@ class _AllPastState extends State<AllPast> {
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text("Westin, KP , Pune,",
+                            Text("Koregaon Park, ",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            Text("Pune, ",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                              ),
+                            ),
+                            Text("Aug 8",
                               style: TextStyle(
                                 fontSize: 12.0,
                               ),
                             ),
                             //Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text("17 Aug",
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlutterLogo(),
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  ""),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Hotel Management",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Westin, KP , Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("17 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlutterLogo(),
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  ""),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                        /*
+                          Container(
+                            height: 125.0,
+                            width: 125.0,
+                            child: Image.asset(
+                              "assets/hall_2.jpeg",
+                            ),
+                          ),
+
+                           */
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Event Management",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Koregaon Park, Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("20 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  "assets/onboard_1.png"),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                        /*
+                          Container(
+                            height: 125.0,
+                            width: 125.0,
+                            child: Image.asset(
+                              "assets/onboard_1.png",
+                            ),
+                          ),
+
+                           */
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Dart Master",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Kalyani Nagar, Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("22 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  "assets/onboard_2.png"),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                        /*
+                          Container(
+                            height: 125.0,
+                            width: 125.0,
+                            child: Image.asset(
+                              "assets/onboard_2.png",
+                            ),
+                          ),
+
+                           */
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Art Of UI/UX",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Amanora ParkTown, Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("28 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          child: FlutterLogo(),
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  ""),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                        /*
+                          Container(
+                            height: 125.0,
+                            width: 125.0,
+                            child: Image.asset(
+                              "assets/hall_1.jpg",
+                            ),
+                          ),
+
+                           */
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Hotel Management",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Westin, KP , Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("17 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 10.0, bottom: 20.0),
+              child: Container(
+                color: Colors.blueGrey.shade50,
+                child: Row(
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Container(
+                          height: 100.0,
+                          width: 100.0,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            image: DecorationImage(
+                              image: new AssetImage(
+                                  "images/bookingapp.png"),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: BoxShape.rectangle,
+                          ),
+                        )
+                        /*
+                          Container(
+                            height: 125.0,
+                            width: 125.0,
+                            child: Image.asset(
+                              "assets/hall_1.jpg",
+                            ),
+                          ),
+
+                           */
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text("Hotel Management",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 25.0,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text("Westin, KP , Pune,",
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              //Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text("17 Aug",
+                                  style: TextStyle(
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             /*

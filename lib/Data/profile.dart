@@ -27,6 +27,7 @@ class Profile{
 
     String responseString = await rest.getResponse(map);
     responseArray = json.decode(responseString);
+    print("profile response array : " + responseArray.toString());
     responseArray = responseArray['payload'];
 
     details = responseArray['details'];

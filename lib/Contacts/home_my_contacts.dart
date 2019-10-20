@@ -30,14 +30,14 @@ class _MyContactsState extends State<MyContacts> {
     super.initState();
     //random = Random();
     //refreshList();
-    getData();
+    //getData();
   }
 
   Future<Null> refreshList() async {
     refreshKey.currentState?.show(atTop: false);
     //await Future.delayed(Duration(seconds: 2));
 
-    getData();
+    //getData();
 
     /*setState(() {
       list = List.generate(random.nextInt(10), (i) => "Var Name $i");
@@ -46,6 +46,7 @@ class _MyContactsState extends State<MyContacts> {
     return null;
   }
 
+  /*
   void getData() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.get("token");
@@ -83,6 +84,8 @@ class _MyContactsState extends State<MyContacts> {
       });
     }
   }
+
+   */
 
 
   @override
