@@ -11,7 +11,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_app/util/utils.dart';
 import 'package:flutter_app/util/rest.dart';
-import 'package:flutter_app/Data/Profile.dart' as prefix1;
+import 'package:flutter_app/Data/profile.dart' as prefix1;
 import 'package:flutter/widgets.dart';
 import 'dart:async';
 import 'dart:io';

@@ -30,14 +30,14 @@ class _MyContactsState extends State<MyContacts> {
     super.initState();
     //random = Random();
     //refreshList();
-    //getData();
+    getData();
   }
 
   Future<Null> refreshList() async {
     refreshKey.currentState?.show(atTop: false);
     //await Future.delayed(Duration(seconds: 2));
 
-    //getData();
+    getData();
 
     /*setState(() {
       list = List.generate(random.nextInt(10), (i) => "Var Name $i");
@@ -46,7 +46,7 @@ class _MyContactsState extends State<MyContacts> {
     return null;
   }
 
-  /*
+
   void getData() async {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.get("token");
@@ -55,6 +55,7 @@ class _MyContactsState extends State<MyContacts> {
       String url = globals.url + "contacts.php";
       http.post(url, body: {
         "token" : token,
+        "get-contacts" : "1"
       })
           .then((http.Response response) {
         final int statusCode = response.statusCode;
@@ -68,8 +69,8 @@ class _MyContactsState extends State<MyContacts> {
         //var status = responseArray['status'];
         //if(status == true) {
         setState(() {
-          listName = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['name']);
-          listUsername = List.generate(responseArray['list'].length, (i) => responseArray['list'][i]['email']);
+          listName = List.generate(responseArray.length, (i) => responseArray[i]['name']);
+          listUsername = List.generate(responseArray.length, (i) => responseArray[i]['email']);
         });
         //print(responseArray['list'][1]['username']);
         //print(responseArray['list'].length);
@@ -85,7 +86,7 @@ class _MyContactsState extends State<MyContacts> {
     }
   }
 
-   */
+
 
 
   @override
@@ -162,7 +163,7 @@ class _MyContactsState extends State<MyContacts> {
                   ),
                 );
               },
-              itemCount: notifications.length,
+              itemCount: listName.length,
               itemBuilder: (BuildContext context, int index) {
                 Map notif = notifications[index];
                 return Padding(
@@ -178,7 +179,7 @@ class _MyContactsState extends State<MyContacts> {
                     title: RichText(
                       text: TextSpan(
                         children: <TextSpan>[
-                          TextSpan(text: names[random.nextInt(10)].toString(),
+                          TextSpan(text: listName[index].toString(),
                             style: TextStyle(
                               wordSpacing: 0.5,
                               fontWeight: FontWeight.bold,
@@ -201,7 +202,9 @@ class _MyContactsState extends State<MyContacts> {
 
                     //Text(notif['notif']),
                     onTap: (){
-
+                      Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ContactProfile(listUsername[index])),
+                      );
                     },
                   ),
                 );

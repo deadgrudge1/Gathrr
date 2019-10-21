@@ -65,10 +65,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     final prefs = await SharedPreferences.getInstance();
     var token = prefs.get("token");
     if (token != null) {
-      String url = globals.url + "scan-qr.php";
+      String url = globals.url + "qr.php";
       http.post(url, body: {
         "token": token,
-        "qr_token": result,
+        "qr-token": result,
       }).then((http.Response response) {
         final int statusCode = response.statusCode;
 

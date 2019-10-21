@@ -46,7 +46,8 @@ class _ContactPageState extends State<ContactPage> {
       String url = globals.url + "profile.php";
       http.post(url, body: {
         "token" : token,
-        "contact_email" : username,
+        "contact-profile" : "1",
+        "contact_email" : username
       })
           .then((http.Response response) {
         final int statusCode = response.statusCode;
@@ -61,8 +62,11 @@ class _ContactPageState extends State<ContactPage> {
         var status = responseArray['status'];
 
         setState(() {
-          if(status == true)
-            name = responseArray['name'];
+          if(status == true) {
+            name = responseArray['payload']['contact-profile']['name'];
+            if (responseArray['payload']['contact-profile']['description'] != null)
+              description = responseArray['payload']['contact-profile']['description'];
+          }
           else
             name = "Username : " + username;
           isFetched = true;

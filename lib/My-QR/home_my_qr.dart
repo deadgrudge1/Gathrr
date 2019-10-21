@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/util/utils.dart';
-import 'package:flutter_app/Data/QR.dart';
+import 'package:flutter_app/Data/qr.dart';
 
 class MYQR extends StatelessWidget {
 
