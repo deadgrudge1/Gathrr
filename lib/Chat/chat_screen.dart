@@ -1,135 +1,43 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Chat/main_indi_chat.dart';
-import 'package:flutter_app/util/data.dart';
-import 'package:flutter_app/widgets/chat_item.dart';
+import 'package:flutter_app/all_users_screen.dart';
+import 'package:flutter_app/homepage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  ChatScreenState createState() {
+    return new ChatScreenState();
+  }
 }
 
-class _ChatScreenState extends State<ChatScreen> with SingleTickerProviderStateMixin,
-    AutomaticKeepAliveClientMixin{
-  TabController _tabController;
+class ChatScreenState extends State<ChatScreen> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
+  bool isLoggedIn = false;
+
+  void isSignedIn() async {
+    if (await googleSignIn.isSignedIn()) {
+      setState(() {
+        isLoggedIn = true;
+      });
+    } else {
+      setState(() {
+        isLoggedIn = false;
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
+    isSignedIn();
   }
-
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_backspace,
-            color: Colors.black,
-          ),
-          onPressed: (){
-            Navigator.of(context).pop();
-          },
-        ),
-        title: TextField(
-          decoration: InputDecoration.collapsed(
-            hintText: 'Dummy Feed',
-          ),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.filter_list,
-            ),
-            onPressed: (){},
-          ),
-        ],
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Theme.of(context).accentColor,
-          labelColor: Theme.of(context).accentColor,
-          unselectedLabelColor: Theme.of(context).textTheme.caption.color,
-          isScrollable: false,
-          tabs: <Widget>[
-            Tab(
-              text: "Message",
-            ),
-            Tab(
-              text: "Event-Notifications",
-            ),
-          ],
-        ),
-      ),
-
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          ListView.separated(
-            padding: EdgeInsets.all(10),
-            separatorBuilder: (BuildContext context, int index) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: 0.5,
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: Divider(),
-                ),
-              );
-            },
-            itemCount: chats.length,
-            itemBuilder: (BuildContext context, int index) {
-              Map chat = chats[index];
-              return ChatItem(
-                dp: chat['dp'],
-                name: chat['name'],
-                isOnline: chat['isOnline'],
-                counter: chat['counter'],
-                msg: chat['msg'],
-                time: chat['time'],
-              );
-            },
-          ),
-          ListView.separated(
-            padding: EdgeInsets.all(10),
-            separatorBuilder: (BuildContext context, int index) {
-              return Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  height: 0.5,
-                  width: MediaQuery.of(context).size.width / 1.3,
-                  child: Divider(),
-                ),
-              );
-            },
-            itemCount: groups.length,
-            itemBuilder: (BuildContext context, int index) {
-              Map chat = groups[index];
-              return ChatItem(
-                dp: chat['dp'],
-                name: chat['name'],
-                isOnline: chat['isOnline'],
-                counter: chat['counter'],
-                msg: chat['msg'],
-                time: chat['time'],
-              );
-            },
-          ),
-        ],
-      ),
-
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.add,
-        ),
-        onPressed: (){},
-      ),
+      body: isLoggedIn == true ? AllUsersScreen() : HomePage(),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

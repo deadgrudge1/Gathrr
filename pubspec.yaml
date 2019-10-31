@@ -40,6 +40,7 @@ dependencies:
   progress_hud:
   async_loader:
   google_sign_in:
+  firebase_storage:
 
 flutter_icons:
   android: true
