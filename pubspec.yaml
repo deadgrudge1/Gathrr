@@ -19,12 +19,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.12.0+2
-  barcode_scan: ^1.0.0
-  shared_preferences: ^0.4.3
-  firebase_core: ^0.4.0+1
-  firebase_auth: ^0.11.1+3
-  firebase_messaging: 5.1.5
+  http:
+  barcode_scan:
+  shared_preferences:
+  firebase_core:
+  firebase_auth:
+  firebase_messaging:
   cloud_firestore:
   flutter_local_notifications:
   fw_ticket:

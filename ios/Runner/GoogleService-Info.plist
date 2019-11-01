@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1091404777386-nphvoi60mtc7admboh5nncfvb18euuit.apps.googleusercontent.com</string>
+	<string>239321380306-4uqp55rjg27p05gqpcopcmhkv3psqo10.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1091404777386-nphvoi60mtc7admboh5nncfvb18euuit</string>
+	<string>com.googleusercontent.apps.239321380306-4uqp55rjg27p05gqpcopcmhkv3psqo10</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCLD94sL2XT1EP8YN4oyrTWtCFPmGZOoWQ</string>
+	<string>AIzaSyDzF08cwgJv0h5UNOqDommdWwW0lUwSvug</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1091404777386</string>
+	<string>239321380306</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com-example-flutterApp</string>
+	<string>com.gathrr.flutterApp</string>
 	<key>PROJECT_ID</key>
-	<string>gathrr-74f35</string>
+	<string>gathrruserapp</string>
 	<key>STORAGE_BUCKET</key>
-	<string>gathrr-74f35.appspot.com</string>
+	<string>gathrruserapp.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1091404777386:ios:ccb889b90436f3d86bcdd3</string>
+	<string>1:239321380306:ios:bc4e06dc3d43366a71c40b</string>
 	<key>DATABASE_URL</key>
-	<string>https://gathrr-74f35.firebaseio.com</string>
+	<string>https://gathrruserapp.firebaseio.com</string>
 </dict>
 </plist>
